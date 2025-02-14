@@ -12679,11 +12679,11 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
+								"value": "Bearer {{super_admin_token}}",
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/service/fetch"
+						"url": "{{host}}api/service/fetch"
 					},
 					"response": []
 				},
@@ -12702,7 +12702,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/service/fetch/Imaging Investigation"
+						"url": "{{host}}api/service/fetch/Imaging Investigation"
 					},
 					"response": []
 				},
@@ -12721,7 +12721,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/service/investigations/3A9A51C7"
+						"url": "{{host}}api/service/investigations/3A9A51C7"
 					},
 					"response": []
 				},
@@ -12740,7 +12740,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/service/imaging/3A9A51C7"
+						"url": "{{host}}api/service/imaging/3A9A51C7"
 					},
 					"response": []
 				},
@@ -12759,7 +12759,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/service/otherservices/3A9A51C7"
+						"url": "{{host}}api/service/otherservices/3A9A51C7"
 					},
 					"response": []
 				}
