@@ -58,7 +58,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan+1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -252,7 +252,7 @@
 											"script": {
 												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
 												"exec": [
-													"//This enpoint has a bug "
+													"//This enpoint has a bug, check bug sheet "
 												],
 												"type": "text/javascript",
 												"packages": {}
