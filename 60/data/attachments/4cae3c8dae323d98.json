@@ -1,0 +1,13 @@
+{
+    "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1ZGl0aC5taWNoYWVsQGZhbWFjYXJlLmNvbSIsInJvbGUiOiJSZWNlcHRpb25pc3QiLCJpYXQiOjE3Mzk0MDMwNzYsImV4cCI6MTczOTQzMTg3Nn0.oH9IS1DWqtYjSmmoXik0ceiC0ZPkxtrJIIygf4HtTaI",
+    "Email": "user_7jyntf@example.com",
+    "Content-Type": "application/json",
+    "User-Agent": "PostmanRuntime/7.39.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "8d92c3d0-2a3b-40f4-941c-a5997b6bea90",
+    "Host": "nelloehrback.onrender.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Content-Length": "725"
+}
