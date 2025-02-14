@@ -12182,25 +12182,22 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains sponsor plans\", function () {\r",
+											"pm.test(\"Response status is success\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Plan details are valid\", function () {\r",
-											"    var plan = jsonData.plans[0];\r",
-											"    \r",
-											"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"pm.test(\"Sponsor data is valid\", function () {\r",
+											"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
+											"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
 											"});\r",
 											""
 										],
@@ -12227,7 +12224,29 @@
 							"response": []
 						},
 						{
-							"name": "Fetch Unique Sponsor (uuid) Copy",
+							"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "5c47921f-f3b6-4f54-8d74-68015e6e8e58",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "05cc5b0d-8858-4d96-ab8f-d241eb322180",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -12237,16 +12256,38 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
-								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
+								"url": "{{host}}api/sponsor/fetch/87EDF987"
 							},
 							"response": []
 						},
 						{
-							"name": "Fetch Unique Sponsor (uuid) Copy 2",
+							"name": "Fetch Unique Sponsor (uuid)-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "3bfe42b5-41a3-4faa-a0ff-acf4d585acc1",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "518a81f5-342c-4524-a5f9-e43a75353b04",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -12256,11 +12297,12 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
-										"type": "text"
+										"value": "",
+										"type": "text",
+										"disabled": true
 									}
 								],
-								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
+								"url": "{{host}}api/sponsor/fetch/87EDF987"
 							},
 							"response": []
 						}
