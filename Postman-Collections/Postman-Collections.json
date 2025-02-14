@@ -9599,7 +9599,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token_Invalid}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
@@ -9655,7 +9655,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
@@ -9729,7 +9729,7 @@
 									"name": "Appointment-Patient upi",
 									"item": [
 										{
-											"name": "Unique Patient Appointment (patient upi)-SuperAdmin",
+											"name": "Unique Patient Appointment (patient upi)-Receptionist",
 											"event": [
 												{
 													"listen": "test",
@@ -9795,7 +9795,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
@@ -9836,7 +9836,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token_Invalid}}",
+														"value": "Bearer {{receptionist _token_Invalid}}",
 														"type": "text"
 													}
 												],
@@ -9877,7 +9877,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "",
 														"type": "text",
 														"disabled": true
 													}
