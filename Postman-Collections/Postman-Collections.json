@@ -6703,20 +6703,21 @@
 											"script": {
 												"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
 												"exec": [
-													"var jsonData = pm.response.json();\r",
+													"// var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response has status code 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
+													"// pm.test(\"Response has status code 401\", function () {\r",
+													"//     pm.response.to.have.status(401);\r",
+													"// });\r",
 													"\r",
-													"pm.test(\"Response contains expected field\", function () {\r",
-													"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-													"});\r",
+													"// pm.test(\"Response contains expected field\", function () {\r",
+													"//     pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+													"// });\r",
 													"\r",
-													"pm.test(\"Response content is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-													"});\r",
-													""
+													"// pm.test(\"Response content is correct\", function () {\r",
+													"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"// });\r",
+													"\r",
+													"//This is commented because the endpoint retrieves informaation with out auth"
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -9990,7 +9991,7 @@
 					"name": "Diagnosis-FetchAll",
 					"item": [
 						{
-							"name": "fetch-all-Receptionist",
+							"name": "fetch-all",
 							"event": [
 								{
 									"listen": "test",
@@ -10052,19 +10053,22 @@
 									"script": {
 										"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
 										"exec": [
-											"var jsonData = pm.response.json();\r",
+											"// var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
+											"// pm.test(\"Response has status code 401\", function () {\r",
+											"//     pm.response.to.have.status(401);\r",
+											"// });\r",
 											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
+											"// pm.test(\"Response contains expected field\", function () {\r",
+											"//     pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"// });\r",
 											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
+											"// pm.test(\"Response content is correct\", function () {\r",
+											"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"// });\r",
+											"\r",
+											"\r",
+											"//This is commented because the endpoint retrieves informaation with out auth\r",
 											""
 										],
 										"type": "text/javascript",
@@ -10097,16 +10101,19 @@
 									"script": {
 										"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
 										"exec": [
-											"var jsonData = pm.response.json();\r",
+											"// var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
+											"// pm.test(\"Response status code is 401\", function () {\r",
+											"//     pm.response.to.have.status(401);\r",
+											"// });\r",
 											"\r",
-											"pm.test(\"Token expiration message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-											"});\r",
-											""
+											"// pm.test(\"Token expiration message is correct\", function () {\r",
+											"//     pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"// });\r",
+											"\r",
+											"\r",
+											"\r",
+											"//This is commented because the endpoint retrieves informaation with out auth"
 										],
 										"type": "text/javascript",
 										"packages": {}
