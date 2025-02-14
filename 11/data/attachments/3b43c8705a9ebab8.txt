@@ -1,0 +1,17 @@
+var jsonData = pm.response.json();
+
+pm.test("Response status code is 200", function () {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Role data is valid", function () {
+    pm.expect(jsonData.status).to.eql("success");
+    pm.expect(jsonData.role).to.be.an("object");
+});
+
+pm.test("Role contains required fields", function () {
+    pm.expect(jsonData.role.office_uuid).to.be.a("string");
+    pm.expect(jsonData.role.name).to.be.a("string");
+    pm.expect(jsonData.role._id).to.be.a("string");
+    pm.expect(jsonData.role.createdAt).to.be.a("string");
+});
