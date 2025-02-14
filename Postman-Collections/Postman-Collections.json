@@ -2015,6 +2015,47 @@
 										"url": "{{host}}api/role/{{office_uuid}}"
 									},
 									"response": []
+								},
+								{
+									"name": "Get Roles-SuperAdmin-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b934e7b3-c7dc-456d-97ee-fa5f4b74c6ae",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
 								}
 							],
 							"id": "05ffcfab-c58d-424a-a68d-b35c987206ec"
