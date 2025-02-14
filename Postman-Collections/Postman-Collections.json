@@ -5378,6 +5378,193 @@
 						}
 					],
 					"id": "ebfffd03-d444-41c9-afff-90b5923c3e78"
+				},
+				{
+					"name": "Drugs-FetchGenricDrugs",
+					"item": [
+						{
+							"name": "Fetch generic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response structure is correct\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"generic\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Generic drug entry has required fields\", function () {\r",
+											"    var genericData = jsonData.generic[0];\r",
+											"\r",
+											"    pm.expect(genericData).to.be.an(\"object\");\r",
+											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"    //pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "449ebb57-521a-450a-a181-9098bd719308",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected field\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "0d4d9f59-4dd6-4b0a-a4ac-4056cd1a4f98",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "a2aa0c84-c821-4de3-890f-7ea38af7c486",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5a4a2779-cfe5-4ad9-a7ad-f44431bfa54c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						}
+					],
+					"id": "bd5b3538-63c4-4af2-9ddd-cd144f625774"
 				}
 			],
 			"id": "2a0d46c8-f65e-465a-a24a-4f48efce2b08"
@@ -6789,6 +6976,193 @@
 						}
 					],
 					"id": "043411fe-dc45-464c-9ad6-9e4e86f5a0a0"
+				},
+				{
+					"name": "Drugs-FetchGenricDrugs",
+					"item": [
+						{
+							"name": "Fetch generic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response structure is correct\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"generic\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Generic drug entry has required fields\", function () {\r",
+											"    var genericData = jsonData.generic[0];\r",
+											"\r",
+											"    pm.expect(genericData).to.be.an(\"object\");\r",
+											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"   // pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"   // pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "ae8549dc-274f-4a16-be4f-93b885d98a07",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected field\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9140bec1-ccb9-4feb-a69d-0e7972bb81eb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "673c216c-333f-473e-b211-5d3dbffa0318",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "bc14ca17-0cd7-4a12-8eae-1ae1fa341718",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						}
+					],
+					"id": "5a2a2c77-4bc9-46b9-a838-450a09d10b84"
 				}
 			],
 			"id": "e99a0d7c-5c7a-462f-8d2f-25c757494caa"
@@ -10139,6 +10513,193 @@
 						}
 					],
 					"id": "ccd04c0e-3f25-4d31-90ed-dbab13a77c4b"
+				},
+				{
+					"name": "Drugs-FetchGenricDrugs",
+					"item": [
+						{
+							"name": "Fetch generic",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response structure is correct\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"generic\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Generic drug entry has required fields\", function () {\r",
+											"    var genericData = jsonData.generic[0];\r",
+											"\r",
+											"    pm.expect(genericData).to.be.an(\"object\");\r",
+											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"    pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "737f0a1f-4811-42e8-87b6-1abc55283057",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{receptionist _token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected field\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "0a066d79-8e44-4a74-b3ff-597b63e95fe5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "70e8f6f5-6416-4b6c-a2af-e284a0065bf9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch generic-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "07639874-043e-47da-9a67-188df876d4df",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/drugs/fetch/generic-names"
+							},
+							"response": []
+						}
+					],
+					"id": "a51290b7-088b-4066-bad0-d48fbc939aeb"
 				}
 			],
 			"id": "9963e146-a814-4f7f-ab56-cb1594a3bd94"
@@ -10425,380 +10986,6 @@
 						}
 					],
 					"id": "2bb7269d-7521-474c-8fbb-94c539d26681"
-				},
-				{
-					"name": "Drugs-FetchGenricDrugs",
-					"item": [
-						{
-							"name": "Fetch generic",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response structure is correct\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"generic\").that.is.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Generic drug entry has required fields\", function () {\r",
-											"    var genericData = jsonData.generic[0];\r",
-											"\r",
-											"    pm.expect(genericData).to.be.an(\"object\");\r",
-											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "ae8549dc-274f-4a16-be4f-93b885d98a07",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "9140bec1-ccb9-4feb-a69d-0e7972bb81eb",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-ExpiredToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Token expiration message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "673c216c-333f-473e-b211-5d3dbffa0318",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "bc14ca17-0cd7-4a12-8eae-1ae1fa341718",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						}
-					],
-					"id": "5a2a2c77-4bc9-46b9-a838-450a09d10b84"
-				},
-				{
-					"name": "Drugs-FetchGenric Copy",
-					"item": [
-						{
-							"name": "Fetch generic",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response structure is correct\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"generic\").that.is.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Generic drug entry has required fields\", function () {\r",
-											"    var genericData = jsonData.generic[0];\r",
-											"\r",
-											"    pm.expect(genericData).to.be.an(\"object\");\r",
-											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "449ebb57-521a-450a-a181-9098bd719308",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "0d4d9f59-4dd6-4b0a-a4ac-4056cd1a4f98",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-ExpiredToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Token expiration message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "a2aa0c84-c821-4de3-890f-7ea38af7c486",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch generic-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "fca78703-2b4c-483b-bd7b-f6cb666d2be6",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "5a4a2779-cfe5-4ad9-a7ad-f44431bfa54c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/drugs/fetch/generic-names"
-							},
-							"response": []
-						}
-					],
-					"id": "bd5b3538-63c4-4af2-9ddd-cd144f625774"
 				}
 			],
 			"id": "25b551e8-f43c-481f-acfe-3232f21e9c34"
