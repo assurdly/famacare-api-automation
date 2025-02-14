@@ -2050,7 +2050,8 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token_Invalid}}",
-												"type": "text"
+												"type": "text",
+												"disabled": true
 											}
 										],
 										"url": "{{host}}api/role/{{office_uuid}}"
@@ -5621,7 +5622,7 @@
 											"script": {
 												"id": "8e59ff3c-f5e0-4ac5-b64e-0676f42bef87",
 												"exec": [
-													"//Advised by dev not to test as they have just one sponsor hardcoded for now "
+													"//Advised by dev not to test as we have just one sponsor hardcoded for now "
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -12772,7 +12773,7 @@
 					"id": "618c555c-c4d6-4c2a-9b3b-15f83080d581"
 				},
 				{
-					"name": "Get Investigation by plan_code",
+					"name": "Investigation by plan_code",
 					"item": [
 						{
 							"name": "Get Investigation by plan_code",
@@ -12822,7 +12823,7 @@
 					"id": "c829e766-0432-4ecd-9119-9928601ed59a"
 				},
 				{
-					"name": "New Folder",
+					"name": "Otherservice by plan_code",
 					"item": [
 						{
 							"name": "Get otherservice by plan_code",
