@@ -11514,13 +11514,12 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Error message is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
 										],
@@ -11663,80 +11662,180 @@
 					"id": "0b445697-266a-4fbc-8769-a692b12bc009"
 				},
 				{
-					"name": "Delete Sponsor",
-					"id": "75d4ce12-b698-4642-b2ee-4574c01071bb",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": "http://localhost:5000/api/sponsor/delete/FE78F283"
-					},
-					"response": []
+					"name": "Sponsor-DEL",
+					"item": [
+						{
+							"name": "Delete Sponsor",
+							"id": "75d4ce12-b698-4642-b2ee-4574c01071bb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/delete/FE78F283"
+							},
+							"response": []
+						}
+					],
+					"id": "5e56c2d7-a6b9-4f54-a6cf-4e9e160f286b"
 				},
 				{
-					"name": "All Sponsor Plans",
-					"id": "99da9756-5616-473e-be8f-7100c5fe6546",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": "http://localhost:5000/api/sponsor/fetch/all/plans"
-					},
-					"response": []
+					"name": "Sponsor-GetAll",
+					"item": [
+						{
+							"name": "All Sponsor Plans",
+							"id": "99da9756-5616-473e-be8f-7100c5fe6546",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						}
+					],
+					"id": "5bb7c8dd-b7a9-4b45-bc2a-81c5c62b8e9f"
 				},
 				{
-					"name": "Fetch Unique Sponsor (uuid)",
-					"id": "edb1e882-b52b-4554-89a0-7d9822aed338",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
-					},
-					"response": []
+					"name": "New Folder Copy",
+					"item": [
+						{
+							"name": "All Sponsor Plans",
+							"id": "004b777e-3139-45d2-8ca5-e12146081e41",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Unique Sponsor (uuid)",
+							"id": "a98bb4d7-b318-44fb-bd93-d9492cbcba9b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Unique Plan by Name",
+							"id": "b6a59f16-05f7-40aa-b4ab-d8895d364b9e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/plan/FAMACARE PRICELIST"
+							},
+							"response": []
+						}
+					],
+					"id": "4581ab72-2318-48a6-9bdd-faee133a6142"
 				},
 				{
-					"name": "Get Unique Plan by Name",
-					"id": "bdaa75cc-5507-4a2c-ad25-158147bb5ca2",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"url": "http://localhost:5000/api/sponsor/fetch/plan/FAMACARE PRICELIST"
-					},
-					"response": []
+					"name": "New Folder Copy 2",
+					"item": [
+						{
+							"name": "All Sponsor Plans",
+							"id": "6f34f4b2-bda3-4a01-881e-4e8b4de43aa7",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Unique Sponsor (uuid)",
+							"id": "020f143e-7858-4fc5-afee-13fc08f39a60",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Unique Plan by Name",
+							"id": "1fe783e8-f8bf-4bbb-84a2-4e7e1e8c1e15",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"url": "http://localhost:5000/api/sponsor/fetch/plan/FAMACARE PRICELIST"
+							},
+							"response": []
+						}
+					],
+					"id": "1b5c35b1-5465-4311-82aa-90d70a8b11a2"
 				}
 			],
 			"id": "35d5f5f6-e2d9-4370-8de5-d676f13de89a"
