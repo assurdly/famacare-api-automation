@@ -6385,7 +6385,7 @@
 							"name": "Diagnosis-Create",
 							"item": [
 								{
-									"name": "Create",
+									"name": "DiagnosisCreate",
 									"event": [
 										{
 											"listen": "test",
