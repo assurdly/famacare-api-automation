@@ -6385,7 +6385,7 @@
 							"name": "Diagnosis-Create",
 							"item": [
 								{
-									"name": "DiagnosisCreate",
+									"name": "DiagnosisCreate-Doctor",
 									"event": [
 										{
 											"listen": "test",
@@ -6410,6 +6410,57 @@
 										}
 									],
 									"id": "9516c599-305a-4c4b-bbc9-3e75610c0d39",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"NM00.1\",\n    \"name\":\"Fever and cold\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "DiagnosisCreate-Others",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "63717d7f-34cf-420b-a122-d5e75046d7c1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Success message is correct\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\", \"success\");\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Diagnosis Added successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e201e840-6009-456d-b507-502ec909d64e",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -6756,6 +6807,61 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/diagnosis/fetch"
+									},
+									"response": []
+								},
+								{
+									"name": "fetch-all Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected fields\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+													"    pm.expect(jsonData).to.have.property(\"diagnosis\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Diagnosis contains required fields\", function () {\r",
+													"    var diagnosis = jsonData.diagnosis[0];\r",
+													"    pm.expect(diagnosis).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"code\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"name\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"createdAt\").that.is.a(\"string\"); //.and.to.not.be.empty was not added here because the initial implementation did not have this field, but the update once have. So the system would pull old diagnosis and fail this and the one below.\r",
+													"    pm.expect(diagnosis).to.have.property(\"updatedAt\").that.is.a(\"string\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "be162dc6-e872-4dff-bb4e-316572f6a919",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
