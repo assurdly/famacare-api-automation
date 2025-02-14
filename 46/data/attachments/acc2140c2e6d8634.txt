@@ -1,1 +1,0 @@
-{"errors":[{"type":"field","value":"","msg":"Name is required","path":"name","location":"body"},{"type":"field","value":"","msg":"Email is invalid","path":"contact_email","location":"body"},{"type":"field","value":"","msg":"Phone number is invalid","path":"phone","location":"body"},{"type":"field","value":"","msg":"Type is required","path":"type","location":"body"}]}
