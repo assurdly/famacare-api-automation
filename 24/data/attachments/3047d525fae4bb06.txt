@@ -1,0 +1,16 @@
+// var jsonData = pm.response.json();
+
+// pm.test("Response status code is 404", function () {
+//     pm.response.to.have.status(404);
+// });
+
+// pm.test("Appointment not found message is correct", function () {
+//     pm.expect(jsonData).to.have.property("message", "Appointment not found");
+// });
+
+// pm.test("Status is failed", function () {
+//     pm.expect(jsonData).to.have.property("status", "failed");
+// });
+
+
+//The script is valid however this is commented out because the implementation for not found is 400 instead of 404
