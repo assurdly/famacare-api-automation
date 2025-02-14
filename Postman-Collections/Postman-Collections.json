@@ -2216,6 +2216,147 @@
 							"id": "75459a6a-321b-48d9-b48a-c4c0748f2118"
 						},
 						{
+							"name": "Users(Patient)-Unique(upi) Copy",
+							"item": [
+								{
+									"name": "Get Unique Patient(upi)-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0043d438-8604-4ec2-a606-7047e2f5f4b9",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains valid patient fields\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.patient).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient details are correctly returned\", function () {\r",
+													"    pm.expect(jsonData.patient._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5f033848-0b7c-47bc-b416-f292248089f8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Patient(upi)-SuperAdmin-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0043d438-8604-4ec2-a606-7047e2f5f4b9",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a06a2546-1524-4361-a7ba-d47fb85dff16",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Patient(upi)-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0043d438-8604-4ec2-a606-7047e2f5f4b9",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "195d2291-ea04-4f34-a5c1-bcd57ab52cdc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								}
+							],
+							"id": "59a8b08d-e1ca-480a-88e0-c1791dd8833e"
+						},
+						{
 							"name": "Users(PatientSearch)",
 							"item": [
 								{
@@ -2702,6 +2843,492 @@
 							"id": "9422b152-df20-4353-914e-4f3405bcb2be"
 						},
 						{
+							"name": "Users(PatientSearch) Copy",
+							"item": [
+								{
+									"name": "Search Patient by lastname-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f1551ff6-7ec2-42d6-9e2b-ffffc3085e51",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success and code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Users array is valid and contains at least one user\", function () {\r",
+													"    pm.expect(jsonData.users).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First user details are properly structured\", function () {\r",
+													"    let user = jsonData.users[0];\r",
+													"\r",
+													"    pm.expect(user._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9459bb1c-b945-446d-a3fe-74f472f46d1f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query=kate",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "kate"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient SuperAdmin-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6cc8e1fe-7645-4f19-af43-43a6cff77c23",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "143a9890-6cd2-4c82-ae1b-736f8e75bef1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query=kate",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "kate"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient by lastname-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "57f4afee-4074-4ebb-a59c-fa11ab6f57cd",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "dd0e8191-64a3-4a2c-9fd6-30d2d7fb71e1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query=kate",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "kate"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient by upi-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7a5ac424-0373-4c25-9059-92b765fdd1c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success and code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Users array is valid and contains at least one user\", function () {\r",
+													"    pm.expect(jsonData.users).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First user details are properly structured\", function () {\r",
+													"    let user = jsonData.users[0];\r",
+													"\r",
+													"    pm.expect(user._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(user.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d56b4767-5b2b-4a1f-843b-bc5244eb4947",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query=56C36693",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "56C36693"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient by upi-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7a5ac424-0373-4c25-9059-92b765fdd1c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "18990704-db0e-4ab0-bc97-cc4a6b64ab99",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query=56C36693",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "56C36693"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient by uuid-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ee104cbf-dde7-4a27-85fb-f563bae52272",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success and code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"// pm.test(\"Users array exists and can be empty\", function () {\r",
+													"//     pm.expect(jsonData.users).to.be.an(\"array\");\r",
+													"//     pm.expect(jsonData.users.length).to.be.at.least(0);\r",
+													"// });\r",
+													"\r",
+													"//Thi is commented out because the user field is not supposed to be zero and the script would be upadted. Currently only one uuid is live \r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c7562ec2-b52c-4945-8203-d8a6db3aa499",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query={{office_uuid}}",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "{{office_uuid}}"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Search Patient by uuid-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ee104cbf-dde7-4a27-85fb-f563bae52272",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "619a47d0-948b-479f-bba8-f72fb7026b60",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "{{host}}api/patient/search-users?query={{office_uuid}}",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"patient",
+												"search-users"
+											],
+											"query": [
+												{
+													"key": "query",
+													"value": "Anthony",
+													"disabled": true
+												},
+												{
+													"key": "query",
+													"value": "{{office_uuid}}"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "16525659-0272-4fdf-be98-10743a8ad7be"
+						},
+						{
 							"name": "Users(Patient)-Update(upi)",
 							"item": [
 								{
@@ -2960,6 +3587,264 @@
 							"id": "e29ba2e4-ed84-476f-915b-494b603d241f"
 						},
 						{
+							"name": "Users(Patient)-Update(upi) Copy",
+							"item": [
+								{
+									"name": "Update Patient (upi)-Update",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "55a96ab6-ba46-484b-8231-3ecd55424292",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient update was successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Patient updated successfully\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient data structure is valid\", function () {\r",
+													"    var patient = jsonData.patient;\r",
+													"\r",
+													"    pm.expect(patient).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(patient._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.fullname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(patient.phone).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(patient.isActive).to.be.a(\"boolean\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Allergies data structure is valid\", function () {\r",
+													"    var allergies = jsonData.patient.allergies;\r",
+													"\r",
+													"    pm.expect(allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(allergies.drugs).to.be.an(\"array\");\r",
+													"    pm.expect(allergies.food).to.be.an(\"array\");\r",
+													"    pm.expect(allergies.other).to.be.an(\"array\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e6bc8be3-3320-4808-a77d-d38ea68aa290",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n     \"title\": \"Mr\",\n        \"firstname\": \"Edon\",\n        \"lastname\": \"Anthony\",\n        \"middlename\": \"Edifice\",\n        \"marital_status\": \"Single\",\n        \"email\": \"edidiongbobson@gmail.com\",\n        \"phone\": \"09023172944\",\n        \"address\": \"Ojodu Berger Avenue Road\",\n        \"state\": \"Lagos\",\n        \"city\": \"Ojodu\",\n        \"religion\": \"Christianity\",\n        \"blood_group\": \"A+\",\n        \"genotype\": \"AA\",\n        \"next_of_kin\": \"Thompson Bobson\",\n        \"next_of_kin_relationship\": \"Sibling\",\n        \"next_of_kin_phone\": \"07066237376\",\n        \"next_of_kin_address\": \"same as mine\",\n        \n        \"sponsor\": \"Asknello\",\n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //fixed\n        \"occupation\": \"Software Engineer\",\n        \"profileImage\": null,\n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{{office_uuid}}\",\n        \"dob\": \"2024-11-07\",\n        \"gender\": \"Male\"\n        \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Patient (upi)-EmptyFields",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "55a96ab6-ba46-484b-8231-3ecd55424292",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error list is not empty\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Validating required fields\", function () {\r",
+													"    var requiredFields = [\r",
+													"        \"title\", \"firstname\", \"lastname\", \"email\", \"phone\", \"gender\", \"dob\", \r",
+													"        \"marital_status\", \"city\", \"state\", \"religion\", \"occupation\", \r",
+													"        \"blood_group\", \"genotype\", \"next_of_kin_relationship\"\r",
+													"    ];\r",
+													"\r",
+													"    requiredFields.forEach(field => {\r",
+													"        pm.expect(jsonData.error.some(err => err.path === field)).to.be.true;\r",
+													"    });\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Each error object has required properties\", function () {\r",
+													"    jsonData.error.forEach(error => {\r",
+													"        pm.expect(error).to.have.property(\"msg\").that.is.a(\"string\");\r",
+													"        pm.expect(error).to.have.property(\"path\").that.is.a(\"string\");\r",
+													"        pm.expect(error).to.have.property(\"type\").that.is.a(\"string\");\r",
+													"        pm.expect(error).to.have.property(\"location\").that.is.a(\"string\");\r",
+													"    });\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "51b62578-ffb7-4f14-9933-371162c30d4b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n     \"title\": \"\",\n        \"firstname\": \"\",\n        \"lastname\": \"\",\n        \"middlename\": \"\",\n        \"marital_status\": \"\",\n        \"email\": \"\",\n        \"phone\": \"\",\n        \"address\": \"\",\n        \"state\": \"\",\n        \"city\": \"\",\n        \"religion\": \"\",\n        \"blood_group\": \"\",\n        \"genotype\": \"\",\n        \"next_of_kin\": \"\",\n        \"next_of_kin_relationship\": \"\",\n        \"next_of_kin_phone\": \"\",\n        \"next_of_kin_address\": \"\",\n        \n        \"sponsor\": \"\",\n        \"sponsor_plan\": \"\", //fixed\n        \"occupation\": \"\",\n        \"profileImage\": null,\n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{{office_uuid}}\",\n        \"dob\": \"\",\n        \"gender\": \"\"\n        \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Patient (upi)-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "55a96ab6-ba46-484b-8231-3ecd55424292",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "629cb3cd-6bf9-4ff8-a97a-9509ed84a1de",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n     \"title\": \"Mr\",\n        \"firstname\": \"Edon\",\n        \"lastname\": \"Anthony\",\n        \"middlename\": \"Edifice\",\n        \"marital_status\": \"Single\",\n        \"email\": \"edidiongbobson@gmail.com\",\n        \"phone\": \"09023172944\",\n        \"address\": \"Ojodu Berger Avenue Road\",\n        \"state\": \"Lagos\",\n        \"city\": \"Ojodu\",\n        \"religion\": \"Christianity\",\n        \"blood_group\": \"A+\",\n        \"genotype\": \"AA\",\n        \"next_of_kin\": \"Thompson Bobson\",\n        \"next_of_kin_relationship\": \"Sibling\",\n        \"next_of_kin_phone\": \"07066237376\",\n        \"next_of_kin_address\": \"same as mine\",\n        \n        \"sponsor\": \"Asknello\",\n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //fixed\n        \"occupation\": \"Software Engineer\",\n        \"profileImage\": null,\n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{{office_uuid}}\",\n        \"dob\": \"2024-11-07\",\n        \"gender\": \"Male\"\n        \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Update Patient (upi)-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "55a96ab6-ba46-484b-8231-3ecd55424292",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "67a9ddf8-5822-45d7-b3b3-cf40ac5ab0e3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n     \"title\": \"Mr\",\n        \"firstname\": \"Edon\",\n        \"lastname\": \"Anthony\",\n        \"middlename\": \"Edifice\",\n        \"marital_status\": \"Single\",\n        \"email\": \"edidiongbobson@gmail.com\",\n        \"phone\": \"09023172944\",\n        \"address\": \"Ojodu Berger Avenue Road\",\n        \"state\": \"Lagos\",\n        \"city\": \"Ojodu\",\n        \"religion\": \"Christianity\",\n        \"blood_group\": \"A+\",\n        \"genotype\": \"AA\",\n        \"next_of_kin\": \"Thompson Bobson\",\n        \"next_of_kin_relationship\": \"Sibling\",\n        \"next_of_kin_phone\": \"07066237376\",\n        \"next_of_kin_address\": \"same as mine\",\n        \n        \"sponsor\": \"Asknello\",\n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //fixed\n        \"occupation\": \"Software Engineer\",\n        \"profileImage\": null,\n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{{office_uuid}}\",\n        \"dob\": \"2024-11-07\",\n        \"gender\": \"Male\"\n        \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/unique/D528326B"
+									},
+									"response": []
+								}
+							],
+							"id": "78701a5b-4918-4dd8-ac20-3204b91ffb92"
+						},
+						{
 							"name": "Users(Patient)-DEL",
 							"item": [
 								{
@@ -2983,6 +3868,31 @@
 								}
 							],
 							"id": "6166f18b-5477-40e9-9917-6e2c38366733"
+						},
+						{
+							"name": "Users(Patient)-DEL Copy",
+							"item": [
+								{
+									"name": "Delete Unique Patient",
+									"id": "5739fedc-1cff-4de3-bd4c-e5aba6eba28e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "http://localhost:5000/api/patient/unique/CEFD2ED6"
+									},
+									"response": []
+								}
+							],
+							"id": "fde2a51b-93c8-413a-a041-74e0071a4e77"
 						}
 					],
 					"id": "698aa168-d14d-49c5-9632-c0feed19a4dc"
@@ -7050,7 +7960,7 @@
 							"id": "b4254c66-891c-471f-bf9e-32d186a7525a"
 						},
 						{
-							"name": "Authentication-ForgotPassword Copy",
+							"name": "Authentication-ForgotPassword",
 							"item": [
 								{
 									"name": "Forgot",
@@ -7146,7 +8056,7 @@
 							"id": "d78d5e22-27b4-4942-84d1-fa54f2100f53"
 						},
 						{
-							"name": "Authentication-VerifyToken Copy",
+							"name": "Authentication-VerifyToken",
 							"item": [
 								{
 									"name": "Verify Token",
@@ -7244,7 +8154,7 @@
 							"id": "39be5f7b-4fcb-47a8-b1a5-b2e7ac482c2e"
 						},
 						{
-							"name": "Authentication-ResetPassword Copy",
+							"name": "Authentication-ResetPassword",
 							"item": [
 								{
 									"name": "Reset Password",
@@ -7383,54 +8293,6 @@
 								}
 							],
 							"id": "7d23f1bc-130d-4ca3-bc19-4bc538921006"
-						},
-						{
-							"name": "Login(staff)- Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2ddc6ba7-63e1-4c4d-ae52-bece9479eb08",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Status is success and response code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"User details and token exist\", function () {\r",
-											"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-											"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
-											"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
-											"    pm.expect(jsonData.user.isActive).to.be.true;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "c2871d52-fe4b-4d6b-ac3b-ad56cedf7985",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\":\"judith.michael@famacare.com\",\n    \"password\":\"BOBson246**\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/auth/login"
-							},
-							"response": []
 						}
 					],
 					"id": "408e3341-f430-43f6-9ceb-23e792867daa"
@@ -7438,6 +8300,547 @@
 				{
 					"name": "Users(Patient)",
 					"item": [
+						{
+							"name": "Users(Patient)-Register Copy",
+							"item": [
+								{
+									"name": "Register Patient-SuperAdmin-Self",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration was successful\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8f96d9ab-8a6a-45f3-ab5e-bc94be35984e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"tolutst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-Sponsor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration was successful\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "de832f02-ca44-4b2d-854d-f04d1e8ccfaa",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteestEt@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Asknello\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "68ccba16-3f4b-4e2c-9693-b2594f73527f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"tolutst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-EmailExist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration failure message is correct\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.include(\"patient with email already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7b19d01f-4948-4d6d-b770-10c70dd30054",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "56a6dd39-d916-47d6-ad85-97af0d491a28",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b5ac0536-5b2d-48d0-b88d-bcd36eb15c56",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Email validation error exists\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"    pm.expect(jsonData.error[0].msg).to.include(\"email must be a valid email\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "79260905-f426-4efb-8295-eddf9084d365",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-EmptyOffice",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"//user can create patient without an office"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d84b2c19-3967-466a-a5f5-2da3d48b6855",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mab\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteestio@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_\",\n    \"office\":\"{{offic\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								}
+							],
+							"id": "941a95d5-d228-4f99-91b1-b15437296255"
+						},
+						{
+							"name": "Users(Patient) - ALL Copy",
+							"item": [
+								{
+									"name": "Get All Patient- SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f3a4be6d-ff5c-4467-b3cb-49889945911c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patients data is valid\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.patients).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"\r",
+													"    pm.expect(jsonData.patients[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patients[0].allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d50e6dbb-2bba-403a-ab17-9da706a68196",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/all"
+									},
+									"response": []
+								},
+								{
+									"name": "Get All Patient-SuperAdmin-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f3a4be6d-ff5c-4467-b3cb-49889945911c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "00a429f1-cedd-464d-8c0f-39f66045f975",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/all"
+									},
+									"response": []
+								},
+								{
+									"name": "Get All Patient- SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f3a4be6d-ff5c-4467-b3cb-49889945911c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "27504616-8450-4829-bb3e-ae9243e54b42",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/all"
+									},
+									"response": []
+								}
+							],
+							"id": "be9e782b-01ee-4550-9538-828615fded00"
+						},
 						{
 							"name": "Register Patient-Receptionist",
 							"event": [
