@@ -11237,6 +11237,57 @@
 							"response": []
 						},
 						{
+							"name": "Update unique sponsor-Others",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "83309b89-61f0-474c-be01-c6aac7450734",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{receptionist _token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/edit/87EDF987"
+							},
+							"response": []
+						},
+						{
 							"name": "UpdateUniqueSponsor-NoToken",
 							"event": [
 								{
