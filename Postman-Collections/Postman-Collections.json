@@ -6275,7 +6275,7 @@
 							"name": "Diagnosis-Create",
 							"item": [
 								{
-									"name": "DiagnosisCreate-Doctor",
+									"name": "DiagnosisCreate",
 									"event": [
 										{
 											"listen": "test",
@@ -6640,7 +6640,7 @@
 							"name": "FetchAll",
 							"item": [
 								{
-									"name": "fetch-all-Doctor",
+									"name": "fetch-all",
 									"event": [
 										{
 											"listen": "test",
@@ -6687,7 +6687,8 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{doctor_token}}",
-												"type": "text"
+												"type": "text",
+												"disabled": true
 											}
 										],
 										"url": "{{host}}api/diagnosis/fetch"
