@@ -7533,7 +7533,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token_Invalid}}",
+										"value": "Bearer {{doctor_token_Invalid}}",
 										"type": "text"
 									}
 								],
@@ -7574,7 +7574,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "",
 										"type": "text",
 										"disabled": true
 									}
@@ -11122,6 +11122,149 @@
 						}
 					],
 					"id": "a51290b7-088b-4066-bad0-d48fbc939aeb"
+				},
+				{
+					"name": "Sponsor-GetAll",
+					"item": [
+						{
+							"name": "All Sponsor Plans",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains sponsor plans\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Plan details are valid\", function () {\r",
+											"    var plan = jsonData.plans[0];\r",
+											"    \r",
+											"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5589a5cd-4c32-441a-a0be-14ea5e32ef51",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{receptionist _token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						},
+						{
+							"name": "All Sponsor Plans-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "17e715c4-3d82-416f-83e6-2c1ae277775c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{receptionist _token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						},
+						{
+							"name": "All Sponsor Plans-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "feb8ffe8-2e03-42f3-846d-9379e05677df",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/sponsor/fetch/all/plans"
+							},
+							"response": []
+						}
+					],
+					"id": "90bd640c-0f2f-40ec-b19b-d7099695d621"
 				}
 			],
 			"id": "9963e146-a814-4f7f-ab56-cb1594a3bd94"
@@ -11387,17 +11530,19 @@
 									"script": {
 										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
 										"exec": [
-											"var jsonData = pm.response.json();\r",
+											"// var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
+											"// pm.test(\"Response status code is 200\", function () {\r",
+											"//     pm.response.to.have.status(200);\r",
+											"// });\r",
 											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
-											"});\r",
-											""
+											"// pm.test(\"Success message is correct\", function () {\r",
+											"//     pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"//     pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"// });\r",
+											"\r",
+											"\r",
+											"//Only admin is suppsoed to update sponsor. Bug"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -11819,7 +11964,8 @@
 											"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\");\r",
 											"    pm.expect(jsonData.error[1].msg).to.be.a(\"string\");\r",
 											"});\r",
-											""
+											"\r",
+											"//Bug"
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -12024,170 +12170,8 @@
 					"id": "5bb7c8dd-b7a9-4b45-bc2a-81c5c62b8e9f"
 				},
 				{
-					"name": "Sponsor-GetAll Copy",
+					"name": "Fetch Unique Sponsor (uuid)",
 					"item": [
-						{
-							"name": "All Sponsor Plans",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains sponsor plans\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Plan details are valid\", function () {\r",
-											"    var plan = jsonData.plans[0];\r",
-											"    \r",
-											"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "5589a5cd-4c32-441a-a0be-14ea5e32ef51",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
-						{
-							"name": "All Sponsor Plans-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "17e715c4-3d82-416f-83e6-2c1ae277775c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{super_admin_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
-						{
-							"name": "All Sponsor Plans-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "feb8ffe8-2e03-42f3-846d-9379e05677df",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						}
-					],
-					"id": "90bd640c-0f2f-40ec-b19b-d7099695d621"
-				},
-				{
-					"name": "New Folder Copy",
-					"item": [
-						{
-							"name": "All Sponsor Plans",
-							"id": "004b777e-3139-45d2-8ca5-e12146081e41",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{token}}",
-										"type": "text"
-									}
-								],
-								"url": "http://localhost:5000/api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
 						{
 							"name": "Fetch Unique Sponsor (uuid)",
 							"id": "a98bb4d7-b318-44fb-bd93-d9492cbcba9b",
@@ -12206,25 +12190,6 @@
 								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
 							},
 							"response": []
-						},
-						{
-							"name": "Get Unique Plan by Name",
-							"id": "b6a59f16-05f7-40aa-b4ab-d8895d364b9e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{token}}",
-										"type": "text"
-									}
-								],
-								"url": "http://localhost:5000/api/sponsor/fetch/plan/FAMACARE PRICELIST"
-							},
-							"response": []
 						}
 					],
 					"id": "4581ab72-2318-48a6-9bdd-faee133a6142"
@@ -12232,44 +12197,6 @@
 				{
 					"name": "New Folder Copy 2",
 					"item": [
-						{
-							"name": "All Sponsor Plans",
-							"id": "6f34f4b2-bda3-4a01-881e-4e8b4de43aa7",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{token}}",
-										"type": "text"
-									}
-								],
-								"url": "http://localhost:5000/api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch Unique Sponsor (uuid)",
-							"id": "020f143e-7858-4fc5-afee-13fc08f39a60",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{token}}",
-										"type": "text"
-									}
-								],
-								"url": "http://localhost:5000/api/sponsor/fetch/87EDF987"
-							},
-							"response": []
-						},
 						{
 							"name": "Get Unique Plan by Name",
 							"id": "1fe783e8-f8bf-4bbb-84a2-4e7e1e8c1e15",
