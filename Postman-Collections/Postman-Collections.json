@@ -7516,7 +7516,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-ExpiredToken",
+									"name": "Register Patient-Receptionist-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7566,7 +7566,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-EmailExist",
+									"name": "Register Patient-Receptionist-EmailExist",
 									"event": [
 										{
 											"listen": "test",
@@ -7599,7 +7599,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -7617,7 +7617,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-InvalidToken",
+									"name": "Register Patient-Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7649,7 +7649,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -7667,7 +7667,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-NoToken",
+									"name": "Register Patient-Receptionist-NoToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7717,7 +7717,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-InvalidEmail",
+									"name": "Register Patient-Receptionist-InvalidEmail",
 									"event": [
 										{
 											"listen": "test",
@@ -7751,7 +7751,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -7769,7 +7769,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-EmptyOffice",
+									"name": "Register Patient-Receptionist-EmptyOffice",
 									"event": [
 										{
 											"listen": "test",
@@ -7792,7 +7792,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -7843,7 +7843,7 @@
 							"name": "Users(Patient) - ALL Copy",
 							"item": [
 								{
-									"name": "Get All Patient- SuperAdmin",
+									"name": "Get All Patient- Receptionist",
 									"event": [
 										{
 											"listen": "test",
@@ -7885,7 +7885,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -7894,7 +7894,7 @@
 									"response": []
 								},
 								{
-									"name": "Get All Patient-SuperAdmin-ExpiredToken",
+									"name": "Get All Patient-Receptionist-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7935,7 +7935,7 @@
 									"response": []
 								},
 								{
-									"name": "Get All Patient- SuperAdmin-InvalidToken",
+									"name": "Get All Patient- Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7967,7 +7967,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
