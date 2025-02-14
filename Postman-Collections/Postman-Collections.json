@@ -11237,7 +11237,7 @@
 							"response": []
 						},
 						{
-							"name": "Update unique sponsor Copy",
+							"name": "UpdateUniqueSponsor-NoToken",
 							"event": [
 								{
 									"listen": "test",
@@ -11246,13 +11246,12 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
 											"});\r",
 											""
 										],
@@ -11271,7 +11270,8 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{super_admin_token}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"body": {
@@ -11288,7 +11288,7 @@
 							"response": []
 						},
 						{
-							"name": "Update unique sponsor Copy 2",
+							"name": "UpdateUniqueSponsor-InvalidToken",
 							"event": [
 								{
 									"listen": "test",
@@ -11297,13 +11297,12 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
 										],
@@ -11339,7 +11338,7 @@
 							"response": []
 						},
 						{
-							"name": "Update unique sponsor Copy 2",
+							"name": "UpdateUniqueSponsor -FieldsRequired",
 							"event": [
 								{
 									"listen": "test",
@@ -11348,13 +11347,21 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"pm.test(\"Error response contains required fields\", function () {\r",
+											"    pm.expect(jsonData.errors).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Validating specific error messages\", function () {\r",
+											"    var errorMessages = jsonData.errors.map(error => error.msg);\r",
+											"\r",
+											"    pm.expect(errorMessages).to.include(\"Name is required\");\r",
+											"    pm.expect(errorMessages).to.include(\"Email is invalid\");\r",
+											"    pm.expect(errorMessages).to.include(\"Phone number is invalid\");\r",
+											"    pm.expect(errorMessages).to.include(\"Type is required\");\r",
 											"});\r",
 											""
 										],
@@ -11378,7 +11385,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+									"raw": "   {\n          \n            \"name\": \"\",\n            \"type\": \"\",\n            \"phone\": \"\",\n            \"contact_email\": \"\",\n            \"contact_person\": \"\"\n        }",
 									"options": {
 										"raw": {
 											"language": "json"
