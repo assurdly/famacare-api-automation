@@ -7237,8 +7237,7 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text",
-										"disabled": true
+										"type": "text"
 									}
 								],
 								"body": {
@@ -11039,8 +11038,132 @@
 						"header": [
 							{
 								"key": "Authorization",
-								"value": "Bearer {{token}}",
+								"value": "Bearer {{super_admin_token}}",
 								"type": "text"
+							}
+						],
+						"url": "{{host}}api/sponsor/fetch"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Sponsors-InValidToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9e607d3-a5fb-4d54-b330-f08fc672903f",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body contains error message\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "ae6a6766-c4a1-4945-9415-a5e1725e8b77",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{super_admin_token_Invalid}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}api/sponsor/fetch"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Sponsors-ExpiredToken",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9e607d3-a5fb-4d54-b330-f08fc672903f",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Token expiration message is correct\", function () {\r",
+									"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "b3ae6bef-2df3-4410-9025-250b53358a60",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ExpiredToken}}",
+								"type": "text"
+							}
+						],
+						"url": "{{host}}api/sponsor/fetch"
+					},
+					"response": []
+				},
+				{
+					"name": "Fetch Sponsors-ExpiredToken Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f9e607d3-a5fb-4d54-b330-f08fc672903f",
+								"exec": [
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Response code is 401\", () => {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Authorization error message is correct\", () => {\r",
+									"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "b4e2c4bd-6a5f-45ab-9107-bdb98ae6ddf5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{ExpiredToken}}",
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"url": "{{host}}api/sponsor/fetch"
