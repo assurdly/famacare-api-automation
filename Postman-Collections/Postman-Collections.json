@@ -6333,7 +6333,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-EmptyOffice",
+									"name": "Register Patient-Doctor-EmptyOffice",
 									"event": [
 										{
 											"listen": "test",
