@@ -11836,7 +11836,29 @@
 							"response": []
 						},
 						{
-							"name": "All Sponsor Plans Copy",
+							"name": "All Sponsor Plans-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "9684b433-c3e0-4ee0-a3e7-6e91d5d28803",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -11847,7 +11869,8 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{super_admin_token}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"url": "{{host}}api/sponsor/fetch/all/plans"
