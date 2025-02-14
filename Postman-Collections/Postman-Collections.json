@@ -9001,7 +9001,7 @@
 									"name": "Appointment-Schedule",
 									"item": [
 										{
-											"name": "Schedule-SuperAdmin",
+											"name": "Schedule-Receptionist",
 											"event": [
 												{
 													"listen": "test",
@@ -9034,7 +9034,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
