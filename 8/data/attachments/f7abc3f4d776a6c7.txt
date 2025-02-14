@@ -1,0 +1,11 @@
+var jsonData = pm.response.json();
+
+pm.test("Response code is 400", () => {
+    pm.response.to.have.status(400);
+});
+
+pm.test("Email validation error exists", () => {
+    pm.expect(jsonData.status).to.eql("failed");
+    pm.expect(jsonData.error).to.be.an("array").and.to.have.length.above(0);
+    pm.expect(jsonData.error[0].msg).to.include("email must be a valid email");
+});
