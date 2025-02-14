@@ -8997,7 +8997,7 @@
 					"name": "Appointment",
 					"item": [
 						{
-							"name": "Appointment Copy",
+							"name": "Appointment",
 							"item": [
 								{
 									"name": "Appointment-Schedule",
@@ -9279,7 +9279,7 @@
 									"name": "Appointment-Get",
 									"item": [
 										{
-											"name": "Get Appointments-SuperAdmin",
+											"name": "Get Appointments-Receptionist",
 											"event": [
 												{
 													"listen": "test",
@@ -9345,7 +9345,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
@@ -9354,7 +9354,7 @@
 											"response": []
 										},
 										{
-											"name": "Get Appointments-ExpiredToken",
+											"name": "Get Appointments-Receptionist-ExpiredToken",
 											"event": [
 												{
 													"listen": "test",
@@ -9395,7 +9395,7 @@
 											"response": []
 										},
 										{
-											"name": "Get Appointments-SuperAdmin-InvalidToken",
+											"name": "Get Appointments-Receptionist-InvalidToken",
 											"event": [
 												{
 													"listen": "test",
@@ -9427,7 +9427,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token_Invalid}}",
+														"value": "Bearer {{receptionist _token_Invalid}}",
 														"type": "text"
 													}
 												],
@@ -9436,7 +9436,7 @@
 											"response": []
 										},
 										{
-											"name": "Get Appointments-NoToken",
+											"name": "Get Appointments-Receptionist-NoToken",
 											"event": [
 												{
 													"listen": "test",
@@ -9483,7 +9483,7 @@
 									"name": "Appointment-GetUnique",
 									"item": [
 										{
-											"name": "Get Unique Appointment-SuperAdmin",
+											"name": "Get Unique Appointment-Receptionist",
 											"event": [
 												{
 													"listen": "test",
@@ -9549,7 +9549,7 @@
 												"header": [
 													{
 														"key": "Authorization",
-														"value": "Bearer {{super_admin_token}}",
+														"value": "Bearer {{receptionist _token}}",
 														"type": "text"
 													}
 												],
@@ -9567,7 +9567,7 @@
 											"response": []
 										},
 										{
-											"name": "Get Unique Appointment-SuperAdmin-InvalidToken",
+											"name": "Get Unique Appointment-Receptionist-InvalidToken",
 											"event": [
 												{
 													"listen": "test",
