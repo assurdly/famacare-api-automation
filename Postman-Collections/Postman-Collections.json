@@ -1057,6 +1057,991 @@
 					"id": "a8126e2a-8e8f-421a-a9d8-b9451a0e9c58"
 				},
 				{
+					"name": "Departments",
+					"item": [
+						{
+							"name": "Departments-CreateDept",
+							"item": [
+								{
+									"name": "CreateDept",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Department data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.department).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.department.name).to.be.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(jsonData.department.isActive).to.be.true;\r",
+													"    pm.expect(jsonData.department._id).to.be.a(\"string\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a8452c01-ae31-484a-b023-cc47e2618a45",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"Mod Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDept-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "aea57dcb-29f9-48cb-b093-ec6ddeaef6a7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDept- InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "910e04bf-211d-4311-9edb-b86e5512d317",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDept-AccessDenied",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Access denied message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User information is included\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\");\r",
+													"    pm.expect(jsonData.user.exp).to.be.a(\"number\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User role is unauthorized\", function () {\r",
+													"    pm.expect([\"Receptionist\", \"Doctor\"]).to.include(jsonData.user.role);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f1d1280f-60eb-4fa2-b49e-3e70b880d80e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDept-DeptExist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Department creation failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.include(\"Department with such name exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "155a9f78-b2f3-4012-99af-56a25cfc8728",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								},
+								{
+									"name": "CreateDept-DeptRequired",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Department validation failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.error[1].msg).to.be.a(\"string\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c47473eb-112f-4bea-8179-48f9deddff30",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \n    \"name\":\"\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/department/create"
+									},
+									"response": []
+								}
+							],
+							"id": "d0193f9e-144c-488a-9ce1-7c906777954f"
+						},
+						{
+							"name": "Departments-FetchDepts",
+							"item": [
+								{
+									"name": "FetchDepts",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Departments data is valid\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.departments).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"    pm.expect(jsonData.departments[0].name).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.departments[0].isActive).to.be.true;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e915ac8a-0a73-4c6a-8040-785f3cfd6982",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{host}}api/department/office/{{office_uuid}}"
+									},
+									"response": []
+								},
+								{
+									"name": "FetchDepts- OfficeNoFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 404\", () => {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Office not found error message is correct\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d2ad65a9-2d33-43a3-b535-ed1b246dc23d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{host}}api/department/office/{{office_}}"
+									},
+									"response": []
+								}
+							],
+							"id": "6e5a5ec8-52cc-46e6-b1de-4fbb4d704943"
+						},
+						{
+							"name": "Departments-updateDept",
+							"item": [
+								{
+									"name": "updateDept",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6075423d-2e39-40cf-a226-c98a9be97b35",
+												"exec": [
+													"//Instructed by the Dev not to test this no body"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8f4b8aa1-c2d0-42af-9837-9c0e4eff2b20",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "dbaf1893-41c6-4d8e-bcf9-a9787fc11a07"
+						},
+						{
+							"name": "Departments-DEL",
+							"item": [
+								{
+									"name": "New Request",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "158e6323-bbd6-42f1-ab53-85f6c32a2684",
+												"exec": [
+													"//Instructed by the Dev not to test this "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "949b2378-e0eb-47be-9941-3e3b6db5feaf",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": []
+									},
+									"response": []
+								}
+							],
+							"id": "67427b8f-3e62-47b7-9e16-af418a54dd3f"
+						}
+					],
+					"id": "cd41e1b6-017c-498c-8cac-82762d1b3ce9"
+				},
+				{
+					"name": "Roles",
+					"item": [
+						{
+							"name": "Role-Create",
+							"item": [
+								{
+									"name": "Create",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "903d677f-3c20-4217-b38a-670e1326af99",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Role data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.role).to.be.an(\"object\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.role.office_uuid).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.role.name).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.role._id).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.role.createdAt).to.be.a(\"string\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "63079ea6-cca3-4541-acc0-a453497dc770",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA1\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-RoleExist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9dcb447c-8d88-46e9-99f4-fc4cd73e9f45",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Role already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a63f34e1-9ccc-49ab-a7c2-503e4b289c63",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a9faf3de-9297-4162-9dda-2f6121347064",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-AccessDenied",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Access denied message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User information is included\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.exp).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User role is unauthorized\", function () {\r",
+													"    pm.expect([\"Receptionist\",\"Doctor\"]).to.include(jsonData.user.role);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "32008521-1f40-4c4c-88dc-8c9ffc649412",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0716aa89-adf0-47c0-a9b7-e498dcdfca01",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-RoleRequired",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "34b781ef-1a4d-4760-a687-d151bc11881a",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error response is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error details are correct\", function () {\r",
+													"    pm.expect(jsonData.error[0]).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
+													"    pm.expect(jsonData.error[0].path).to.eql(\"name\");\r",
+													"    pm.expect(jsonData.error[0].location).to.eql(\"body\");\r",
+													"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\").and.to.eql(\"Role name is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "829dfcc1-4d50-4092-870c-9f7b38a64e07",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA2\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "903d677f-3c20-4217-b38a-670e1326af99",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "47411b28-c3a4-41c8-89b2-f8c01f36fb16",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\":\"NBA1\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/role/create"
+									},
+									"response": []
+								}
+							],
+							"id": "f8d7aa40-41c7-400a-abca-3741c1311d7a"
+						},
+						{
+							"name": "Role-GetRoles",
+							"item": [
+								{
+									"name": "Get Roles-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Roles data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "af093feb-4d1f-4c1d-bcd0-69b474665ab0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Roles-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"// var jsonData = pm.response.json();\r",
+													"\r",
+													"// pm.test(\"Response status code is 401\", function () {\r",
+													"//     pm.response.to.have.status(401);\r",
+													"// });\r",
+													"\r",
+													"// pm.test(\"Response body contains error message\", function () {\r",
+													"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"// });\r",
+													"\r",
+													"\r",
+													"//commented out because even with the invalid token we geta 200"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a8873a75-9935-4ca1-8ed4-c27401f867ec",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								}
+							],
+							"id": "05ffcfab-c58d-424a-a68d-b35c987206ec"
+						},
+						{
+							"name": "Role-DEL",
+							"item": [
+								{
+									"name": "Delete Role by id",
+									"id": "11c647c9-ba28-4d8e-a767-a15919c0b449",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "http://localhost:5000/api/role/6734007c0a3af88d9db52525"
+									},
+									"response": []
+								}
+							],
+							"id": "8910d18b-be96-40b6-a274-bca1656a6b62"
+						}
+					],
+					"id": "54abeafb-3f15-47f4-a016-a5789f154588"
+				},
+				{
 					"name": "Users(Patient)",
 					"item": [
 						{
@@ -3409,991 +4394,6 @@
 						}
 					],
 					"id": "833c9e7e-3587-4e25-8b5e-e6a54878a849"
-				},
-				{
-					"name": "Departments",
-					"item": [
-						{
-							"name": "Departments-CreateDept",
-							"item": [
-								{
-									"name": "CreateDept",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Department data is valid\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.department).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.department.name).to.be.a(\"string\").and.to.not.be.empty;\r",
-													"    pm.expect(jsonData.department.isActive).to.be.true;\r",
-													"    pm.expect(jsonData.department._id).to.be.a(\"string\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "a8452c01-ae31-484a-b023-cc47e2618a45",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mod Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								},
-								{
-									"name": "CreateDept-ExpiredToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Token expiration message is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "aea57dcb-29f9-48cb-b093-ec6ddeaef6a7",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{ExpiredToken}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								},
-								{
-									"name": "CreateDept- InvalidToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response body contains error message\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "910e04bf-211d-4311-9edb-b86e5512d317",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								},
-								{
-									"name": "CreateDept-AccessDenied",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 403\", function () {\r",
-													"    pm.response.to.have.status(403);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Access denied message is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User information is included\", function () {\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
-													"    pm.expect(jsonData.user.role).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.user.iat).to.be.a(\"number\");\r",
-													"    pm.expect(jsonData.user.exp).to.be.a(\"number\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User role is unauthorized\", function () {\r",
-													"    pm.expect([\"Receptionist\", \"Doctor\"]).to.include(jsonData.user.role);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "f1d1280f-60eb-4fa2-b49e-3e70b880d80e",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								},
-								{
-									"name": "CreateDept-DeptExist",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Department creation failure message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.include(\"Department with such name exists\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "155a9f78-b2f3-4012-99af-56a25cfc8728",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								},
-								{
-									"name": "CreateDept-DeptRequired",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6437118b-3f4a-496b-8721-40ae499d9043",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Department validation failed\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
-													"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.error[1].msg).to.be.a(\"string\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "c47473eb-112f-4bea-8179-48f9deddff30",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/department/create"
-									},
-									"response": []
-								}
-							],
-							"id": "d0193f9e-144c-488a-9ce1-7c906777954f"
-						},
-						{
-							"name": "Departments-FetchDepts",
-							"item": [
-								{
-									"name": "FetchDepts",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 200\", () => {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Departments data is valid\", () => {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.departments).to.be.an(\"array\").and.to.have.length.above(0);\r",
-													"    pm.expect(jsonData.departments[0].name).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.departments[0].isActive).to.be.true;\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "e915ac8a-0a73-4c6a-8040-785f3cfd6982",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": "{{host}}api/department/office/{{office_uuid}}"
-									},
-									"response": []
-								},
-								{
-									"name": "FetchDepts- OfficeNoFound",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 404\", () => {\r",
-													"    pm.response.to.have.status(404);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Office not found error message is correct\", () => {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "d2ad65a9-2d33-43a3-b535-ed1b246dc23d",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [],
-										"url": "{{host}}api/department/office/{{office_}}"
-									},
-									"response": []
-								}
-							],
-							"id": "6e5a5ec8-52cc-46e6-b1de-4fbb4d704943"
-						},
-						{
-							"name": "Departments-updateDept",
-							"item": [
-								{
-									"name": "updateDept",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6075423d-2e39-40cf-a226-c98a9be97b35",
-												"exec": [
-													"//Instructed by the Dev not to test this no body"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "8f4b8aa1-c2d0-42af-9837-9c0e4eff2b20",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "PUT",
-										"header": []
-									},
-									"response": []
-								}
-							],
-							"id": "dbaf1893-41c6-4d8e-bcf9-a9787fc11a07"
-						},
-						{
-							"name": "Departments-DEL",
-							"item": [
-								{
-									"name": "New Request",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "158e6323-bbd6-42f1-ab53-85f6c32a2684",
-												"exec": [
-													"//Instructed by the Dev not to test this "
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "949b2378-e0eb-47be-9941-3e3b6db5feaf",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "DELETE",
-										"header": []
-									},
-									"response": []
-								}
-							],
-							"id": "67427b8f-3e62-47b7-9e16-af418a54dd3f"
-						}
-					],
-					"id": "cd41e1b6-017c-498c-8cac-82762d1b3ce9"
-				},
-				{
-					"name": "Roles",
-					"item": [
-						{
-							"name": "Role-Create",
-							"item": [
-								{
-									"name": "Create",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "903d677f-3c20-4217-b38a-670e1326af99",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Role data is valid\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.role).to.be.an(\"object\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Role contains required fields\", function () {\r",
-													"    pm.expect(jsonData.role.office_uuid).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.role.name).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.role._id).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.role.createdAt).to.be.a(\"string\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "63079ea6-cca3-4541-acc0-a453497dc770",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA1\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-RoleExist",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "9dcb447c-8d88-46e9-99f4-fc4cd73e9f45",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"Role already exists\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "a63f34e1-9ccc-49ab-a7c2-503e4b289c63",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-InvalidToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response body contains error message\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "a9faf3de-9297-4162-9dda-2f6121347064",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-AccessDenied",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 403\", function () {\r",
-													"    pm.response.to.have.status(403);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Access denied message is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User information is included\", function () {\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
-													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
-													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.not.be.null;;\r",
-													"    pm.expect(jsonData.user.exp).to.be.a(\"number\").and.to.not.be.null;;\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User role is unauthorized\", function () {\r",
-													"    pm.expect([\"Receptionist\",\"Doctor\"]).to.include(jsonData.user.role);\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "32008521-1f40-4c4c-88dc-8c9ffc649412",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{doctor_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-NoToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "4a6afa25-b268-446e-b80c-5725b43f69d8",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Authorization error message is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "0716aa89-adf0-47c0-a9b7-e498dcdfca01",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{doctor_token}}",
-												"type": "text",
-												"disabled": true
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-RoleRequired",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "34b781ef-1a4d-4760-a687-d151bc11881a",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Error response is valid\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Error details are correct\", function () {\r",
-													"    pm.expect(jsonData.error[0]).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
-													"    pm.expect(jsonData.error[0].path).to.eql(\"name\");\r",
-													"    pm.expect(jsonData.error[0].location).to.eql(\"body\");\r",
-													"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\").and.to.eql(\"Role name is required\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "829dfcc1-4d50-4092-870c-9f7b38a64e07",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA2\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								},
-								{
-									"name": "Create-ExpiredToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "903d677f-3c20-4217-b38a-670e1326af99",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 401\", function () {\r",
-													"    pm.response.to.have.status(401);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Token expiration message is correct\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "47411b28-c3a4-41c8-89b2-f8c01f36fb16",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{ExpiredToken}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA1\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/role/create"
-									},
-									"response": []
-								}
-							],
-							"id": "f8d7aa40-41c7-400a-abca-3741c1311d7a"
-						},
-						{
-							"name": "Role-GetRoles",
-							"item": [
-								{
-									"name": "Get Roles-SuperAdmin",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Roles data is valid\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"First role contains required fields\", function () {\r",
-													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
-													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "af093feb-4d1f-4c1d-bcd0-69b474665ab0",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"url": "{{host}}api/role/{{office_uuid}}"
-									},
-									"response": []
-								},
-								{
-									"name": "Get Roles-SuperAdmin-InvalidToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
-												"exec": [
-													"// var jsonData = pm.response.json();\r",
-													"\r",
-													"// pm.test(\"Response status code is 401\", function () {\r",
-													"//     pm.response.to.have.status(401);\r",
-													"// });\r",
-													"\r",
-													"// pm.test(\"Response body contains error message\", function () {\r",
-													"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-													"// });\r",
-													"\r",
-													"\r",
-													"//commented out because even with the invalid token we geta 200"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "a8873a75-9935-4ca1-8ed4-c27401f867ec",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
-												"type": "text"
-											}
-										],
-										"url": "{{host}}api/role/{{office_uuid}}"
-									},
-									"response": []
-								}
-							],
-							"id": "05ffcfab-c58d-424a-a68d-b35c987206ec"
-						},
-						{
-							"name": "Role-DEL",
-							"item": [
-								{
-									"name": "Delete Role by id",
-									"id": "11c647c9-ba28-4d8e-a767-a15919c0b449",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "DELETE",
-										"header": [],
-										"url": "http://localhost:5000/api/role/6734007c0a3af88d9db52525"
-									},
-									"response": []
-								}
-							],
-							"id": "8910d18b-be96-40b6-a274-bca1656a6b62"
-						}
-					],
-					"id": "54abeafb-3f15-47f4-a016-a5789f154588"
 				},
 				{
 					"name": "Appointment",
@@ -8526,287 +8526,293 @@
 					"id": "5a2a2c77-4bc9-46b9-a838-450a09d10b84"
 				},
 				{
-					"name": "Sponsor-GetAll",
+					"name": "Sponsor",
 					"item": [
 						{
-							"name": "All Sponsor Plans",
-							"event": [
+							"name": "Sponsor-GetAll",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains sponsor plans\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Plan details are valid\", function () {\r",
-											"    var plan = jsonData.plans[0];\r",
-											"    \r",
-											"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"});\r",
-											""
+									"name": "All Sponsor Plans",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains sponsor plans\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Plan details are valid\", function () {\r",
+													"    var plan = jsonData.plans[0];\r",
+													"    \r",
+													"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4ccb317d-9034-4758-9b64-c96d8eefc47f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
+								},
+								{
+									"name": "All Sponsor Plans-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "fdbc5d19-f159-4572-a4fd-bb8c07c1f152",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
+								},
+								{
+									"name": "All Sponsor Plans-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e003b9c3-1209-4017-b33f-d899835b3f6a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
 								}
 							],
-							"id": "4ccb317d-9034-4758-9b64-c96d8eefc47f",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
+							"id": "c19b0e44-c044-48f5-80f2-644975cc0243"
 						},
-						{
-							"name": "All Sponsor Plans-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "fdbc5d19-f159-4572-a4fd-bb8c07c1f152",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
-						{
-							"name": "All Sponsor Plans-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "e003b9c3-1209-4017-b33f-d899835b3f6a",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						}
-					],
-					"id": "c19b0e44-c044-48f5-80f2-644975cc0243"
-				},
-				{
-					"name": "Fetch Unique Sponsor (uuid)",
-					"item": [
 						{
 							"name": "Fetch Unique Sponsor (uuid)",
-							"event": [
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status is success\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Sponsor data is valid\", function () {\r",
-											"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
-											"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"});\r",
-											""
+									"name": "Fetch Unique Sponsor (uuid)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor data is valid\", function () {\r",
+													"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "31fa5065-0c48-461e-b5b2-9304fb276e88",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5c47921f-f3b6-4f54-8d74-68015e6e8e58",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "71c3ef66-5460-4eb5-9f75-8ad247f32537",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Unique Sponsor (uuid)-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3bfe42b5-41a3-4faa-a0ff-acf4d585acc1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "864d036b-9e05-4339-b5bf-0d4926397b0b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
 								}
 							],
-							"id": "31fa5065-0c48-461e-b5b2-9304fb276e88",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "5c47921f-f3b6-4f54-8d74-68015e6e8e58",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "71c3ef66-5460-4eb5-9f75-8ad247f32537",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch Unique Sponsor (uuid)-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3bfe42b5-41a3-4faa-a0ff-acf4d585acc1",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "864d036b-9e05-4339-b5bf-0d4926397b0b",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
+							"id": "2dd10d25-6c4e-479f-ba0d-76b1f7752ed9"
 						}
 					],
-					"id": "2dd10d25-6c4e-479f-ba0d-76b1f7752ed9"
+					"id": "57751459-a25d-4060-ac27-3f25707f81e3"
 				}
 			],
 			"id": "e99a0d7c-5c7a-462f-8d2f-25c757494caa"
@@ -9298,6 +9304,86 @@
 						}
 					],
 					"id": "408e3341-f430-43f6-9ceb-23e792867daa"
+				},
+				{
+					"name": "Departments",
+					"item": [
+						{
+							"name": "FetchDepts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 200\", () => {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Departments data is valid\", () => {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.departments).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"    pm.expect(jsonData.departments[0].name).to.be.a(\"string\").and.to.not.be.null;;\r",
+											"    pm.expect(jsonData.departments[0].isActive).to.be.true;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d2ea6e72-014c-44f6-8505-1faaaa90ea0e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{host}}api/department/office/{{office_uuid}}"
+							},
+							"response": []
+						},
+						{
+							"name": "FetchDepts - OfficeNoFound",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 404\", () => {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Office not found error message is correct\", () => {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "2cf29ba6-7662-43d3-869f-097d0b06db42",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{host}}api/department/office/{{office_}}"
+							},
+							"response": []
+						}
+					],
+					"id": "0e7b0649-d77e-4c69-9d94-b8172e2cd07c"
 				},
 				{
 					"name": "Users(Patient)",
@@ -10873,86 +10959,6 @@
 					"id": "1d50d1b6-f039-4882-947c-30465e990da0"
 				},
 				{
-					"name": "Departments",
-					"item": [
-						{
-							"name": "FetchDepts",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Departments data is valid\", () => {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.departments).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"    pm.expect(jsonData.departments[0].name).to.be.a(\"string\").and.to.not.be.null;;\r",
-											"    pm.expect(jsonData.departments[0].isActive).to.be.true;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "d2ea6e72-014c-44f6-8505-1faaaa90ea0e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{host}}api/department/office/{{office_uuid}}"
-							},
-							"response": []
-						},
-						{
-							"name": "FetchDepts - OfficeNoFound",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "2795c34e-0f10-4af3-9e93-12dfe24a5d78",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 404\", () => {\r",
-											"    pm.response.to.have.status(404);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Office not found error message is correct\", () => {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "2cf29ba6-7662-43d3-869f-097d0b06db42",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{host}}api/department/office/{{office_}}"
-							},
-							"response": []
-						}
-					],
-					"id": "0e7b0649-d77e-4c69-9d94-b8172e2cd07c"
-				},
-				{
 					"name": "Role",
 					"item": [
 						{
@@ -12346,287 +12352,293 @@
 					"id": "a51290b7-088b-4066-bad0-d48fbc939aeb"
 				},
 				{
-					"name": "Sponsor-GetAll",
+					"name": "Sponsor",
 					"item": [
 						{
-							"name": "All Sponsor Plans",
-							"event": [
+							"name": "Sponsor-GetAll",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains sponsor plans\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Plan details are valid\", function () {\r",
-											"    var plan = jsonData.plans[0];\r",
-											"    \r",
-											"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"});\r",
-											""
+									"name": "All Sponsor Plans",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a4e73471-018a-4c04-abcd-e054d7b61677",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains sponsor plans\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.plans).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Plan details are valid\", function () {\r",
+													"    var plan = jsonData.plans[0];\r",
+													"    \r",
+													"    pm.expect(plan._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5589a5cd-4c32-441a-a0be-14ea5e32ef51",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
+								},
+								{
+									"name": "All Sponsor Plans-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "17e715c4-3d82-416f-83e6-2c1ae277775c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
+								},
+								{
+									"name": "All Sponsor Plans-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "feb8ffe8-2e03-42f3-846d-9379e05677df",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/all/plans"
+									},
+									"response": []
 								}
 							],
-							"id": "5589a5cd-4c32-441a-a0be-14ea5e32ef51",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
+							"id": "90bd640c-0f2f-40ec-b19b-d7099695d621"
 						},
-						{
-							"name": "All Sponsor Plans-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "17e715c4-3d82-416f-83e6-2c1ae277775c",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						},
-						{
-							"name": "All Sponsor Plans-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "1a250bfe-8058-4e0e-ba3c-55236b7e1de7",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "feb8ffe8-2e03-42f3-846d-9379e05677df",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/all/plans"
-							},
-							"response": []
-						}
-					],
-					"id": "90bd640c-0f2f-40ec-b19b-d7099695d621"
-				},
-				{
-					"name": "Fetch Unique Sponsor (uuid)",
-					"item": [
 						{
 							"name": "Fetch Unique Sponsor (uuid)",
-							"event": [
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status is success\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Sponsor data is valid\", function () {\r",
-											"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
-											"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"});\r",
-											""
+									"name": "Fetch Unique Sponsor (uuid)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor data is valid\", function () {\r",
+													"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "493d524c-3dba-4aa4-8313-9f449538490a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "5c47921f-f3b6-4f54-8d74-68015e6e8e58",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "08ce9bdf-c4f8-4cc1-9edd-5f3b7bec4caa",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Unique Sponsor (uuid)-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3bfe42b5-41a3-4faa-a0ff-acf4d585acc1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e84b45c2-7288-4da4-9dc9-d92e7b45f8c3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87EDF987"
+									},
+									"response": []
 								}
 							],
-							"id": "493d524c-3dba-4aa4-8313-9f449538490a",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "5c47921f-f3b6-4f54-8d74-68015e6e8e58",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "08ce9bdf-c4f8-4cc1-9edd-5f3b7bec4caa",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
-						},
-						{
-							"name": "Fetch Unique Sponsor (uuid)-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3bfe42b5-41a3-4faa-a0ff-acf4d585acc1",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "e84b45c2-7288-4da4-9dc9-d92e7b45f8c3",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"url": "{{host}}api/sponsor/fetch/87EDF987"
-							},
-							"response": []
+							"id": "2a254e2e-b790-46fb-b2db-22f954e9a123"
 						}
 					],
-					"id": "2a254e2e-b790-46fb-b2db-22f954e9a123"
+					"id": "6d1eb758-50d2-49c3-b673-1d0fdb123ce1"
 				}
 			],
 			"id": "9963e146-a814-4f7f-ab56-cb1594a3bd94"
