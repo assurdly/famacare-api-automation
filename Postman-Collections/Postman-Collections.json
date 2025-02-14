@@ -8539,7 +8539,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by uuid-SuperAdmin-InvalidToken",
+									"name": "Search Patient by uuid-Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8574,7 +8574,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -8606,7 +8606,7 @@
 							"id": "16525659-0272-4fdf-be98-10743a8ad7be"
 						},
 						{
-							"name": "Users(Patient)-Update(upi) Copy",
+							"name": "Users(Patient)-Update(upi)",
 							"item": [
 								{
 									"name": "Update Patient (upi)-Update",
@@ -8668,7 +8668,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
