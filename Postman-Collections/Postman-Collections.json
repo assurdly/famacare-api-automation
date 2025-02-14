@@ -5424,7 +5424,7 @@
 					"name": "Drugs-FetchGenricDrugs",
 					"item": [
 						{
-							"name": "Fetch generic",
+							"name": "Fetch generic Drugs",
 							"event": [
 								{
 									"listen": "test",
@@ -5477,7 +5477,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-InvalidToken",
+							"name": "Fetch generic Drugs-InvalidToken",
 							"event": [
 								{
 									"listen": "test",
