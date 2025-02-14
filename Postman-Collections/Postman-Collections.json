@@ -11607,7 +11607,7 @@
 							"response": []
 						},
 						{
-							"name": "Create Sponsor-FieldRequired",
+							"name": "Create Sponsor-NameRequired",
 							"event": [
 								{
 									"listen": "test",
@@ -11616,13 +11616,15 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 400\", function () {\r",
+											"pm.test(\"Response code is 400\", function () {\r",
 											"    pm.response.to.have.status(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Error message is correct\", function () {\r",
+											"pm.test(\"Department validation failed\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"    pm.expect(jsonData.error[0].msg).to.be.a(\"string\");\r",
+											"    pm.expect(jsonData.error[1].msg).to.be.a(\"string\");\r",
 											"});\r",
 											""
 										],
