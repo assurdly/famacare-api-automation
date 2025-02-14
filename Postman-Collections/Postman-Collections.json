@@ -11183,11 +11183,187 @@
 					"id": "7b2a1ced-c363-4c4c-a89f-4b17bc1d5636"
 				},
 				{
-					"name": "New Folder",
+					"name": "Update-Unique-sponsor",
 					"item": [
 						{
 							"name": "Update unique sponsor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "72dc4542-b68c-4d9e-9ee8-95474d7df953",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/edit/87EDF987"
+							},
+							"response": []
+						},
+						{
+							"name": "Update unique sponsor Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "36a12cac-9606-4192-957a-07e457b3fb45",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/edit/87EDF987"
+							},
+							"response": []
+						},
+						{
+							"name": "Update unique sponsor Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "029e3d36-9006-493f-9f95-0175675803b1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/edit/87EDF987"
+							},
+							"response": []
+						},
+						{
+							"name": "Update unique sponsor Copy 2",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b2b2daea-6291-4c70-8631-f3d9804fcb61",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
