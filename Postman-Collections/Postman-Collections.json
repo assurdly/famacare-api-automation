@@ -5522,7 +5522,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-ExpiredToken",
+							"name": "Fetch generic Drugs-ExpiredToken",
 							"event": [
 								{
 									"listen": "test",
@@ -5563,7 +5563,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-NoToken",
+							"name": "Fetch generic Drugs-NoToken",
 							"event": [
 								{
 									"listen": "test",
