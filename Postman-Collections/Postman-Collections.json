@@ -7840,7 +7840,7 @@
 							]
 						},
 						{
-							"name": "Users(Patient) - ALL Copy",
+							"name": "Users(Patient) - ALL",
 							"item": [
 								{
 									"name": "Get All Patient- Receptionist",
@@ -7967,7 +7967,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -7979,10 +7979,10 @@
 							"id": "be9e782b-01ee-4550-9538-828615fded00"
 						},
 						{
-							"name": "Users(Patient)-Unique(upi) Copy",
+							"name": "Users(Patient)-Unique(upi)",
 							"item": [
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin",
+									"name": "Get Unique Patient(upi)-Receptionist",
 									"event": [
 										{
 											"listen": "test",
@@ -8026,7 +8026,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -8035,7 +8035,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin-ExpiredToken",
+									"name": "Get Unique Patient(upi)-Receptionist-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8887,357 +8887,6 @@
 								}
 							],
 							"id": "fde2a51b-93c8-413a-a041-74e0071a4e77"
-						},
-						{
-							"name": "Register Patient-Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "938e226c-1af7-413b-ad21-caf6cc5e5736",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Patient registration was successful\", () => {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "f5ebe5b9-d156-4828-a99a-e502166abd9e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"okon\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest2@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/patient/register"
-							},
-							"response": []
-						},
-						{
-							"name": "Get All Patient-Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "f3a4be6d-ff5c-4467-b3cb-49889945911c",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 200\", () => {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Patients data is valid\", () => {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.patients).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"\r",
-											"    pm.expect(jsonData.patients[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].upi).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].office).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patients[0].allergies).to.be.an(\"object\").and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "e9230880-1eba-4d9f-ab65-f6fb44594100",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/patient/all"
-							},
-							"response": []
-						},
-						{
-							"name": "Get Unique Patient(upi)-Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "0ffb0a7a-1922-4ecd-83a4-00ed2a5df89f",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains valid patient fields\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.patient).to.be.an(\"object\").and.to.not.be.null;\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Patient details are correctly returned\", function () {\r",
-											"    pm.expect(jsonData.patient._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.upi).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.office).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(jsonData.patient.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "029917d0-129b-4a76-b7d6-9657911e6fe6",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/patient/unique/2F8188B7"
-							},
-							"response": []
-						},
-						{
-							"name": "Search Patient by lastname-Receptionist",
-							"id": "8360283d-8ea5-4ce1-9b2b-a84d9857070e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}api/patient/search-users?query=kate&&",
-									"host": [
-										"{{host}}api"
-									],
-									"path": [
-										"patient",
-										"search-users"
-									],
-									"query": [
-										{
-											"key": "query",
-											"value": "Anthony",
-											"disabled": true
-										},
-										{
-											"key": "query",
-											"value": "kate"
-										},
-										{
-											"key": null,
-											"value": null
-										},
-										{
-											"key": "",
-											"value": null
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Search Patient by upi-Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "cf076b78-5b4c-4955-8d82-c51390184789",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status is success and code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Users array is valid and contains at least one user\", function () {\r",
-											"    pm.expect(jsonData.users).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"First user details are properly structured\", function () {\r",
-											"    let user = jsonData.users[0];\r",
-											"\r",
-											"    pm.expect(user._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.upi).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.office).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(user.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "51c7757d-da28-4098-b4a0-31dda4505b9f",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}api/patient/search-users?query=56C36693",
-									"host": [
-										"{{host}}api"
-									],
-									"path": [
-										"patient",
-										"search-users"
-									],
-									"query": [
-										{
-											"key": "query",
-											"value": "Anthony",
-											"disabled": true
-										},
-										{
-											"key": "query",
-											"value": "56C36693"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Search Patient by uuid-Receptionist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "ee104cbf-dde7-4a27-85fb-f563bae52272",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status is success and code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"// pm.test(\"Users array exists and can be empty\", function () {\r",
-											"//     pm.expect(jsonData.users).to.be.an(\"array\");\r",
-											"//     pm.expect(jsonData.users.length).to.be.at.least(0);\r",
-											"// });\r",
-											"\r",
-											"//Thi is commented out because the user field is not supposed to be zero and the script would be upadted. Currently only one uuid is live \r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "78f942cf-c832-43aa-a01c-296b1b5fc634",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"auth": {
-									"type": "noauth"
-								},
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"url": {
-									"raw": "{{host}}api/patient/search-users?query={{office_uuid}}",
-									"host": [
-										"{{host}}api"
-									],
-									"path": [
-										"patient",
-										"search-users"
-									],
-									"query": [
-										{
-											"key": "query",
-											"value": "Anthony",
-											"disabled": true
-										},
-										{
-											"key": "query",
-											"value": "{{office_uuid}}"
-										}
-									]
-								}
-							},
-							"response": []
 						}
 					],
 					"id": "4ebb00d8-75e1-4937-a400-7285393ea935"
