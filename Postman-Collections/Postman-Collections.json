@@ -5518,7 +5518,7 @@
 													"\r",
 													"pm.test(\"User details and token exist\", function () {\r",
 													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
 													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
 													"});\r",
@@ -6925,7 +6925,7 @@
 													"\r",
 													"pm.test(\"User details and token exist\", function () {\r",
 													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
 													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
 													"});\r",
@@ -6945,7 +6945,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\"\n}",
+											"raw": "{\n    \"email\":\"judith.michael@famacare.com\",\n    \"password\":\"BOBson246**\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -6957,7 +6957,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Doctor- InvalidEmail",
+									"name": "Login(staff)- Receptionist- InvalidEmail",
 									"event": [
 										{
 											"listen": "test",
@@ -7002,7 +7002,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Doctor- InvalidPassword",
+									"name": "Login(staff)- Receptionist- InvalidPassword",
 									"event": [
 										{
 											"listen": "test",
