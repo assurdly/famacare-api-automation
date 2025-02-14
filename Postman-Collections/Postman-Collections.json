@@ -12635,37 +12635,38 @@
 			"name": "Services",
 			"item": [
 				{
-					"name": "New Folder",
-					"item": [],
+					"name": "Service-Create",
+					"item": [
+						{
+							"name": "Create-Service",
+							"id": "2176a5c7-f8d2-465e-828c-01e13fe037f3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						}
+					],
 					"id": "1bdaa179-1fd8-49d4-b49c-1f4485c4b8dd"
-				},
-				{
-					"name": "Create",
-					"id": "2176a5c7-f8d2-465e-828c-01e13fe037f3",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "http://localhost:5000/api/service/addservice"
-					},
-					"response": []
 				},
 				{
 					"name": "fetch all services",
