@@ -12209,7 +12209,7 @@
 					"name": "Drugs-FetchGenricDrugs",
 					"item": [
 						{
-							"name": "Fetch generic",
+							"name": "Fetch generic Drugs",
 							"event": [
 								{
 									"listen": "test",
@@ -12262,7 +12262,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-InvalidToken",
+							"name": "Fetch generic Drugs-InvalidToken",
 							"event": [
 								{
 									"listen": "test",
@@ -12307,7 +12307,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-ExpiredToken",
+							"name": "Fetch generic Drugs-ExpiredToken",
 							"event": [
 								{
 									"listen": "test",
@@ -12348,7 +12348,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch generic-NoToken",
+							"name": "Fetch generic Drugs-NoToken",
 							"event": [
 								{
 									"listen": "test",
@@ -12690,6 +12690,11 @@
 				{
 					"name": "Service-Create",
 					"item": [
+						{
+							"name": "New Folder",
+							"item": [],
+							"id": "ce6816d4-5537-450f-b4a3-75dfaf0258cb"
+						},
 						{
 							"name": "Create-Service",
 							"id": "2176a5c7-f8d2-465e-828c-01e13fe037f3",
