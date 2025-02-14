@@ -3931,7 +3931,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
