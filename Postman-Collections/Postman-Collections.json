@@ -12590,7 +12590,7 @@
 					"id": "4581ab72-2318-48a6-9bdd-faee133a6142"
 				},
 				{
-					"name": "New Folder Copy 2",
+					"name": "Get Unique Plan by Name",
 					"item": [
 						{
 							"name": "Get Unique Plan by Name",
@@ -12603,11 +12603,11 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
-								"url": "http://localhost:5000/api/sponsor/fetch/plan/FAMACARE PRICELIST"
+								"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
 							},
 							"response": []
 						},
