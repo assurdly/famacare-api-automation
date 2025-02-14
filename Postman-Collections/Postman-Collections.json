@@ -913,15 +913,15 @@
 							"id": "1c830035-28f2-464f-a25a-3fcca9632297"
 						},
 						{
-							"name": "Authentication-VerifyToken Copy",
+							"name": "Authentication-ResetPassword",
 							"item": [
 								{
-									"name": "Verify Token",
+									"name": "Reset Password",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
-												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
@@ -929,11 +929,9 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Token validation is successful\", function () {\r",
-													"    pm.expect(jsonData.valid).to.be.true;\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
-													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.be.below(jsonData.user.exp);\r",
+													"pm.test(\"Password update was successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"Password updated successfully\");\r",
 													"});\r",
 													""
 												],
@@ -942,7 +940,7 @@
 											}
 										}
 									],
-									"id": "095f7774-0737-43bc-8148-4fbb1c5738cf",
+									"id": "68109d4f-aca4-41ab-9487-ab26dd75c8c4",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -951,68 +949,17 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n}",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
 											"options": {
 												"raw": {
 													"language": "json"
 												}
 											}
 										},
-										"url": "{{host}}api/auth/verifytoken"
+										"url": "{{host}}api/auth/reset-password"
 									},
 									"response": []
 								},
-								{
-									"name": "Verify Token-InvalidToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Token validation failed\", function () {\r",
-													"    pm.expect(jsonData.valid).to.be.false;\r",
-													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "9a75dcca-4e7b-4bc2-a90b-98aa611b2d6f",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/verifytoken"
-									},
-									"response": []
-								}
-							],
-							"id": "01ebdf9a-4492-4b33-a0b4-af8210a55941"
-						},
-						{
-							"name": "Authentication-ResetPassword",
-							"item": [
 								{
 									"name": "Reset Password-InvalidToken",
 									"event": [
@@ -1102,195 +1049,9 @@
 										"url": "{{host}}api/auth/reset-password"
 									},
 									"response": []
-								},
-								{
-									"name": "Reset Password",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Password update was successful\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.include(\"Password updated successfully\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "68109d4f-aca4-41ab-9487-ab26dd75c8c4",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/reset-password"
-									},
-									"response": []
 								}
 							],
 							"id": "f409bab5-579e-4084-9f7a-403ea1cdee75"
-						},
-						{
-							"name": "Authentication-ResetPassword Copy",
-							"item": [
-								{
-									"name": "Reset Password-InvalidToken",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Token validation failed\", function () {\r",
-													"    pm.expect(jsonData.valid).to.be.false;\r",
-													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "c56dd723-5dcd-4f2e-90d2-5821efa0d136",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n  \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/reset-password"
-									},
-									"response": []
-								},
-								{
-									"name": "Reset Password-InvalidEmail",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User registration error message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"user with email not registered\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "15edbe3c-ab5d-435d-a5c8-c6b15d91c7b6",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/reset-password"
-									},
-									"response": []
-								},
-								{
-									"name": "Reset Password",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Password update was successful\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.include(\"Password updated successfully\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "11a230d0-37cc-49bf-ae4d-29943052e13f",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/reset-password"
-									},
-									"response": []
-								}
-							],
-							"id": "346d9825-9521-4a8e-8f8e-4b3c39139de4"
 						}
 					],
 					"id": "a8126e2a-8e8f-421a-a9d8-b9451a0e9c58"
@@ -5873,7 +5634,7 @@
 							"id": "f08c65b8-f174-4390-8180-49075f47584c"
 						},
 						{
-							"name": "Authentication-ForgotPassword Copy",
+							"name": "Authentication-ForgotPassword",
 							"item": [
 								{
 									"name": "Forgot",
@@ -5967,6 +5728,245 @@
 								}
 							],
 							"id": "0f784314-a978-4f68-81cb-3b3b2b13ff68"
+						},
+						{
+							"name": "Authentication-VerifyToken",
+							"item": [
+								{
+									"name": "Verify Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation is successful\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.true;\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.be.below(jsonData.user.exp);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "095f7774-0737-43bc-8148-4fbb1c5738cf",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								},
+								{
+									"name": "Verify Token-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation failed\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.false;\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9a75dcca-4e7b-4bc2-a90b-98aa611b2d6f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								}
+							],
+							"id": "01ebdf9a-4492-4b33-a0b4-af8210a55941"
+						},
+						{
+							"name": "Authentication-ResetPassword Copy",
+							"item": [
+								{
+									"name": "Reset Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password update was successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"Password updated successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "11a230d0-37cc-49bf-ae4d-29943052e13f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation failed\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.false;\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c56dd723-5dcd-4f2e-90d2-5821efa0d136",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password-InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User registration error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"user with email not registered\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "15edbe3c-ab5d-435d-a5c8-c6b15d91c7b6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								}
+							],
+							"id": "346d9825-9521-4a8e-8f8e-4b3c39139de4"
 						}
 					],
 					"id": "16290b79-9888-484c-ba92-f515d2ed88fd"
