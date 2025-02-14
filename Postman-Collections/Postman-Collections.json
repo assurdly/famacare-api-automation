@@ -1588,6 +1588,57 @@
 									"response": []
 								},
 								{
+									"name": "Register Patient-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration was successful\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e6597b3e-b2ac-4151-81ac-254af87c3b61",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"tolutst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register Patient-SuperAdmin-ExpiredToken",
 									"event": [
 										{
@@ -1612,6 +1663,56 @@
 										}
 									],
 									"id": "beac5329-3528-4823-90bc-e1fc5abe572b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"tolutst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-ExpiredToken Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "70280b9b-e1d2-4ff3-baaf-baf41b6ae63d",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -1689,6 +1790,57 @@
 									"response": []
 								},
 								{
+									"name": "Register Patient-SuperAdmin-EmailExist Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration failure message is correct\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.include(\"patient with email already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0c1ada16-26fc-48bb-87a2-24185c770932",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register Patient-SuperAdmin-InvalidToken",
 									"event": [
 										{
@@ -1739,6 +1891,56 @@
 									"response": []
 								},
 								{
+									"name": "Register Patient-SuperAdmin-InvalidToken Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "72812cf8-ead6-4d40-8e3f-5741b5ed9532",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_n}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register Patient-SuperAdmin-NoToken",
 									"event": [
 										{
@@ -1763,6 +1965,56 @@
 										}
 									],
 									"id": "e5de9e73-e1c1-4f7c-80be-3b3519fcd82d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-NoToken Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "59933169-7a87-4bae-81b3-495a772f1853",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -1841,6 +2093,58 @@
 									"response": []
 								},
 								{
+									"name": "Register Patient-SuperAdmin-InvalidEmail Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", () => {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Email validation error exists\", () => {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"    pm.expect(jsonData.error[0].msg).to.include(\"email must be a valid email\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "025d7132-59a4-432a-bd1f-8d65130e0158",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteest@gmail\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register Patient-SuperAdmin-EmptySponsor",
 									"event": [
 										{
@@ -1882,6 +2186,47 @@
 									"response": []
 								},
 								{
+									"name": "Register Patient-SuperAdmin-EmptySponsor Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"//user can create patient without a sponsor"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "2d7e037b-a50a-4076-9e0c-173108671316",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteestEt@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register Patient-SuperAdmin-EmptyOffice",
 									"event": [
 										{
@@ -1897,6 +2242,47 @@
 										}
 									],
 									"id": "86efab84-1c3d-4d57-bcee-4c66b5de8762",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mab\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteestio@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_\",\n    \"office\":\"{{offic\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/patient/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register Patient-SuperAdmin-EmptyOffice Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
+												"exec": [
+													"//user can create patient without an office"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b820f6d6-732a-4367-8599-6505a10dad34",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -5828,7 +6214,7 @@
 							"id": "01ebdf9a-4492-4b33-a0b4-af8210a55941"
 						},
 						{
-							"name": "Authentication-ResetPassword Copy",
+							"name": "Authentication-ResetPassword",
 							"item": [
 								{
 									"name": "Reset Password",
