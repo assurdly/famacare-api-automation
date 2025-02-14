@@ -4320,8 +4320,7 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token}}",
-												"type": "text",
-												"disabled": true
+												"type": "text"
 											}
 										],
 										"url": "{{host}}api/role/{{office_uuid}}"
@@ -6383,463 +6382,475 @@
 					"name": "Diagnosis",
 					"item": [
 						{
-							"name": "Create",
-							"event": [
+							"name": "Diagnosis-Create",
+							"item": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "63717d7f-34cf-420b-a122-d5e75046d7c1",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\", \"success\");\r",
-											"    pm.expect(jsonData).to.have.property(\"message\", \"Diagnosis Added successfully\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "9516c599-305a-4c4b-bbc9-3e75610c0d39",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"NM00.1\",\n    \"name\":\"Fever and cold\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+									"name": "Create",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "63717d7f-34cf-420b-a122-d5e75046d7c1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Success message is correct\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\", \"success\");\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Diagnosis Added successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "Create-AlreadyExist",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "90054cc0-3fc1-4e70-ad8e-e3731cbb482e",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Diagnosis already exists\");\r",
-											"});\r",
-											""
+									],
+									"id": "9516c599-305a-4c4b-bbc9-3e75610c0d39",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "024db424-b665-433b-9abd-4c6f2b548760",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"A00.0\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"NM00.1\",\n    \"name\":\"Fever and cold\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-AlreadyExist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "90054cc0-3fc1-4e70-ad8e-e3731cbb482e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected fields\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+													"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Diagnosis already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "Create-ExpiredToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "90054cc0-3fc1-4e70-ad8e-e3731cbb482e",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Token expiration message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-											"});\r",
-											""
+									],
+									"id": "024db424-b665-433b-9abd-4c6f2b548760",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "b5462323-58bc-4d39-8730-b01d91dd2550",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"A00.0\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"A00.0\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "90054cc0-3fc1-4e70-ad8e-e3731cbb482e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "Create-FieldsRequired",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e5525b37-33a6-4f93-a717-d692391fd032",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Code and name are required\");\r",
-											"});\r",
-											""
+									],
+									"id": "b5462323-58bc-4d39-8730-b01d91dd2550",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "09eda2c5-ef6b-4d5f-9ef3-8d7f0a218611",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"A00.0\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-FieldsRequired",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e5525b37-33a6-4f93-a717-d692391fd032",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected fields\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+													"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Code and name are required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "Create-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bd9fc890-5d39-49bc-9f99-ce21402f0a45",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
+									],
+									"id": "09eda2c5-ef6b-4d5f-9ef3-8d7f0a218611",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "1e547263-72f2-49ba-a33d-78620cbcdd93",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"A00.011\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bd9fc890-5d39-49bc-9f99-ce21402f0a45",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
-								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "Create-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "bd9fc890-5d39-49bc-9f99-ce21402f0a45",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
+									],
+									"id": "1e547263-72f2-49ba-a33d-78620cbcdd93",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "f5c455e0-383f-4a16-b66c-67d3772ea1c2",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"code\":\"A00.011\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"A00.011\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bd9fc890-5d39-49bc-9f99-ce21402f0a45",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected field\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
 										}
-									}
+									],
+									"id": "f5c455e0-383f-4a16-b66c-67d3772ea1c2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"code\":\"A00.011\",\n    \"name\":\"Cholera due to Vibrio cholerae 01, biovar cholerae\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/diagnosis/create"
+									},
+									"response": []
+								}
+							],
+							"id": "76d36e5e-a1f8-47c4-b911-c4e389f19bd9"
+						},
+						{
+							"name": "FetchAll",
+							"item": [
+								{
+									"name": "fetch-all",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected fields\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+													"    pm.expect(jsonData).to.have.property(\"diagnosis\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Diagnosis contains required fields\", function () {\r",
+													"    var diagnosis = jsonData.diagnosis[0];\r",
+													"    pm.expect(diagnosis).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"code\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"name\").that.is.a(\"string\").and.to.not.be.empty;\r",
+													"    pm.expect(diagnosis).to.have.property(\"createdAt\").that.is.a(\"string\"); //.and.to.not.be.empty was not added here because the initial implementation did not have this field, but the update once have. So the system would pull old diagnosis and fail this and the one below.\r",
+													"    pm.expect(diagnosis).to.have.property(\"updatedAt\").that.is.a(\"string\")\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "bdbba61a-27b5-45a2-8d66-4da163b2efbc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/diagnosis/fetch"
+									},
+									"response": []
 								},
-								"url": "{{host}}api/diagnosis/create"
-							},
-							"response": []
-						},
-						{
-							"name": "fetch-all",
-							"event": [
 								{
-									"listen": "test",
-									"script": {
-										"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"diagnosis\").that.is.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Diagnosis contains required fields\", function () {\r",
-											"    var diagnosis = jsonData.diagnosis[0];\r",
-											"    pm.expect(diagnosis).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.empty;\r",
-											"    pm.expect(diagnosis).to.have.property(\"code\").that.is.a(\"string\").and.to.not.be.empty;\r",
-											"    pm.expect(diagnosis).to.have.property(\"name\").that.is.a(\"string\").and.to.not.be.empty;\r",
-											"    pm.expect(diagnosis).to.have.property(\"createdAt\").that.is.a(\"string\"); //.and.to.not.be.empty was not added here because the initial implementation did not have this field, but the update once have. So the system would pull old diagnosis and fail this and the one below.\r",
-											"    pm.expect(diagnosis).to.have.property(\"updatedAt\").that.is.a(\"string\")\r",
-											"});\r",
-											""
+									"name": "fetch-all-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response has status code 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains expected field\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response content is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "1cd67e1d-d6c5-4068-9c4b-c42b21a9966e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token_Invalid}}",
+												"type": "text"
+											}
 										],
-										"type": "text/javascript",
-										"packages": {}
-									}
+										"url": "{{host}}api/diagnosis/fetch"
+									},
+									"response": []
+								},
+								{
+									"name": "fetch-all-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7f315a3d-d2db-424b-b701-2302469fe554",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/diagnosis/fetch"
+									},
+									"response": []
 								}
 							],
-							"id": "bdbba61a-27b5-45a2-8d66-4da163b2efbc",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/diagnosis/fetch"
-							},
-							"response": []
-						},
-						{
-							"name": "fetch-all-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "1cd67e1d-d6c5-4068-9c4b-c42b21a9966e",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/diagnosis/fetch"
-							},
-							"response": []
-						},
-						{
-							"name": "fetch-all-ExpiredToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "3122cd5d-f42c-4c88-a966-20ed169fd8f2",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Token expiration message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "7f315a3d-d2db-424b-b701-2302469fe554",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{ExpiredToken}}",
-										"type": "text"
-									}
-								],
-								"url": "{{host}}api/diagnosis/fetch"
-							},
-							"response": []
+							"id": "903146ce-44e4-4961-a5d3-287e82d951c6"
 						}
 					],
 					"id": "043411fe-dc45-464c-9ad6-9e4e86f5a0a0"
@@ -7831,22 +7842,22 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e6e53971-b096-44c1-b090-97f67c082828",
+								"id": "e497245b-93c6-4a59-8d5e-f13a0588983f",
 								"exec": [
 									"var jsonData = pm.response.json();\r",
 									"\r",
-									"pm.test(\"Response has status code 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
+									"pm.test(\"Response has status code 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response contains expected fields\", function () {\r",
 									"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-									"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+									"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
 									"});\r",
 									"\r",
 									"pm.test(\"Response content is correct\", function () {\r",
-									"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-									"    pm.expect(jsonData.message).to.eql(\"Drug Generic Name Added successfully\");\r",
+									"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+									"    pm.expect(jsonData.error).to.eql(\"Generic name already exists\");\r",
 									"});\r",
 									""
 								],
