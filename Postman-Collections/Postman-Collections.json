@@ -6978,6 +6978,286 @@
 					"id": "043411fe-dc45-464c-9ad6-9e4e86f5a0a0"
 				},
 				{
+					"name": "Drugs-AddGeneric",
+					"item": [
+						{
+							"name": "Add Generic Name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e6e53971-b096-44c1-b090-97f67c082828",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected fields\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.message).to.eql(\"Drug Generic Name Added successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6ac80f75-1b62-4ded-b003-d495e7a7381d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"generic_id\" : \"MG - 1003\",\n    \"generic\" : \"Test\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/drugs/generic-name"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Generic-AlreadyExists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e497245b-93c6-4a59-8d5e-f13a0588983f",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected fields\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Generic name already exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "29f0822e-3b40-488f-a8ab-3c81d8856975",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"generic_id\" : \"MG - 100361\",\n    \"generic\" : \"Test\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/drugs/generic-name"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Generic-FieldsRequired",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e6e53971-b096-44c1-b090-97f67c082828",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected fields\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
+											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Generic Id and Generic name are required\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "96a017ab-fa95-48d4-94c3-16f8e2fb23f2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"generic_id\" : \"\",\n    \"generic\" : \"Test\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/drugs/generic-name"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Generic-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e6e53971-b096-44c1-b090-97f67c082828",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "a1ef522d-67c2-4608-b652-b221d1fb34a0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"generic_id\" : \"\",\n    \"generic\" : \"Test\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/drugs/generic-name"
+							},
+							"response": []
+						},
+						{
+							"name": "Add Generic-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e6e53971-b096-44c1-b090-97f67c082828",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response has status code 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains expected field\", function () {\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response content is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d5860b55-e2a7-4cb8-bce4-ef935211bac2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{doctor_token_Invalid}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"generic_id\" : \"BFR10\",\n    \"generic\" : \"Test\"\n\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/drugs/generic-name"
+							},
+							"response": []
+						}
+					],
+					"id": "2bb7269d-7521-474c-8fbb-94c539d26681"
+				},
+				{
 					"name": "Drugs-FetchGenricDrugs",
 					"item": [
 						{
@@ -10607,7 +10887,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
+										"value": "Bearer {{receptionist _token_Invalid}}",
 										"type": "text"
 									}
 								],
@@ -10705,296 +10985,23 @@
 			"id": "9963e146-a814-4f7f-ab56-cb1594a3bd94"
 		},
 		{
-			"name": "Drugs",
-			"item": [
-				{
-					"name": "Drugs-AddGeneric",
-					"item": [
-						{
-							"name": "Add Generic Name",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e6e53971-b096-44c1-b090-97f67c082828",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.message).to.eql(\"Drug Generic Name Added successfully\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "6ac80f75-1b62-4ded-b003-d495e7a7381d",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"MG - 1003\",\n    \"generic\" : \"Test\"\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/drugs/generic-name"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Generic-AlreadyExists",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e497245b-93c6-4a59-8d5e-f13a0588983f",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Generic name already exists\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "29f0822e-3b40-488f-a8ab-3c81d8856975",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"MG - 100361\",\n    \"generic\" : \"Test\"\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/drugs/generic-name"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Generic-FieldsRequired",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e6e53971-b096-44c1-b090-97f67c082828",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 400\", function () {\r",
-											"    pm.response.to.have.status(400);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected fields\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"status\").that.is.a(\"string\");\r",
-											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Generic Id and Generic name are required\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "96a017ab-fa95-48d4-94c3-16f8e2fb23f2",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"\",\n    \"generic\" : \"Test\"\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/drugs/generic-name"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Generic-NoToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e6e53971-b096-44c1-b090-97f67c082828",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response code is 401\", () => {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Authorization error message is correct\", () => {\r",
-											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "a1ef522d-67c2-4608-b652-b221d1fb34a0",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"\",\n    \"generic\" : \"Test\"\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/drugs/generic-name"
-							},
-							"response": []
-						},
-						{
-							"name": "Add Generic-InvalidToken",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"id": "e6e53971-b096-44c1-b090-97f67c082828",
-										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response has status code 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response contains expected field\", function () {\r",
-											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"id": "d5860b55-e2a7-4cb8-bce4-ef935211bac2",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "Bearer {{doctor_token_Invalid}}",
-										"type": "text",
-										"disabled": true
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"BFR10\",\n    \"generic\" : \"Test\"\n\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": "{{host}}api/drugs/generic-name"
-							},
-							"response": []
-						}
-					],
-					"id": "2bb7269d-7521-474c-8fbb-94c539d26681"
-				}
-			],
-			"id": "25b551e8-f43c-481f-acfe-3232f21e9c34"
-		},
-		{
 			"name": "Sponsors",
 			"item": [
 				{
 					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8e59ff3c-f5e0-4ac5-b64e-0676f42bef87",
+								"exec": [
+									"//Advised by dev not to test as they have just one sponsor hardcoded for now "
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"id": "f716a354-c114-4f61-8335-3ed27b24216f",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -11036,7 +11043,7 @@
 								"type": "text"
 							}
 						],
-						"url": "http://localhost:5000/api/sponsor/fetch"
+						"url": "{{host}}api/sponsor/fetch"
 					},
 					"response": []
 				},
