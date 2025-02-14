@@ -9052,7 +9052,7 @@
 											"response": []
 										},
 										{
-											"name": "Schedule-SuperAdmin-ExpiredToken",
+											"name": "Schedule-Receptionist-ExpiredToken",
 											"event": [
 												{
 													"listen": "test",
