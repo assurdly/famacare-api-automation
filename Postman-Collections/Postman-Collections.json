@@ -3459,7 +3459,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mo Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"raw": "{\n    \n    \"name\":\"Mod Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9043,6 +9043,215 @@
 				{
 					"name": "Role",
 					"item": [
+						{
+							"name": "Role-GetRoles",
+							"item": [
+								{
+									"name": "Get Roles-Receptionist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Roles data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "abf4a3ca-761e-4599-8765-e0fbc8c9d8c9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Roles-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Roles data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4c41ea78-1335-45ec-84fe-85cb5fd4f357",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Roles-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Roles data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "bfc1c27e-bfae-4948-93e9-db74801c0a70",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Roles-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Roles data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"First role contains required fields\", function () {\r",
+													"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f601a252-931c-43d2-945d-1aec514abbee",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/role/{{office_uuid}}"
+									},
+									"response": []
+								}
+							],
+							"id": "7bacfa91-9ed8-4630-9712-1a8b9603caa6"
+						},
 						{
 							"name": "Get Roles-Receptionist",
 							"event": [
