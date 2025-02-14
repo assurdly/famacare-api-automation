@@ -1,0 +1,10 @@
+var jsonData = pm.response.json();
+
+pm.test("Response code is 200", () => {
+    pm.response.to.have.status(200);
+});
+
+pm.test("Patient registration was successful", () => {
+    pm.expect(jsonData.status).to.eql("success");
+    pm.expect(jsonData.message).to.include("patient registered successfully");
+});
