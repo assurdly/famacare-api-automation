@@ -11403,7 +11403,30 @@
 					"name": "CreateSponsorPlan",
 					"item": [
 						{
-							"name": "Create Sponsor Plan Copy",
+							"name": "Create Sponsor Plan",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "e4d025fc-c2f2-48bf-bac6-288a96076b24",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "cfcda4f0-56aa-4c28-902f-59f83e74c06c",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -11419,7 +11442,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"raw": "{\n    \"name\":\"FAMACARE ZEE\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11471,6 +11494,108 @@
 								"body": {
 									"mode": "raw",
 									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/plan/D773AAFB"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Sponsor-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "913f2714-6675-4de0-9b68-66789a9a0ccc",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "60922a94-2466-4464-97eb-5723f708462a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/plan/D773AAFB"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Sponsor-AlreadyExist Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "913f2714-6675-4de0-9b68-66789a9a0ccc",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "744b2073-5356-4ec1-9278-0036813cdac5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
