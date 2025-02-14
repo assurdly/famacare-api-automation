@@ -1,0 +1,13 @@
+{
+    "Date": "Fri, 14 Feb 2025 17:54:07 GMT",
+    "Content-Length": "0",
+    "Connection": "keep-alive",
+    "CF-Ray": "911eebbb7ec93949-IAD",
+    "CF-Cache-Status": "DYNAMIC",
+    "rndr-id": "b2bee6f6-9cf4-4ddb",
+    "x-render-origin-server": "Render",
+    "x-render-routing": "dynamic-user-server-502",
+    "Vary": "Accept-Encoding",
+    "Server": "cloudflare",
+    "alt-svc": "h3=\":443\"; ma=86400"
+}

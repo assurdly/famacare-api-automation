@@ -1,0 +1,10 @@
+var jsonData = pm.response.json();
+
+pm.test("Response status code is 400", function () {
+    pm.response.to.have.status(400);
+});
+
+pm.test("Response body contains failure status and error message", function () {
+    pm.expect(jsonData.status).to.eql("failed");
+    pm.expect(jsonData.error).to.eql("user with email already exists");
+});
