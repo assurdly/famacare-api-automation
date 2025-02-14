@@ -11556,7 +11556,58 @@
 							"response": []
 						},
 						{
-							"name": "Create Sponsor-AlreadyExist Copy",
+							"name": "Create Sponsor-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "913f2714-6675-4de0-9b68-66789a9a0ccc",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "ad540be2-4e1b-4198-bf3a-c3a646fb06bb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/plan/D773AAFB"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Sponsor-FieldRequired",
 							"event": [
 								{
 									"listen": "test",
