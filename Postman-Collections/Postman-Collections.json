@@ -6906,6 +6906,485 @@
 					"name": "Authentication",
 					"item": [
 						{
+							"name": "Authntication-Login(staff)",
+							"item": [
+								{
+									"name": "Login(staff) - Receptionist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bb90aa48-33a0-4bba-a49d-3cf8680bbe55",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status is success and response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User details and token exist\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d01bf122-3eb8-4846-aba0-ae000ffe1287",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Login(staff)- Doctor- InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8a4255ab-87c3-469b-ae89-990bd37f69ca",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Login(staff)- Doctor- InvalidPassword",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9086fc11-365b-4a39-82b4-43e6d1944804",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukemeka@famacare.com\",\n    \"password\":\"Facare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								}
+							],
+							"id": "b4254c66-891c-471f-bf9e-32d186a7525a"
+						},
+						{
+							"name": "Authentication-ForgotPassword Copy",
+							"item": [
+								{
+									"name": "Forgot",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1bc760f9-2837-4e8b-b6ff-efb9cdadd00b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password reset email sent successfully\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
+													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9d6b0ad0-4c67-4a49-9b1e-652616d17888",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/forgot"
+									},
+									"response": []
+								},
+								{
+									"name": "Forgot- InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1bc760f9-2837-4e8b-b6ff-efb9cdadd00b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Correct error message is returned\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Email not registered\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8cd7d826-98ad-42b9-ba3f-2cfd8b5a8819",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morg+1@assurdly.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/forgot"
+									},
+									"response": []
+								}
+							],
+							"id": "d78d5e22-27b4-4942-84d1-fa54f2100f53"
+						},
+						{
+							"name": "Authentication-VerifyToken Copy",
+							"item": [
+								{
+									"name": "Verify Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation is successful\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.true;\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.be.below(jsonData.user.exp);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "1c83a4a0-a3ed-4da2-ab3d-267a501e1a33",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								},
+								{
+									"name": "Verify Token-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation failed\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.false;\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "719f9f7d-cbf3-418c-8ba7-64a1afeaf786",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								}
+							],
+							"id": "39be5f7b-4fcb-47a8-b1a5-b2e7ac482c2e"
+						},
+						{
+							"name": "Authentication-ResetPassword Copy",
+							"item": [
+								{
+									"name": "Reset Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password update was successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.include(\"Password updated successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "06bfe1e7-0a2b-494e-8a26-1d4e3cbbb2c2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token validation failed\", function () {\r",
+													"    pm.expect(jsonData.valid).to.be.false;\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3a282972-6533-4a13-9e7b-7b7696380bf1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfR\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password-InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User registration error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"user with email not registered\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f2208ca2-ad4b-4d64-b3a8-8a35c16c114e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								}
+							],
+							"id": "7d23f1bc-130d-4ca3-bc19-4bc538921006"
+						},
+						{
 							"name": "Login(staff)- Receptionist",
 							"event": [
 								{
