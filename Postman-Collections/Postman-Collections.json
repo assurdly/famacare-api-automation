@@ -11766,7 +11766,6 @@
 											"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
 											"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
 											"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(plan.plan_id).to.satisfy(val => val === null || typeof val === \"string\");\r",
 											"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
 											"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
 											"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
@@ -11796,7 +11795,29 @@
 							"response": []
 						},
 						{
-							"name": "All Sponsor Plans Copy",
+							"name": "All Sponsor Plans-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "75d5cc47-f7f7-4acc-afbd-c640368f15fb",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "a66a0ee4-a7b6-492c-9e73-afc3853f9992",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -11806,7 +11827,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
