@@ -11400,6 +11400,91 @@
 					"id": "348acbbc-c61a-48d0-8eac-454b22257a56"
 				},
 				{
+					"name": "CreateSponsorPlan",
+					"item": [
+						{
+							"name": "Create Sponsor Plan Copy",
+							"id": "cfcda4f0-56aa-4c28-902f-59f83e74c06c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/plan/D773AAFB"
+							},
+							"response": []
+						},
+						{
+							"name": "Create Sponsor-AlreadyExist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "913f2714-6675-4de0-9b68-66789a9a0ccc",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b0ca54e9-fbb3-4a59-873e-670c51e3541c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/sponsor/plan/D773AAFB"
+							},
+							"response": []
+						}
+					],
+					"id": "0b445697-266a-4fbc-8769-a692b12bc009"
+				},
+				{
 					"name": "Delete Sponsor",
 					"id": "75d4ce12-b698-4642-b2ee-4574c01071bb",
 					"protocolProfileBehavior": {
@@ -11415,34 +11500,6 @@
 							}
 						],
 						"url": "http://localhost:5000/api/sponsor/delete/FE78F283"
-					},
-					"response": []
-				},
-				{
-					"name": "Create Sponsor Plan",
-					"id": "b0ca54e9-fbb3-4a59-873e-670c51e3541c",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer {{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"name\":\"FAMACARE PRICELIST\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "http://localhost:5000/api/sponsor/plan/D773AAFB"
 					},
 					"response": []
 				},
