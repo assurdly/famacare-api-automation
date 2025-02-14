@@ -8076,7 +8076,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin-InvalidToken",
+									"name": "Get Unique Patient(upi)-Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8108,7 +8108,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -8120,10 +8120,10 @@
 							"id": "59a8b08d-e1ca-480a-88e0-c1791dd8833e"
 						},
 						{
-							"name": "Users(PatientSearch) Copy",
+							"name": "Users(PatientSearch)",
 							"item": [
 								{
-									"name": "Search Patient by lastname-SuperAdmin",
+									"name": "Search Patient by lastname-Receptionist",
 									"event": [
 										{
 											"listen": "test",
@@ -8172,7 +8172,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -8201,7 +8201,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient SuperAdmin-ExpiredToken",
+									"name": "Search Patient Receptionist-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8265,7 +8265,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by lastname-SuperAdmin-InvalidToken",
+									"name": "Search Patient by lastname-Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8300,7 +8300,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -8329,7 +8329,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by upi-SuperAdmin",
+									"name": "Search Patient by upi-Receptionist",
 									"event": [
 										{
 											"listen": "test",
@@ -8378,7 +8378,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -8407,7 +8407,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by upi-SuperAdmin-InvalidToken",
+									"name": "Search Patient by upi-Receptionist-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -8471,7 +8471,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by uuid-SuperAdmin",
+									"name": "Search Patient by uuid-Receptionist",
 									"event": [
 										{
 											"listen": "test",
