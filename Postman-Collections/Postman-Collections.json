@@ -7818,7 +7818,7 @@
 							"id": "0ac68070-ed98-401f-87bf-83d453eae9a0"
 						},
 						{
-							"name": "fetch all services",
+							"name": "fetch all services by type",
 							"item": [
 								{
 									"name": "Fetch Service by type",
@@ -11880,7 +11880,7 @@
 							"id": "ab2498e0-c5e2-45a4-aad8-063983694cff"
 						},
 						{
-							"name": "fetch all services",
+							"name": "fetch all services by type",
 							"item": [
 								{
 									"name": "Fetch Service by type",
@@ -18664,7 +18664,7 @@
 							"id": "d4d22c76-05b9-455d-ac47-44eb2b66a072"
 						},
 						{
-							"name": "fetch all services",
+							"name": "fetch all services by type",
 							"item": [
 								{
 									"name": "Fetch Service by type",
