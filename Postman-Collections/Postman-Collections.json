@@ -7446,7 +7446,23 @@
 												}
 											}
 										},
-										"url": "{{host}}api/service/addservice"
+										"url": {
+											"raw": "{{host}}api/service/addservice?Authourization=Bearer {{super_admin_token}}",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"service",
+												"addservice"
+											],
+											"query": [
+												{
+													"key": "Authourization",
+													"value": "Bearer {{super_admin_token}}",
+													"type": "text"
+												}
+											]
+										}
 									},
 									"response": []
 								},
