@@ -7019,14 +7019,27 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Plan by Name Copy",
+									"name": "Get Unique Plan by Name- NotFound",
 									"event": [
 										{
 											"listen": "test",
 											"script": {
 												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
 												"exec": [
-													"//This service has been suspended."
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"Sponsor Plan does not exists\");\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -7043,8 +7056,7 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token}}",
-												"type": "text",
-												"disabled": true
+												"type": "text"
 											}
 										],
 										"url": "{{host}}api/sponsor/fetch/plan/FAM"
@@ -7059,7 +7071,16 @@
 											"script": {
 												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
 												"exec": [
-													"//This service has been suspended."
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -7075,7 +7096,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{super_admin_token_Invalid}}",
 												"type": "text",
 												"disabled": true
 											}
