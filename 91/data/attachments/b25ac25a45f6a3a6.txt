@@ -1,0 +1,10 @@
+var jsonData = pm.response.json();
+
+pm.test("Response status is 400", function () {
+    pm.response.to.have.status(400);
+});
+
+pm.test("Error message for price field is correct", function () {
+    pm.expect(jsonData.errors[0].path).to.eql("price");
+    pm.expect(jsonData.errors[0].msg).to.eql("Price must be a number");
+});
