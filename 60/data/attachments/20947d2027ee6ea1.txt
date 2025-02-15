@@ -1,1 +1,0 @@
-//Advised by dev not to test as they have just one sponsor hardcoded for now 
