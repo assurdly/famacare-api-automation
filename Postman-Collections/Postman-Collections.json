@@ -13171,7 +13171,7 @@
 							"response": []
 						},
 						{
-							"name": "fetch all services Copy",
+							"name": "fetch all services-NoToken",
 							"event": [
 								{
 									"listen": "test",
@@ -13180,28 +13180,95 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response contains services\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e8b1ddf0-f82d-4eed-9cb6-17197c564d5a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Service details are valid\", function () {\r",
-											"    var service = jsonData.services[0];\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d52af8b1-8551-4120-b62b-a89a08509277",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
 											"\r",
-											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
-											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
-											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
 										],
@@ -13244,7 +13311,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
