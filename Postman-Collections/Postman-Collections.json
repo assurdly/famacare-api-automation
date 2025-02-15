@@ -2784,7 +2784,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin Copy",
+									"name": "Get Unique Patient(upi)-SuperAdmin-NotFound",
 									"event": [
 										{
 											"listen": "test",
@@ -2793,8 +2793,8 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status code is correct\", function () {\r",
-													"    pm.response.to.have.status(404); \r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response indicates failure\", function () {\r",
@@ -2802,7 +2802,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Error message is correct\", function () {\r",
-													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"Patient not found\");\r",
+													"    pm.expect(jsonData.message).to.be.a(\"string\").and.to.eql(\"Patient not found\");\r",
 													"});\r",
 													""
 												],
