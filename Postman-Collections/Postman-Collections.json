@@ -5437,7 +5437,7 @@
 									"response": []
 								},
 								{
-									"name": "Unique Patient Appointment (patient upi)-SuperAdmin Copy",
+									"name": "Unique Patient Appointment (patient upi)-SuperAdmin-NotFound",
 									"event": [
 										{
 											"listen": "test",
