@@ -6995,6 +6995,72 @@
 										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
 									},
 									"response": []
+								},
+								{
+									"name": "Get Unique Plan by Name Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
+												"exec": [
+													"//This service has been suspended."
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8018aff7-5c8a-4463-969d-1664e4138c89",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Plan by Name Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
+												"exec": [
+													"//This service has been suspended."
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f32aee1f-1e54-4177-bdd7-77b09cb66a53",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
+									},
+									"response": []
 								}
 							],
 							"id": "1b5c35b1-5465-4311-82aa-90d70a8b11a2"
@@ -15566,7 +15632,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
