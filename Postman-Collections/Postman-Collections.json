@@ -13482,23 +13482,14 @@
 							"response": []
 						},
 						{
-							"name": "Fetch Service by type-InvalidToken Copy",
+							"name": "Fetch Service by type-InvalidService",
 							"event": [
 								{
 									"listen": "test",
 									"script": {
 										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
 										"exec": [
-											"var jsonData = pm.response.json();\r",
-											"\r",
-											"pm.test(\"Response status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Response body contains error message\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"});\r",
-											""
+											"// This is supposed to give an error of 404 "
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -13514,11 +13505,11 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token_Invalid}}",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
-								"url": "{{host}}api/service/fetch/Imaging Investigation"
+								"url": "{{host}}api/service/fetch/Imcccc"
 							},
 							"response": []
 						}
