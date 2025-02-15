@@ -17026,7 +17026,8 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{receptionist _token}}",
-										"type": "text"
+										"type": "text",
+										"disabled": true
 									}
 								],
 								"url": "{{host}}api/diagnosis/fetch"
