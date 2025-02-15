@@ -4123,9 +4123,8 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "",
-												"type": "text",
-												"disabled": true
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
 											}
 										],
 										"url": "{{host}}api/user/clinicalstaff"
