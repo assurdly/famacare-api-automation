@@ -6165,7 +6165,7 @@
 									"response": []
 								},
 								{
-									"name": "Update unique sponsor Copy",
+									"name": "Update unique sponsor-NotFound",
 									"event": [
 										{
 											"listen": "test",
@@ -6174,13 +6174,16 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Success message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"Sponsor does not exists\");\r",
 													"});\r",
 													""
 												],
