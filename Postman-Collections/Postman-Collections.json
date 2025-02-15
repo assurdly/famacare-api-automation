@@ -11340,6 +11340,1021 @@
 					"id": "043411fe-dc45-464c-9ad6-9e4e86f5a0a0"
 				},
 				{
+					"name": "Appointment Copy",
+					"item": [
+						{
+							"name": "Appointment-Schedule",
+							"item": [
+								{
+									"name": "Schedule-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment scheduling success message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Appointment scheduled successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "580c21db-8901-4337-898c-3881f5b6fe4a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"Edidiong\",\n        \"lastname\": \"Anthony\",\n       \n        \"upi\": \"D528326B\",\n      \n        \"email\": \"edidiongbobson@gmail.com\",\n        \"purpose\":\"Doctor Visitation\",\n    \n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"Dr Humphrey\",\n        \"visit_type\":\"New Encounter\",\n        \"visit_date\":\"17/02/2025\",\n    \"scheduled_time\":\"5:00 pm\",\n    \"is_urgent\":false,\n        \"sponsor\": \"Asknello\",  // refer to sponsor folder \n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								},
+								{
+									"name": "Schedule-SuperAdmin-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8b302303-1dee-4ff6-8702-7f46c5936c72",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"Edidiong\",\n        \"lastname\": \"Anthony\",\n       \n        \"upi\": \"D528326B\",\n      \n        \"email\": \"edidiongbobson@gmail.com\",\n        \"purpose\":\"Doctor Visitation\",\n    \n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"Dr Humphrey\",\n        \"visit_type\":\"New Encounter\",\n        \"visit_date\":\"17/02/2025\",\n    \"scheduled_time\":\"5:00 pm\",\n    \"is_urgent\":false,\n        \"sponsor\": \"Asknello\",  // refer to sponsor folder \n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								},
+								{
+									"name": "Schedule-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "29d8ed17-469c-468d-b6e5-c56a67b8517c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"Edidiong\",\n        \"lastname\": \"Anthony\",\n       \n        \"upi\": \"D528326B\",\n      \n        \"email\": \"edidiongbobson@gmail.com\",\n        \"purpose\":\"Doctor Visitation\",\n    \n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"Dr Humphrey\",\n        \"visit_type\":\"New Encounter\",\n        \"visit_date\":\"17/02/2025\",\n    \"scheduled_time\":\"5:00 pm\",\n    \"is_urgent\":false,\n        \"sponsor\": \"Asknello\",  // refer to sponsor folder \n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								},
+								{
+									"name": "Schedule-SuperAdmin-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8327b3ce-ac40-4bd5-9a24-7a7002419bc8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"Edidiong\",\n        \"lastname\": \"Anthony\",\n       \n        \"upi\": \"D528326B\",\n      \n        \"email\": \"edidiongbobson@gmail.com\",\n        \"purpose\":\"Doctor Visitation\",\n    \n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"Dr Humphrey\",\n        \"visit_type\":\"New Encounter\",\n        \"visit_date\":\"17/02/2025\",\n    \"scheduled_time\":\"5:00 pm\",\n    \"is_urgent\":false,\n        \"sponsor\": \"Asknello\",  // refer to sponsor folder \n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								},
+								{
+									"name": "Schedule-SuperAdmin-FieldsRequired",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error response structure is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required field errors are returned\", function () {\r",
+													"    var errorMessages = jsonData.error.map(item => item.msg);\r",
+													"    \r",
+													"    pm.expect(errorMessages).to.include(\"Firstname is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"Last name is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"Email is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"upi is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"purpose is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"consultant is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"visit_type is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"visit_date is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"sponsor is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"sponsor_plan is required\");\r",
+													"    pm.expect(errorMessages).to.include(\"scheduled_time is required\");\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "918d2b85-660f-440f-92be-25664f2081e3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"\",\n        \"lastname\": \"\",\n        \"upi\": \"\",\n        \"email\": \"\",\n        \"purpose\":\"\",\n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"\",\n        \"visit_type\":\"\",\n        \"visit_date\":\"\",\n    \"scheduled_time\":\"\",\n    \"is_urgent\":false,\n        \"sponsor\": \"\",  // refer to sponsor folder \n        \"sponsor_plan\": \"\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								}
+							],
+							"id": "920e04fa-dbb9-4d6a-82e1-077e94e8b420"
+						},
+						{
+							"name": "Appointment-Get",
+							"item": [
+								{
+									"name": "Get Appointments-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3e82217f-6d25-4a63-9a99-7acab1bf0d5b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointments response structure is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.appointments).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment contains required fields\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(appointment.purpose).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+													"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_billed).to.be.a(\"boolean\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Vital signs have expected values\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d6ef50dd-907f-4631-ac50-981c5b26e1bb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/all"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Appointments-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3e82217f-6d25-4a63-9a99-7acab1bf0d5b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "1418a970-99d7-4e7c-816b-ba2f8fca49b0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/all"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Appointments-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9b4ad3b7-cb02-475e-b687-782b5150c46b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3e24e644-3ad7-430c-a7eb-dbfb72e91bbc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/all"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Appointments-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "9a8b4bdc-7672-4e94-9c19-fd15a7995f30",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ab1fe9a0-2682-41dd-8301-5eef247aec22",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/all"
+									},
+									"response": []
+								}
+							],
+							"id": "7b00476f-c314-4bc0-a8a8-c9f6dae7b067"
+						},
+						{
+							"name": "Appointment-GetUnique",
+							"item": [
+								{
+									"name": "Get Unique Appointment-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3a7fef80-7a56-4598-ae04-16686d6825c1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment retrieval is successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData).to.have.property(\"appointment\").that.is.an(\"object\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment contains required fields\", function () {\r",
+													"    var appointment = jsonData.appointment;\r",
+													"\r",
+													"    pm.expect(appointment._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(appointment.purpose).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+													"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_billed).to.be.a(\"boolean\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Vital signs have expected numeric values\", function () {\r",
+													"    var appointment = jsonData.appointment;\r",
+													"\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.be.above(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "43063835-9ced-4507-88ad-218002d28aed",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/unique/ABE200E2"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Appointment-SuperAdmin-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3a7fef80-7a56-4598-ae04-16686d6825c1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5a54a2f5-e611-4ba2-9e87-a71aeefb6e53",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/unique/ABE200E2"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Appointment-NoFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "3a7fef80-7a56-4598-ae04-16686d6825c1",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment not found message is correct\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Appointment not found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Status is failed\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\", \"failed\");\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9445e2d9-79dd-4eef-8ef0-0353a0511293",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/unique/0703CEB9"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Appointment-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "56b4f983-c344-4c9a-95b3-7878b86778a6",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3e8e0c03-f412-484b-b7ed-fd8f4f252fc4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/unique/0703CEB9"
+									},
+									"response": []
+								}
+							],
+							"id": "fcd05d32-af69-4ab0-ba1d-f2f40f995cf1"
+						},
+						{
+							"name": "Appointment-Patient upi",
+							"item": [
+								{
+									"name": "Unique Patient Appointment (patient upi)-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ca305b9-c42c-4c16-a2db-75df88e2498e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointments retrieval is successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData).to.have.property(\"appointments\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment contains required fields\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(appointment.purpose).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+													"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_billed).to.be.a(\"boolean\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Vital signs have expected numeric values\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.be.above(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8c3af06a-9bd4-4495-a4d2-7bcb0d95a7fd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Unique Patient Appointment (patient upi)-SuperAdmin-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ca305b9-c42c-4c16-a2db-75df88e2498e",
+												"exec": [
+													"//This is supposed to give a 404 error, bug raised."
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "bfda4b96-44af-48e8-8426-65187586823e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D5"
+									},
+									"response": []
+								},
+								{
+									"name": "Unique Patient Appointment (patient upi)-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "efbf57d0-30f3-4351-8c6d-4fe0a662cfc3",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "71f516f9-958e-44de-89ac-bf19a0275684",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Unique Patient Appointment (patient upi)-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "d2ca62e3-e3f6-4ac4-a23c-eb52e6acd2fb",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a1248f0a-43c7-4e01-9419-ae2c07214e9d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Unique Patient Appointment (patient upi)-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "314a82d2-73af-4fc8-99a6-98118f1dba7e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7c8b97dd-5dab-4696-95f1-2e29cf989bc7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D528326B"
+									},
+									"response": []
+								}
+							],
+							"id": "cb677e6f-aadc-4d63-a675-353b77192451"
+						},
+						{
+							"name": "Appointment-Update",
+							"item": [
+								{
+									"name": "Update Appointment (uuid)",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "db5efbf0-a175-46a4-b01c-45cefc8e30e1",
+												"exec": [
+													"//No body to test for now "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5131f552-0bbb-41e8-acaa-dc0379155c81",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/unique/0703CEB9"
+									},
+									"response": []
+								}
+							],
+							"id": "23ff67ab-cd67-4392-af9c-40f3b8020d22"
+						}
+					],
+					"id": "19da03f0-2df7-49fa-a594-b97a2b8f6712"
+				},
+				{
 					"name": "Drugs-AddGeneric",
 					"item": [
 						{
