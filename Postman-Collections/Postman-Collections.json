@@ -4785,7 +4785,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{doctor_token}}",
+												"value": "Bearer {{super_admin_token}}",
 												"type": "text"
 											}
 										],
@@ -11342,6 +11342,53 @@
 				{
 					"name": "Appointment",
 					"item": [
+						{
+							"name": "Schedule Appointment",
+							"item": [
+								{
+									"name": "Schedule-Doctor-NotAllowed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "76460baa-0d58-4a9d-91be-4fadb2157df1",
+												"exec": [
+													"//Doctor is not allowed to book appointment but can, bug raised."
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "2f3eb874-aed5-48e1-88d1-cb82123ee41b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{doctor_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n       \n        \"firstname\": \"Edidiong\",\n        \"lastname\": \"Anthony\",\n       \n        \"upi\": \"D528326B\",\n      \n        \"email\": \"edidiongbobson@gmail.com\",\n        \"purpose\":\"Doctor Visitation\",\n    \n        \"vital_height\": 160,\n        \"vital_weight\": 81,\n        \"vital_blood_pressure\":120,\n        \"vital_temperature\":180,\n        \"vital_pulserate\":300,\n        \"consultant\":\"Dr Humphrey\",\n        \"visit_type\":\"New Encounter\",\n        \"visit_date\":\"17/02/2025\",\n    \"scheduled_time\":\"5:00 pm\",\n    \"is_urgent\":false,\n        \"sponsor\": \"Asknello\",  // refer to sponsor folder \n        \"sponsor_plan\": \"FAMACARE PRICELIST\", //FIX\n        \n        \"office\": \"{{office}}\",\n        \"office_uuid\": \"{office_uuid}\"\n      \n    }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/appointment/schedule"
+									},
+									"response": []
+								}
+							],
+							"id": "a1d8c75b-edb7-4c2f-a37b-b6b5df16cc69"
+						},
 						{
 							"name": "Appointment-Get",
 							"item": [
