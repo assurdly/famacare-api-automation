@@ -70,6 +70,61 @@
 									"response": []
 								},
 								{
+									"name": "Register(staff)- Clinical -aosRequired",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains success status and message\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "55369e1a-5168-4245-85a7-be35d170d775",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {}
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"\"\n\n    \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/register"
+									},
+									"response": []
+								},
+								{
 									"name": "Register(staff)- Clinical-ExpiredToken",
 									"event": [
 										{
