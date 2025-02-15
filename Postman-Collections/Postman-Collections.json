@@ -70,7 +70,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical Copy",
+									"name": "Register(staff)- Clinical-EmailExists",
 									"event": [
 										{
 											"listen": "test",
@@ -79,13 +79,16 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response body contains success status and message\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"user with email already exists\");\r",
 													"});\r",
 													""
 												],
@@ -114,6 +117,119 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register(staff)- NonClinical",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains success status and message\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "1a1922b4-f792-42d6-86e7-7ec8ca8f8da5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {}
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register(staff)- NonClinica-EmailExists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"user with email already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "51c17cdb-6ced-4592-82e7-4219a57b7ed1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {}
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -223,61 +339,6 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan+1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/register"
-									},
-									"response": []
-								},
-								{
-									"name": "Register(staff)- NonClinical",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response body contains success status and message\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "1a1922b4-f792-42d6-86e7-7ec8ca8f8da5",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": {}
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
