@@ -9673,7 +9673,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -9723,7 +9723,7 @@
 									"response": []
 								},
 								{
-									"name": "Get All Patient- SuperAdmin-InvalidToken",
+									"name": "Get All Patient- Doctor-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -9755,7 +9755,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -9770,7 +9770,7 @@
 							"name": "Users(Patient)-Unique(upi)",
 							"item": [
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin",
+									"name": "Get Unique Patient(upi)-Doctor",
 									"event": [
 										{
 											"listen": "test",
@@ -9814,7 +9814,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -9823,7 +9823,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin-NotFound",
+									"name": "Get Unique Patient(upi)-Doctor-NotFound",
 									"event": [
 										{
 											"listen": "test",
@@ -9859,7 +9859,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -9868,7 +9868,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin-ExpiredToken",
+									"name": "Get Unique Patient(upi)-Doctor-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
@@ -9909,7 +9909,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin-InvalidToken",
+									"name": "Get Unique Patient(upi)-Doctor-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -9941,7 +9941,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -9956,7 +9956,7 @@
 							"name": "Users(PatientSearch)",
 							"item": [
 								{
-									"name": "Search Patient by lastname-SuperAdmin",
+									"name": "Search Patient by lastname-Doctor",
 									"event": [
 										{
 											"listen": "test",
@@ -10005,7 +10005,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -10034,7 +10034,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient SuperAdmin-ExpiredToken",
+									"name": "Search Patient Doctor-ExpiredToken",
 									"event": [
 										{
 											"listen": "test",
