@@ -18288,7 +18288,23 @@
 												}
 											}
 										},
-										"url": "{{host}}api/service/addservice"
+										"url": {
+											"raw": "{{host}}api/service/addservice?Authorization=Bearer {{receptionist _token}}",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"service",
+												"addservice"
+											],
+											"query": [
+												{
+													"key": "Authorization",
+													"value": "Bearer {{receptionist _token}}",
+													"type": "text"
+												}
+											]
+										}
 									},
 									"response": []
 								},
