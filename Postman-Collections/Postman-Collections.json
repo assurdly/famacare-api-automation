@@ -11803,7 +11803,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -11946,7 +11946,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -11987,7 +11987,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -12086,7 +12086,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -12172,7 +12172,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -12275,7 +12275,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -12320,7 +12320,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -12361,7 +12361,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
