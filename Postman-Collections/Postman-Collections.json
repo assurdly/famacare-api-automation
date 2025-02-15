@@ -4785,7 +4785,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -11784,7 +11784,24 @@
 												}
 											}
 										},
-										"url": "{{host}}api/appointment/unique/0703CEB9"
+										"url": {
+											"raw": "{{host}}api/appointment/unique/0703CEB9?Authorization =Bearer {{ExpiredToken}}",
+											"host": [
+												"{{host}}api"
+											],
+											"path": [
+												"appointment",
+												"unique",
+												"0703CEB9"
+											],
+											"query": [
+												{
+													"key": "Authorization ",
+													"value": "Bearer {{ExpiredToken}}",
+													"type": "text"
+												}
+											]
+										}
 									},
 									"response": []
 								}
@@ -11795,7 +11812,7 @@
 							"name": "Appointment-Patient upi",
 							"item": [
 								{
-									"name": "Unique Patient Appointment (patient upi)-SuperAdmin",
+									"name": "Unique Patient Appointment (patient upi)-Doctor",
 									"event": [
 										{
 											"listen": "test",
@@ -11861,7 +11878,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -11870,7 +11887,7 @@
 									"response": []
 								},
 								{
-									"name": "Unique Patient Appointment (patient upi)-SuperAdmin-NotFound",
+									"name": "Unique Patient Appointment (patient upi)-Doctor-NotFound",
 									"event": [
 										{
 											"listen": "test",
@@ -11893,7 +11910,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -11934,7 +11951,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{doctor_token_Invalid}}",
 												"type": "text"
 											}
 										],
