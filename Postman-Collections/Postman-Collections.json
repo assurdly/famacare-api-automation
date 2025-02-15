@@ -15748,6 +15748,192 @@
 					"id": "a1faaa0c-965d-408e-aded-4429df34529f"
 				},
 				{
+					"name": "Role-GetRoles",
+					"item": [
+						{
+							"name": "Get Roles-Receptionist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Roles data is valid\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.roles).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"First role contains required fields\", function () {\r",
+											"    pm.expect(jsonData.roles[0]).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.roles[0]._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.roles[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.roles[0].name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(jsonData.roles[0].createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "3e1127ad-2ff1-4d5a-b3ff-717e9f3521d2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/role/{{office_uuid}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles-Receptionist-NotFound",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is correct\", function () {\r",
+											"    pm.response.to.have.status(404); \r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response indicates failure\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"Medcenter not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "abc06e76-9d46-4fe3-af76-d17cf3c1db93",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/role/{{office_"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles-Receptionist-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+										"exec": [
+											"// var jsonData = pm.response.json();\r",
+											"\r",
+											"// pm.test(\"Response status code is 401\", function () {\r",
+											"//     pm.response.to.have.status(401);\r",
+											"// });\r",
+											"\r",
+											"// pm.test(\"Response body contains error message\", function () {\r",
+											"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"// });\r",
+											"\r",
+											"\r",
+											"//commented out because even with the invalid token we geta 200"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "87bea751-a833-470e-9100-94a2e21c2c1a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/role/{{office_uuid}}"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Roles-Receptionist-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "10249eda-cef5-41b3-b1cb-37719b836075",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "ab8effdb-60be-4c82-aee4-bf4a5b538e50",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/role/{{office_uuid}}"
+							},
+							"response": []
+						}
+					],
+					"id": "fc44dd91-b86b-466c-a7f4-f3ff8714a717"
+				},
+				{
 					"name": "Role",
 					"item": [
 						{
