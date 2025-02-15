@@ -12715,7 +12715,7 @@
 									"response": []
 								},
 								{
-									"name": "Get otherservice by plan_code-InvalidCode",
+									"name": "Get otherservice by plan_code-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
