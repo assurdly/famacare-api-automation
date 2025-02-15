@@ -2784,6 +2784,59 @@
 									"response": []
 								},
 								{
+									"name": "Get Unique Patient(upi)-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0043d438-8604-4ec2-a606-7047e2f5f4b9",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains valid patient fields\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.patient).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient details are correctly returned\", function () {\r",
+													"    pm.expect(jsonData.patient._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.blood_group).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.next_of_kin).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.patient.allergies).to.be.an(\"object\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "6bb94fc8-fd79-40d5-aec0-63b06efa2170",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/unique/D5"
+									},
+									"response": []
+								},
+								{
 									"name": "Get Unique Patient(upi)-SuperAdmin-ExpiredToken",
 									"event": [
 										{
