@@ -6830,6 +6830,57 @@
 									"response": []
 								},
 								{
+									"name": "Fetch Unique Sponsor (uuid) Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor data is valid\", function () {\r",
+													"    pm.expect(jsonData.sponsor).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.phone).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.contact_email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.sponsor.contact_person).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(jsonData.sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(jsonData.sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "94c1e9ef-f921-4c32-9178-e5f0ed2a6178",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87E"
+									},
+									"response": []
+								},
+								{
 									"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
 									"event": [
 										{
@@ -14686,6 +14737,81 @@
 													}
 												],
 												"url": "{{host}}api/appointment/unique/patient/D528326B"
+											},
+											"response": []
+										},
+										{
+											"name": "Unique Patient Appointment (patient upi)-SuperAdmin-NotFound",
+											"event": [
+												{
+													"listen": "test",
+													"script": {
+														"id": "4ca305b9-c42c-4c16-a2db-75df88e2498e",
+														"exec": [
+															"var jsonData = pm.response.json();\r",
+															"\r",
+															"pm.test(\"Response status code is 200\", function () {\r",
+															"    pm.response.to.have.status(200);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Appointments retrieval is successful\", function () {\r",
+															"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+															"    pm.expect(jsonData).to.have.property(\"appointments\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Appointment contains required fields\", function () {\r",
+															"    var appointment = jsonData.appointments[0];\r",
+															"\r",
+															"    pm.expect(appointment._id).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+															"    pm.expect(appointment.purpose).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+															"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.consultant).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.consultant_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+															"    pm.expect(appointment.is_billed).to.be.a(\"boolean\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Vital signs have expected numeric values\", function () {\r",
+															"    var appointment = jsonData.appointments[0];\r",
+															"\r",
+															"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.be.above(0);\r",
+															"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.be.above(0);\r",
+															"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.be.above(0);\r",
+															"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.be.above(0);\r",
+															"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.be.above(0);\r",
+															"});\r",
+															""
+														],
+														"type": "text/javascript",
+														"packages": {}
+													}
+												}
+											],
+											"id": "3543a298-82d9-4291-a251-4c4bfa7e52fd",
+											"protocolProfileBehavior": {
+												"disableBodyPruning": true
+											},
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "Bearer {{receptionist _token}}",
+														"type": "text"
+													}
+												],
+												"url": "{{host}}api/appointment/unique/patient/D5"
 											},
 											"response": []
 										},
