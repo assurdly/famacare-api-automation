@@ -4383,7 +4383,67 @@
 												"type": "text"
 											}
 										],
-										"url": "{{host}}api/user/unique/p"
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User contains required fields\", function () {\r",
+													"    pm.expect(jsonData.user._id).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.firstname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.lastname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\").and.to.include(\".\");\r",
+													"    pm.expect(jsonData.user.phone).to.be.a(\"string\").and.to.not.include(\"number\");\r",
+													"    pm.expect(jsonData.user.office).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.office_uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.department).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.isActive).to.be.a(\"boolean\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.dob).to.be.a(\"string\").and.to.have.lengthOf(10);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "df936102-79c7-4f99-8729-5c008e6f95e8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pq"
 									},
 									"response": []
 								},
