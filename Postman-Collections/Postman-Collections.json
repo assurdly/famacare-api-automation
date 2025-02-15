@@ -10857,13 +10857,13 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{doctor_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"code\":\"NM00.1\",\n    \"name\":\"Fever and cold\"\n}",
+											"raw": "{\n    \"code\":\"NqM001.1\",\n    \"name\":\"Fever and cold\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
