@@ -1632,7 +1632,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{receptionist _token}}",
+												"value": "Bearer {{super_admin_token}}",
 												"type": "text"
 											}
 										],
@@ -2081,18 +2081,17 @@
 											"script": {
 												"id": "10249eda-cef5-41b3-b1cb-37719b836075",
 												"exec": [
-													"// var jsonData = pm.response.json();\r",
+													"var jsonData = pm.response.json();\r",
 													"\r",
-													"// pm.test(\"Response status code is 401\", function () {\r",
-													"//     pm.response.to.have.status(401);\r",
-													"// });\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
 													"\r",
-													"// pm.test(\"Response body contains error message\", function () {\r",
-													"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-													"// });\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
 													"\r",
-													"\r",
-													"//commented out because even with the invalid token we geta 200"
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -15792,7 +15791,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "Bearer Bearer {{receptionist _token}}",
 										"type": "text"
 									}
 								],
@@ -15837,7 +15836,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "Bearer {{receptionist _token}}",
 										"type": "text"
 									}
 								],
@@ -15853,15 +15852,15 @@
 									"script": {
 										"id": "10249eda-cef5-41b3-b1cb-37719b836075",
 										"exec": [
-											"// var jsonData = pm.response.json();\r",
+											"var jsonData = pm.response.json();\r",
 											"\r",
-											"// pm.test(\"Response status code is 401\", function () {\r",
-											"//     pm.response.to.have.status(401);\r",
-											"// });\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
 											"\r",
-											"// pm.test(\"Response body contains error message\", function () {\r",
-											"//     pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
-											"// });\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
 											"\r",
 											"\r",
 											"//commented out because even with the invalid token we geta 200"
@@ -15880,7 +15879,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token_Invalid}}",
+										"value": "Bearer {{receptionist _token_Invalid}}",
 										"type": "text"
 									}
 								],
