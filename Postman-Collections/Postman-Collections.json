@@ -13482,7 +13482,7 @@
 							"response": []
 						},
 						{
-							"name": "Fetch Service by type-InvalidService",
+							"name": "Fetch Service by type-InvalidServiceType",
 							"event": [
 								{
 									"listen": "test",
@@ -13728,7 +13728,7 @@
 											"\r",
 											"pm.test(\"Error message is correct\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exist\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
 											"});\r",
 											""
 										],
