@@ -6744,6 +6744,1464 @@
 						}
 					],
 					"id": "35d5f5f6-e2d9-4370-8de5-d676f13de89a"
+				},
+				{
+					"name": "Services Copy",
+					"item": [
+						{
+							"name": "Service-Create",
+							"item": [
+								{
+									"name": "Create-Service",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Success message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Service Added successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "833b2dee-b9a6-453c-b672-55ce928a1b8a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "99c48c2f-a5b3-4f23-bc9c-447349486390",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b9e84f40-9e27-49b5-b7e4-ed267edca4ff",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "e95c13a3-3260-48bd-90f5-39b5bf05bc98",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-InvalidPrice",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message for price field is correct\", function () {\r",
+													"    pm.expect(jsonData.errors[0].path).to.eql(\"price\");\r",
+													"    pm.expect(jsonData.errors[0].msg).to.eql(\"Price must be a number\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "31118490-0942-4327-b129-aeac63d9e2ea",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":\"wqwqq\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-SponsorNotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5cb56f3c-d47e-4119-a5bc-67656c84e3ca",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								},
+								{
+									"name": "Create-Service-AlreadyExist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fd60acee-857a-42d0-9ebe-485ffcf2b289",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Service Already Exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "983cd286-4a6f-4b54-b5f6-a6ce3dec36d7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/service/addservice"
+									},
+									"response": []
+								}
+							],
+							"id": "eac6479d-5b0b-4013-97dc-de8ce032556b"
+						},
+						{
+							"name": "fetch all services",
+							"item": [
+								{
+									"name": "fetch all services",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains services\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Service details are valid\", function () {\r",
+													"    var service = jsonData.services[0];\r",
+													"\r",
+													"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+													"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "bc70b18a-af5e-4405-a9d9-9a06db39fd32",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch"
+									},
+									"response": []
+								},
+								{
+									"name": "fetch all services-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "98075e01-681e-4c01-b042-765065730665",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/service/fetch"
+									},
+									"response": []
+								},
+								{
+									"name": "fetch all services-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "02855ea9-accd-43fc-b798-802cd91cbff8",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch"
+									},
+									"response": []
+								},
+								{
+									"name": "fetch all services-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a772935d-5c3e-40fe-8f62-ea4ea448451e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch"
+									},
+									"response": []
+								}
+							],
+							"id": "0ac68070-ed98-401f-87bf-83d453eae9a0"
+						},
+						{
+							"name": "fetch all services",
+							"item": [
+								{
+									"name": "Fetch Service by type",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains services\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Service details are valid\", function () {\r",
+													"    var service = jsonData.services[0];\r",
+													"\r",
+													"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+													"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "75ac88fe-331d-45fd-a7a7-67e2e4ecedcc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch/Imaging Investigation"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Service by type-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "2d3f94a2-6ff5-46c2-8c1d-8067694f5442",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/service/fetch/Imaging Investigation"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Service by type-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "cfd5ba94-7ae7-477d-8b2a-3cf002c5171d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch/Imaging Investigation"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Service by type-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "db61a106-4341-4c93-9d57-fe7efb42a429",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch/Imaging Investigation"
+									},
+									"response": []
+								},
+								{
+									"name": "Fetch Service by type-InvalidServiceType",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+												"exec": [
+													"// This is supposed to give an error of 404 "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f71aa36b-aa64-4057-b9df-fc7cc343c654",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/fetch/Imcccc"
+									},
+									"response": []
+								}
+							],
+							"id": "fe5d6dec-dc1b-48a6-95e4-b18c5fb75ae5"
+						},
+						{
+							"name": "Investigation by plan_code",
+							"item": [
+								{
+									"name": "Get Investigation by plan_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1058e740-af78-45cc-a727-7d9156731148",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains investigations\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.investigations).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Investigation details are valid\", function () {\r",
+													"    var investigation = jsonData.investigations[0];\r",
+													"\r",
+													"    pm.expect(investigation).to.be.an(\"object\").and.to.not.be.null;\r",
+													"    pm.expect(investigation._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(investigation.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(investigation.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(investigation.price).to.be.a(\"number\").and.to.be.above(0).and.to.not.be.null;\r",
+													"    pm.expect(investigation.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(investigation.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(investigation.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "18af8dbd-d5ca-4188-8dd4-224d3a3a5b21",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/investigations/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Investigation by plan_code-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1058e740-af78-45cc-a727-7d9156731148",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5a0cce6e-2ae8-499b-9786-bed1c2135eec",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/service/investigations/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Investigation by plan_code-ExpireToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1058e740-af78-45cc-a727-7d9156731148",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a1a19362-70b0-4cf8-99f8-74dc6e110218",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/investigations/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Investigation by plan_code-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1058e740-af78-45cc-a727-7d9156731148",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "326f4f9b-6e56-480f-b30e-4b515c93bfd3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/investigations/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Investigation by plan_code-InvalidPlanCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1058e740-af78-45cc-a727-7d9156731148",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3cea2b55-adf5-45c3-b95d-d2237d99b90d",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/investigations/3A9"
+									},
+									"response": []
+								}
+							],
+							"id": "1bfe0516-f190-4c21-b76e-84d8652da7d4"
+						},
+						{
+							"name": "Imaging by plan_code",
+							"item": [
+								{
+									"name": "Get Imaging by plan_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains imaging data\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.imaging).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Imaging details are valid\", function () {\r",
+													"    var imaging = jsonData.imaging[0];\r",
+													"\r",
+													"    pm.expect(imaging.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(imaging._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(imaging.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(imaging.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(imaging.price).to.be.a(\"number\").and.to.not.be.null;\r",
+													"    pm.expect(imaging.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(imaging.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f0c50e69-1f1a-4004-9f9d-71aa27c5d37a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/imaging/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Imaging by plan_code-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4e93501e-c1fa-4c0a-a8ce-223f3ad44518",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/service/imaging/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Imaging by plan_code-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b406693f-7bf2-4498-b1cd-2d8dabdf1ee9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/imaging/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Imaging by plan_code -InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8786122f-2099-4ec4-b395-32cfa426541f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/imaging/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Imaging by plan_code-InvalidPlanCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0bee9ee1-1509-4c0b-9258-20a095dc41f0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/imaging/3333"
+									},
+									"response": []
+								}
+							],
+							"id": "023133f9-5b7e-4a07-946f-2ad59725c05b"
+						},
+						{
+							"name": "Otherservice by plan_code",
+							"item": [
+								{
+									"name": "Get otherservice by plan_code",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains other service data\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Other service details are valid\", function () {\r",
+													"    var service = jsonData.otherservice[0];\r",
+													"\r",
+													"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
+													"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "52c727fd-e7ef-462c-8690-eb93285543ad",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/otherservices/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get otherservice by plan_code-NoCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3849ce88-e2de-41dc-99ef-8a9ecdc47220",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/service/otherservices/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get otherservice by plan_code-ExpiredCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7e5f094d-13d3-448e-9ec8-9bfe097c2df7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/otherservices/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get otherservice by plan_code-InvalidCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3c829e96-a12a-48c6-960b-6f77401e0305",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/otherservices/3A9A51C7"
+									},
+									"response": []
+								},
+								{
+									"name": "Get otherservice by plan_code_InvalidPlanCode",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is 400\", function () {\r",
+													"    pm.expect(pm.response.code).to.eql(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f94030fe-df26-47fd-9a94-1c6b1dd887d5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/service/otherservices/3A9A51C766"
+									},
+									"response": []
+								}
+							],
+							"id": "dfae96ad-c0ba-4fb1-bad2-c46a5eb9c856"
+						}
+					],
+					"id": "90fbdd15-1aea-464d-9511-88da4a8005bd"
 				}
 			],
 			"id": "2a0d46c8-f65e-465a-a24a-4f48efce2b08"
@@ -14110,7 +15568,7 @@
 							"response": []
 						},
 						{
-							"name": "Get otherservice by plan_code Copy",
+							"name": "Get otherservice by plan_code-InvalidCode",
 							"event": [
 								{
 									"listen": "test",
@@ -14119,25 +15577,12 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response contains other service data\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Other service details are valid\", function () {\r",
-											"    var service = jsonData.otherservice[0];\r",
-											"\r",
-											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
-											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
 										],
@@ -14155,7 +15600,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
@@ -14164,7 +15609,7 @@
 							"response": []
 						},
 						{
-							"name": "Get otherservice by plan_code Copy",
+							"name": "Get otherservice by plan_code_InvalidPlanCode",
 							"event": [
 								{
 									"listen": "test",
@@ -14173,25 +15618,13 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.eql(400);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response contains other service data\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Other service details are valid\", function () {\r",
-											"    var service = jsonData.otherservice[0];\r",
-											"\r",
-											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
-											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
 											"});\r",
 											""
 										],
@@ -14213,7 +15646,7 @@
 										"type": "text"
 									}
 								],
-								"url": "{{host}}api/service/otherservices/3A9A51C7"
+								"url": "{{host}}api/service/otherservices/3A9A51C766"
 							},
 							"response": []
 						}
@@ -14222,6 +15655,1464 @@
 				}
 			],
 			"id": "214ab59c-4693-4255-9390-2d14478b6663"
+		},
+		{
+			"name": "Services Copy",
+			"item": [
+				{
+					"name": "Service-Create",
+					"item": [
+						{
+							"name": "Create-Service",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response status is success\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Service Added successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "55f8d542-835a-4c2e-a8cc-b8e693876912",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "12ee85f6-6e2d-4f05-97d8-57f2995c8105",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f8332d71-2834-4a8b-b0d3-3150250327f8",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "bc684186-99d4-46be-afdb-a889dd0e025d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-InvalidPrice",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message for price field is correct\", function () {\r",
+											"    pm.expect(jsonData.errors[0].path).to.eql(\"price\");\r",
+											"    pm.expect(jsonData.errors[0].msg).to.eql(\"Price must be a number\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9f15cf07-c033-4f7b-84f8-dd3e1d5c4353",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":\"wqwqq\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-SponsorNotFound",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor not found\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "43e442d4-40be-4726-9606-fce135afe18b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-AlreadyExist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd60acee-857a-42d0-9ebe-485ffcf2b289",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response status is failed\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.error).to.eql(\"Service Already Exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "95743fcd-42e1-4fc5-8e15-6f8e5a04ddcb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						}
+					],
+					"id": "1274b15c-ef4f-4729-8176-985dda674e93"
+				},
+				{
+					"name": "fetch all services",
+					"item": [
+						{
+							"name": "fetch all services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "301166b6-b012-4cf7-be96-4f22a32bac30",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "758dab0b-95e8-4500-b057-1dacddf94a4c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "97e045a5-6c69-477f-9c93-da69a2b2c62e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b96669d5-8c66-4c59-a8a3-17cd369b4984",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						}
+					],
+					"id": "d4d22c76-05b9-455d-ac47-44eb2b66a072"
+				},
+				{
+					"name": "fetch all services",
+					"item": [
+						{
+							"name": "Fetch Service by type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "2ef0012a-a856-4681-959c-fa31cddc2194",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b985ca2b-1787-4a4f-8671-219e5da301d1",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "b44ba80c-e9c0-4535-9bc8-77240a36ba46",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "7d911ffe-df8a-49f7-94aa-4796899258ef",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-InvalidServiceType",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"// This is supposed to give an error of 404 "
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "338a00b9-c86a-4d07-9674-521147c387bb",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imcccc"
+							},
+							"response": []
+						}
+					],
+					"id": "f2f78ffb-0e2b-41c2-8a51-5ad24cb0449f"
+				},
+				{
+					"name": "Investigation by plan_code",
+					"item": [
+						{
+							"name": "Get Investigation by plan_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains investigations\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.investigations).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Investigation details are valid\", function () {\r",
+											"    var investigation = jsonData.investigations[0];\r",
+											"\r",
+											"    pm.expect(investigation).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(investigation._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.price).to.be.a(\"number\").and.to.be.above(0).and.to.not.be.null;\r",
+											"    pm.expect(investigation.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5f0a1a79-a680-43a1-a938-5e6fcad55c98",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "7a92f465-be5c-4e9d-82ad-a0ca4a748ac0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-ExpireToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6d558ff8-63e0-42aa-b6e3-0d4e15ac6a4a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "509aff46-ad90-4fc2-92f1-c0fae7826db0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-InvalidPlanCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5caa223b-dac8-43a2-b73d-bdf4008d5a6a",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9"
+							},
+							"response": []
+						}
+					],
+					"id": "08b39964-6247-418b-9e12-1a879fe3a318"
+				},
+				{
+					"name": "Imaging by plan_code",
+					"item": [
+						{
+							"name": "Get Imaging by plan_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains imaging data\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.imaging).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Imaging details are valid\", function () {\r",
+											"    var imaging = jsonData.imaging[0];\r",
+											"\r",
+											"    pm.expect(imaging.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(imaging._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(imaging.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(imaging.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(imaging.price).to.be.a(\"number\").and.to.not.be.null;\r",
+											"    pm.expect(imaging.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(imaging.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "2bb84d3e-c7d8-4487-8fc2-3e8a2d855afa",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/imaging/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Imaging by plan_code-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "299cacce-11d8-40f3-bb99-ba5888fa6faa",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/imaging/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Imaging by plan_code-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e8862146-db2b-40e2-a99b-ca276ff3fb80",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/imaging/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Imaging by plan_code -InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "ba10d0b6-3b7d-4037-b4df-4092834a586e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/imaging/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Imaging by plan_code-InvalidPlanCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "04db9080-64f3-4707-9d2d-23253b0bbb95",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "e5def174-132a-40da-819e-9fcfdf9dfbe0",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/imaging/3333"
+							},
+							"response": []
+						}
+					],
+					"id": "cf86ddce-e7d2-45e8-bc89-e0b2fc1b9318"
+				},
+				{
+					"name": "Otherservice by plan_code",
+					"item": [
+						{
+							"name": "Get otherservice by plan_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains other service data\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Other service details are valid\", function () {\r",
+											"    var service = jsonData.otherservice[0];\r",
+											"\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9fe5e388-4eea-40cf-b73e-cb67d6a77dd4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code-NoCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "82255c62-c053-4d13-b5f2-12a92f51f463",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code-ExpiredCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6aee939b-364d-4beb-a2b0-e30b2b833e67",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code-InvalidCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "14a1f3f7-c246-4c5d-9137-c72646b604c2",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code_InvalidPlanCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 400\", function () {\r",
+											"    pm.expect(pm.response.code).to.eql(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "0fbece1f-28da-482c-a1d6-2bf501681f4c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C766"
+							},
+							"response": []
+						}
+					],
+					"id": "16c4f66e-40ab-402f-b5a6-abe70d31129b"
+				}
+			],
+			"id": "d7828e06-f4f9-4d35-ba12-76e7a6a6f55a"
 		},
 		{
 			"name": "Consultation",
