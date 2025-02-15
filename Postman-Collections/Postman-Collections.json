@@ -12748,6 +12748,32 @@
 					"item": [
 						{
 							"name": "Create-Service",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response status is success\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Service Added successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "2176a5c7-f8d2-465e-828c-01e13fe037f3",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -12763,7 +12789,61 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "dae93e59-5a6d-407e-80e4-950b2752450e",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response status is success\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Service Added successfully\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "7ada7d20-06e2-4f78-9091-576b4eae3880",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"\",\n    \"name\":\"\",\n    \"sponsor_uuid\":\"\",\n    \"plan_code\":\"\",\n    \"price\":\"\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12776,6 +12856,32 @@
 						},
 						{
 							"name": "Create-Service-AlreadyExist",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd60acee-857a-42d0-9ebe-485ffcf2b289",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response status is failed\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.error).to.eql(\"Service Already Exists\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "424abcf8-1dd3-43c7-b0ae-7b76d772eb54",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
