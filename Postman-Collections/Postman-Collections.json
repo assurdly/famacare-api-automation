@@ -13115,6 +13115,44 @@
 					"item": [
 						{
 							"name": "fetch all services",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "c6932255-1fe4-442a-936c-ee4c9e007cf1",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -13125,6 +13163,63 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch"
+							},
+							"response": []
+						},
+						{
+							"name": "fetch all services Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "6b0948df-fa86-4a54-973b-b9da7d5f61a0",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d159eab5-601c-445c-8b36-c004be6ae2b3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
