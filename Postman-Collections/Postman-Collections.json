@@ -13884,7 +13884,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Imaging by plan_code Copy",
+							"name": "Get Imaging by plan_code -InvalidToken",
 							"event": [
 								{
 									"listen": "test",
@@ -13893,25 +13893,12 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response contains imaging data\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.imaging).to.be.an(\"array\").and.to.have.length.above(0);\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Imaging details are valid\", function () {\r",
-											"    var imaging = jsonData.imaging[0];\r",
-											"\r",
-											"    pm.expect(imaging.is_Active).to.be.a(\"boolean\");\r",
-											"    pm.expect(imaging._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(imaging.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(imaging.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(imaging.price).to.be.a(\"number\").and.to.not.be.null;\r",
-											"    pm.expect(imaging.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(imaging.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
 										],
@@ -13929,7 +13916,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{super_admin_token}}",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
@@ -13938,7 +13925,7 @@
 							"response": []
 						},
 						{
-							"name": "Get Imaging by plan_code Copy",
+							"name": "Get Imaging by plan_code-InvalidPlanCode",
 							"event": [
 								{
 									"listen": "test",
@@ -13987,7 +13974,7 @@
 										"type": "text"
 									}
 								],
-								"url": "{{host}}api/service/imaging/3A9A51C7"
+								"url": "{{host}}api/service/imaging/3333"
 							},
 							"response": []
 						}
