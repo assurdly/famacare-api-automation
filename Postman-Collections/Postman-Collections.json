@@ -12783,7 +12783,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{receptionist _token}}",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
