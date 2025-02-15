@@ -11813,7 +11813,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{doctor_token}}",
 												"type": "text"
 											}
 										],
@@ -15654,7 +15654,7 @@
 					"id": "6d1eb758-50d2-49c3-b673-1d0fdb123ce1"
 				},
 				{
-					"name": "Services Copy",
+					"name": "Services",
 					"item": [
 						{
 							"name": "Service-Create",
@@ -16075,7 +16075,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -16199,7 +16199,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -16262,7 +16262,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -16386,7 +16386,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -16418,7 +16418,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -16479,7 +16479,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
@@ -16603,7 +16603,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
