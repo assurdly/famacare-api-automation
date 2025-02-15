@@ -5196,7 +5196,7 @@
 												}
 											}
 										},
-										"url": "{{host}}api/appointment/unique/AB"
+										"url": "{{host}}api/appointment/unique/ABE200E2"
 									},
 									"response": []
 								},
@@ -5258,22 +5258,21 @@
 											"script": {
 												"id": "3a7fef80-7a56-4598-ae04-16686d6825c1",
 												"exec": [
-													"// var jsonData = pm.response.json();\r",
+													"var jsonData = pm.response.json();\r",
 													"\r",
-													"// pm.test(\"Response status code is 404\", function () {\r",
-													"//     pm.response.to.have.status(404);\r",
-													"// });\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
 													"\r",
-													"// pm.test(\"Appointment not found message is correct\", function () {\r",
-													"//     pm.expect(jsonData).to.have.property(\"message\", \"Appointment not found\");\r",
-													"// });\r",
+													"pm.test(\"Appointment not found message is correct\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"message\", \"Appointment not found\");\r",
+													"});\r",
 													"\r",
-													"// pm.test(\"Status is failed\", function () {\r",
-													"//     pm.expect(jsonData).to.have.property(\"status\", \"failed\");\r",
-													"// });\r",
+													"pm.test(\"Status is failed\", function () {\r",
+													"    pm.expect(jsonData).to.have.property(\"status\", \"failed\");\r",
+													"});\r",
 													"\r",
-													"\r",
-													"//The script is valid however this is commented out because the implementation for not found is 400 instead of 404"
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -5421,6 +5420,81 @@
 										}
 									],
 									"id": "2dc1d838-7b1c-46fa-9973-39ff18b7748e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/appointment/unique/patient/D528326B"
+									},
+									"response": []
+								},
+								{
+									"name": "Unique Patient Appointment (patient upi)-SuperAdmin Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ca305b9-c42c-4c16-a2db-75df88e2498e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointments retrieval is successful\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData).to.have.property(\"appointments\").that.is.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment contains required fields\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.firstname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.lastname).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.upi).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(appointment.purpose).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+													"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.office_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.consultant_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.is_billed).to.be.a(\"boolean\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Vital signs have expected numeric values\", function () {\r",
+													"    var appointment = jsonData.appointments[0];\r",
+													"\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.be.above(0);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0d76c82e-35c9-42eb-a2a7-5c464b57f725",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
