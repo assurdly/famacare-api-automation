@@ -6165,6 +6165,57 @@
 									"response": []
 								},
 								{
+									"name": "Update unique sponsor Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Success message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "49df52ec-4e1c-4fed-bf73-87185668da15",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "   {\n          \n            \"name\": \"Famacare Diagnosis\",\n            \"type\": \"Clinic\",\n            \"phone\": \"09070040301\",\n            \"contact_email\": \"Centre0@famacare.com\",\n            \"contact_person\": \"Judith Michael\"\n        }",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/sponsor/edit/87"
+									},
+									"response": []
+								},
+								{
 									"name": "Update unique sponsor-Others",
 									"event": [
 										{
@@ -6172,19 +6223,19 @@
 											"script": {
 												"id": "17e135b4-7594-451d-9a0a-4560fad82f1e",
 												"exec": [
-													"// var jsonData = pm.response.json();\r",
+													"var jsonData = pm.response.json();\r",
 													"\r",
-													"// pm.test(\"Response status code is 200\", function () {\r",
-													"//     pm.response.to.have.status(200);\r",
-													"// });\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
 													"\r",
-													"// pm.test(\"Success message is correct\", function () {\r",
-													"//     pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"//     pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
-													"// });\r",
+													"pm.test(\"Success message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
+													"});\r",
 													"\r",
 													"\r",
-													"//Only admin is suppsoed to update sponsor. Bug"
+													"//Only admin is supposed to update sponsor. Bug"
 												],
 												"type": "text/javascript",
 												"packages": {}
