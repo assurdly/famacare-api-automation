@@ -5930,6 +5930,42 @@
 							"item": [
 								{
 									"name": "Fetch Sponsors",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "987750a2-f8e6-4967-ba38-1cea2ba6743f",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.sponsors).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor details are valid\", function () {\r",
+													"    var sponsor = jsonData.sponsors[0];\r",
+													"\r",
+													"    pm.expect(sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "0bb1b929-0a34-4740-8fe3-a6540df55e28",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -15528,6 +15564,42 @@
 							"item": [
 								{
 									"name": "Fetch Sponsors",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "ec57eeca-d10f-4546-a90c-228e0c16efcd",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.sponsors).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor details are valid\", function () {\r",
+													"    var sponsor = jsonData.sponsors[0];\r",
+													"\r",
+													"    pm.expect(sponsor._id).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"    pm.expect(sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+													"\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "7b969652-3f8b-4a3a-a343-9b73e314d988",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -15537,7 +15609,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
