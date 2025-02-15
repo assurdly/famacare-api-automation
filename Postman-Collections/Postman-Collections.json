@@ -7064,7 +7064,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Unique Plan by Name Copy",
+									"name": "Get Unique Plan by Name-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -7097,8 +7097,90 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Plan by Name-InvalidToken-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 401\", () => {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "768108e9-a25b-4843-aeae-298528c3a95c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
 												"type": "text",
 												"disabled": true
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique Plan by Name-InvalidToken-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "e51f0ac8-92e6-401a-8215-96273348cf13",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "9a83e97e-6631-48e3-bf21-1aaa968b1ff6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
 											}
 										],
 										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
