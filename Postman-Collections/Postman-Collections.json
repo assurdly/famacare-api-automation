@@ -16528,7 +16528,7 @@
 							"name": "Users(Staff)-Clinical",
 							"item": [
 								{
-									"name": "Get Clinical Staff-SuperAdmin",
+									"name": "Get Clinical Staff-Receptionist-NotAllowed",
 									"event": [
 										{
 											"listen": "test",
