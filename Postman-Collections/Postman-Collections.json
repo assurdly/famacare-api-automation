@@ -15530,6 +15530,51 @@
 									"response": []
 								},
 								{
+									"name": "Fetch Unique Sponsor (uuid)-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "4ff9ddcd-d2e9-4277-a456-1f4760a474c4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"Sponsor does not exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4c0a0d18-a130-475e-a392-a1ced4f88a76",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/sponsor/fetch/87E"
+									},
+									"response": []
+								},
+								{
 									"name": "Fetch Unique Sponsor (uuid)-InvalidToken",
 									"event": [
 										{
