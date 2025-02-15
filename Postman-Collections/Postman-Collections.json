@@ -13521,6 +13521,44 @@
 					"item": [
 						{
 							"name": "Get Investigation by plan_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "1c303592-fdec-4067-b2de-0dc35325857f",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -13530,7 +13568,7 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
