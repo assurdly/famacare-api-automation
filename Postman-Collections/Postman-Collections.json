@@ -12094,7 +12094,7 @@
 											"script": {
 												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
 												"exec": [
-													"// This is supposed to give an error of 404 "
+													"// This is supposed to give an error of 404, reported as bug"
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -15223,7 +15223,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token_Invalid}}",
+												"value": "Bearer {{receptionist _token_Invalid}}",
 												"type": "text"
 											}
 										],
@@ -15291,7 +15291,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
