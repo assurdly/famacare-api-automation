@@ -8653,7 +8653,7 @@
 									"response": []
 								},
 								{
-									"name": "Get otherservice by plan_code-InvalidCode",
+									"name": "Get otherservice by plan_code-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
@@ -14851,6 +14851,51 @@
 										"url": "{{host}}api/patient/unique/D528326B"
 									},
 									"response": []
+								},
+								{
+									"name": "Get Unique Patient(upi)-Doctor-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "0043d438-8604-4ec2-a606-7047e2f5f4b9",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.be.a(\"string\").and.to.eql(\"Patient not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8031ccfd-6066-4daa-957b-ffd15c1b7648",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/patient/unique/D5"
+									},
+									"response": []
 								}
 							],
 							"id": "59a8b08d-e1ca-480a-88e0-c1791dd8833e"
@@ -19283,7 +19328,7 @@
 									"response": []
 								},
 								{
-									"name": "Get otherservice by plan_code-InvalidCode",
+									"name": "Get otherservice by plan_code-InvalidToken",
 									"event": [
 										{
 											"listen": "test",
