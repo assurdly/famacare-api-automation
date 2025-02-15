@@ -15673,6 +15673,951 @@
 					"id": "4ebb00d8-75e1-4937-a400-7285393ea935"
 				},
 				{
+					"name": "Users(Staff) Copy",
+					"item": [
+						{
+							"name": "Users(staff)-Password",
+							"item": [
+								{
+									"name": "Change Password",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is success and code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password update success message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Password updated successfully\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "36dab2ce-8168-494f-a727-9bbca4f8e5b3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-UserNotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User not found error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"user not found\");\r",
+													"});\r",
+													"\r",
+													"//The error code here is supposed to be 404 not found and not 400 - reported. "
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "99dbb38e-a40e-407a-b30e-989893159d9b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-InvalidPassword",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password validation errors are present\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Password validation rules are enforced\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.include(\"password must be at least 8 characters long\");\r",
+													"    pm.expect(jsonData.error[1].msg).to.include(\"Password must contain at least one uppercase letter\");\r",
+													"    pm.expect(jsonData.error[2].msg).to.include(\"Password must contain at least one number\");\r",
+													"    pm.expect(jsonData.error[3].msg).to.include(\"Password must contain at least one special character\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4a7e6f5e-a377-4288-b39b-a63c4046e1fe",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"assword\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "aa57d521-d7ef-4144-842f-a8ab35d9144c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "26028432-4df1-4415-a962-38413cbfeaae",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "34b04c98-a36b-4847-b014-078176d10edb",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								},
+								{
+									"name": "Change Password-AccessDenied",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a168181b-bb0e-46db-ac85-81e55ebced9c",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Access denied message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User information is included\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.exp).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User role is unauthorized\", function () {\r",
+													"    pm.expect([\"Receptionist\",\"Doctor\"]).to.include(jsonData.user.role);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "228f09b3-4d50-4237-af0b-b78c5695879f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PUT",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan1@assurdly.com\",\n    \"password\":\"Password123@\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/user/changepassword"
+									},
+									"response": []
+								}
+							],
+							"id": "9df8e127-d3d0-48a0-92a5-812ca68fe8a5"
+						},
+						{
+							"name": "Users(Staff)-Clinical",
+							"item": [
+								{
+									"name": "Get Clinical Staff-SuperAdmin",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "fbc960a5-6bc2-4907-9cf5-b0c586429a40",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Clinical staff data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.clinicalstaff).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Clinical staff member contains required fields\", function () {\r",
+													"    pm.expect(jsonData.clinicalstaff[0]).to.be.an(\"object\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0]._id).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].firstname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].lastname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].email).to.be.a(\"string\").and.to.include(\"@\").and.to.include(\".\");\r",
+													"    pm.expect(jsonData.clinicalstaff[0].phone).to.be.a(\"string\").and.to.not.include(\"number\");\r",
+													"    pm.expect(jsonData.clinicalstaff[0].office).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].department).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].isActive).to.be.a(\"boolean\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].aos).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.clinicalstaff[0].dob).to.be.a(\"string\").and.to.have.lengthOf(10);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "7ee9797f-933e-4671-8a35-26aaedb4b7bc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/user/clinicalstaff"
+									},
+									"response": []
+								}
+							],
+							"id": "d26e2b39-162c-4f7e-8619-0d6c01e19ab7"
+						},
+						{
+							"name": "Users(Staff)-NoneClinical",
+							"item": [
+								{
+									"name": "Non Clinical Staff",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "018d5e75-02bd-4480-add2-ecd1afb2c153",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Non-clinical staff data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.nonclinicalstaff).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Non-clinical staff member contains required fields\", function () {\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0]).to.be.an(\"object\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0]._id).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].firstname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].lastname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].email).to.be.a(\"string\").and.to.include(\"@\").and.to.include(\".\");\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].phone).to.be.a(\"string\").and.to.not.include(\"number\");\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].office).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].office_uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].department).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].isActive).to.be.a(\"boolean\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].aos).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(Number(jsonData.nonclinicalstaff[0].fee)).to.be.a(\"number\").and.to.be.at.least(0);\r",
+													"    pm.expect(jsonData.nonclinicalstaff[0].dob).to.be.a(\"string\").and.to.have.lengthOf(10);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "a4b22672-a6b9-49d6-9773-631cc8119a6c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/nonclincalstaff"
+									},
+									"response": []
+								},
+								{
+									"name": "Non Clinical Staff-ExpiredToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "018d5e75-02bd-4480-add2-ecd1afb2c153",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "781686d6-f0a4-47c3-8d40-b800f7b7fc92",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/nonclincalstaff"
+									},
+									"response": []
+								},
+								{
+									"name": "Non Clinical Staff-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "018d5e75-02bd-4480-add2-ecd1afb2c153",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d5f3e4f6-8e77-4949-82a5-63cabae7f769",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/nonclincalstaff"
+									},
+									"response": []
+								},
+								{
+									"name": "Non Clinical Staff- NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "018d5e75-02bd-4480-add2-ecd1afb2c153",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "5279a08d-8269-4de5-bd29-c347bd715813",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/nonclincalstaff"
+									},
+									"response": []
+								}
+							],
+							"id": "5300c51c-88e5-475d-86c0-bb326f6e0970"
+						},
+						{
+							"name": "Users(Staff)-Unique-uuid",
+							"item": [
+								{
+									"name": "Get Unique by uuid",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User data is valid\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User contains required fields\", function () {\r",
+													"    pm.expect(jsonData.user._id).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.firstname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.lastname).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\").and.to.include(\".\");\r",
+													"    pm.expect(jsonData.user.phone).to.be.a(\"string\").and.to.not.include(\"number\");\r",
+													"    pm.expect(jsonData.user.office).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.office_uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.department).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.uuid).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.isActive).to.be.a(\"boolean\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.dob).to.be.a(\"string\").and.to.have.lengthOf(10);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "1f726082-c939-41b5-ab0f-893dd4546469",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.be.a(\"string\").and.to.eql(\"User not found\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "21ed1280-0145-43b9-8e28-e0c1623519c5",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pq"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-ExpireedToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "6b56fdf8-7892-4a96-9612-37da78747d79",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{ExpiredToken}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-NoToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Authorization error message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "4ca0b619-3678-46ea-b8b2-3784b601dad9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text",
+												"disabled": true
+											}
+										],
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-InvalidToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 401\", function () {\r",
+													"    pm.response.to.have.status(401);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response body contains error message\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d932712c-d446-45ad-8d30-e590e2e431c6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token_Invalid}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								},
+								{
+									"name": "Get Unique by uuid-AccessDenied",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "7e5860a7-b335-48ad-9f16-4697fb540120",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 403\", function () {\r",
+													"    pm.response.to.have.status(403);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Access denied message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User information is included\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
+													"    pm.expect(jsonData.user.role).to.be.a(\"string\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"    pm.expect(jsonData.user.exp).to.be.a(\"number\").and.to.not.be.null;;\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User role is unauthorized\", function () {\r",
+													"    pm.expect([\"Receptionist\",\"Doctor\"]).to.include(jsonData.user.role);\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d3110a72-5a82-42ff-9bcf-b734df5eb407",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{receptionist _token}}",
+												"type": "text"
+											}
+										],
+										"url": "{{host}}api/user/unique/pqlwtg"
+									},
+									"response": []
+								}
+							],
+							"id": "cbbfcaae-b812-47ca-a155-addf58c84606"
+						}
+					],
+					"id": "a1faaa0c-965d-408e-aded-4429df34529f"
+				},
+				{
 					"name": "Users(Staff)",
 					"item": [
 						{
