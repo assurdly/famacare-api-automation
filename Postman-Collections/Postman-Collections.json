@@ -5196,7 +5196,7 @@
 												}
 											}
 										},
-										"url": "{{host}}api/appointment/unique/ABE200E2"
+										"url": "{{host}}api/appointment/unique/AB"
 									},
 									"response": []
 								},
