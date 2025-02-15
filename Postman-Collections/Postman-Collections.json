@@ -7476,11 +7476,16 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status is 400\", function () {\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
+													"pm.test(\"Response contains validation errors\", function () {\r",
+													"    pm.expect(jsonData.errors).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
 													"pm.test(\"Error message for price field is correct\", function () {\r",
+													"    pm.expect(jsonData.errors[0]).to.be.an(\"object\").and.to.not.be.null;\r",
 													"    pm.expect(jsonData.errors[0].path).to.eql(\"price\");\r",
 													"    pm.expect(jsonData.errors[0].msg).to.eql(\"Price must be a number\");\r",
 													"});\r",
@@ -18318,15 +18323,19 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status is 400\", function () {\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
+													"pm.test(\"Response contains validation errors\", function () {\r",
+													"    pm.expect(jsonData.errors).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
 													"pm.test(\"Error message for price field is correct\", function () {\r",
+													"    pm.expect(jsonData.errors[0]).to.be.an(\"object\").and.to.not.be.null;\r",
 													"    pm.expect(jsonData.errors[0].path).to.eql(\"price\");\r",
 													"    pm.expect(jsonData.errors[0].msg).to.eql(\"Price must be a number\");\r",
-													"});\r",
-													""
+													"});"
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -18342,7 +18351,7 @@
 										"header": [
 											{
 												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
+												"value": "Bearer {{receptionist _token}}",
 												"type": "text"
 											}
 										],
