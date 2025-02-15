@@ -1,0 +1,12 @@
+{
+    "Date": "Sat, 15 Feb 2025 19:37:34 GMT",
+    "Content-Type": "text/html; charset=utf-8",
+    "Content-Length": "243",
+    "Connection": "keep-alive",
+    "CF-Ray": "9127c0d348be15a6-SJC",
+    "CF-Cache-Status": "DYNAMIC",
+    "x-render-routing": "suspend",
+    "Vary": "Accept-Encoding",
+    "Server": "cloudflare",
+    "alt-svc": "h3=\":443\"; ma=86400"
+}
