@@ -13302,6 +13302,44 @@
 					"item": [
 						{
 							"name": "Fetch Service by type",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains services\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Service details are valid\", function () {\r",
+											"    var service = jsonData.services[0];\r",
+											"\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "e98b24df-586f-43e7-a56f-0f94de69f60d",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -13312,6 +13350,171 @@
 									{
 										"key": "Authorization",
 										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "df821e82-9921-459e-8643-579ac97a6652",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-ExpiredToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "5b821d4e-b2a4-4788-840a-d273fc1a1106",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "1fcf65e0-ade3-4851-9238-dad4a69b97b5",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/fetch/Imaging Investigation"
+							},
+							"response": []
+						},
+						{
+							"name": "Fetch Service by type-InvalidToken Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "208d4dca-3f5e-48c9-b779-df1774880f79",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
 										"type": "text"
 									}
 								],
