@@ -4383,7 +4383,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{host}}api/user/unique/pqlwtg"
+										"url": "{{host}}api/user/unique/p"
 									},
 									"response": []
 								},
