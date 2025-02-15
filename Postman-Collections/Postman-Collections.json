@@ -13533,24 +13533,22 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response contains services\", function () {\r",
+											"pm.test(\"Response contains investigations\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"    pm.expect(jsonData.services).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"    pm.expect(jsonData.investigations).to.be.an(\"array\").and.to.have.length.above(0);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Service details are valid\", function () {\r",
-											"    var service = jsonData.services[0];\r",
+											"pm.test(\"Investigation details are valid\", function () {\r",
+											"    var investigation = jsonData.investigations[0];\r",
 											"\r",
-											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.price).to.be.a(\"number\").and.to.be.above(0);\r",
-											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
-											"   // pm.expect(service.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
-											"    //pm.expect(service.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(investigation._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.price).to.be.a(\"number\").and.to.be.above(0).and.to.not.be.null;\r",
+											"    pm.expect(investigation.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
 											"});\r",
 											""
 										],
@@ -13560,6 +13558,199 @@
 								}
 							],
 							"id": "1c303592-fdec-4067-b2de-0dc35325857f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-NoToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "d47f7eed-7ac8-48ad-857a-fc991914c65e",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-ExpireToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains investigations\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.investigations).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Investigation details are valid\", function () {\r",
+											"    var investigation = jsonData.investigations[0];\r",
+											"\r",
+											"    pm.expect(investigation).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(investigation._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.price).to.be.a(\"number\").and.to.be.above(0).and.to.not.be.null;\r",
+											"    pm.expect(investigation.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "ee2904b1-d887-4195-9bc3-f219466c1b99",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code-InvalidToken",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body contains error message\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "9ae58f8b-6c88-4220-92c5-7b560e89a7f9",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token_Invalid}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/investigations/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Investigation by plan_code Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "1058e740-af78-45cc-a727-7d9156731148",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains investigations\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.investigations).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Investigation details are valid\", function () {\r",
+											"    var investigation = jsonData.investigations[0];\r",
+											"\r",
+											"    pm.expect(investigation).to.be.an(\"object\").and.to.not.be.null;\r",
+											"    pm.expect(investigation._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.price).to.be.a(\"number\").and.to.be.above(0).and.to.not.be.null;\r",
+											"    pm.expect(investigation.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(investigation.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "fd527933-f6d0-4d7e-bd33-1735076d7c44",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
 							},
