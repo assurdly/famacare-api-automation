@@ -13974,6 +13974,41 @@
 					"item": [
 						{
 							"name": "Get otherservice by plan_code",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains other service data\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Other service details are valid\", function () {\r",
+											"    var service = jsonData.otherservice[0];\r",
+											"\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"id": "21f2dcf2-ca62-4b03-8687-cad6ab1db930",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -13983,7 +14018,198 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code-NoCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response code is 401\", () => {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Authorization error message is correct\", () => {\r",
+											"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "4d0003e3-53e5-493e-8787-e43d8d2ddffc",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code-ExpiredCode",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Token expiration message is correct\", function () {\r",
+											"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "980695d4-0134-44c6-b2b9-0b301a3a3c7c",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{ExpiredToken}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains other service data\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Other service details are valid\", function () {\r",
+											"    var service = jsonData.otherservice[0];\r",
+											"\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "6d572f20-fd82-4176-8eb7-fd7899e7ae4d",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"url": "{{host}}api/service/otherservices/3A9A51C7"
+							},
+							"response": []
+						},
+						{
+							"name": "Get otherservice by plan_code Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"id": "f183ac6b-0d00-4682-97cb-fbbb9292b5b5",
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Response status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response contains other service data\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"    pm.expect(jsonData.otherservice).to.be.an(\"array\").and.to.have.length.above(0);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Other service details are valid\", function () {\r",
+											"    var service = jsonData.otherservice[0];\r",
+											"\r",
+											"    pm.expect(service.is_Active).to.be.a(\"boolean\");\r",
+											"    pm.expect(service._id).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.type).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.name).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.price).to.be.a(\"number\").and.to.not.be.null;\r",
+											"    pm.expect(service.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
+											"    pm.expect(service.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"id": "f5a50536-9bcb-450e-92be-b219cf8fe945",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
