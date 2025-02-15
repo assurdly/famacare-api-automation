@@ -12757,7 +12757,35 @@
 								"header": [
 									{
 										"key": "Authorization",
-										"value": "Bearer {{token}}",
+										"value": "Bearer {{super_admin_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"type\":\"Pathology Investigations\",\n    \"name\":\"Urea\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{host}}api/service/addservice"
+							},
+							"response": []
+						},
+						{
+							"name": "Create-Service-AlreadyExist",
+							"id": "424abcf8-1dd3-43c7-b0ae-7b76d772eb54",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{super_admin_token}}",
 										"type": "text"
 									}
 								],
