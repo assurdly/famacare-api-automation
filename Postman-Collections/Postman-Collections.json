@@ -6988,8 +6988,7 @@
 											{
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token}}",
-												"type": "text",
-												"disabled": true
+												"type": "text"
 											}
 										],
 										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
@@ -7025,7 +7024,7 @@
 												"disabled": true
 											}
 										],
-										"url": "{{host}}api/sponsor/fetch/plan/FAMACARE PRICELIST"
+										"url": "{{host}}api/sponsor/fetch/plan/FAM"
 									},
 									"response": []
 								},
