@@ -12852,7 +12852,7 @@
 							"response": []
 						},
 						{
-							"name": "Create-Service Copy 2",
+							"name": "Create-Service-SponsorNotFound",
 							"event": [
 								{
 									"listen": "test",
@@ -12861,16 +12861,13 @@
 										"exec": [
 											"var jsonData = pm.response.json();\r",
 											"\r",
-											"pm.test(\"Response status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Response status is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response status is success\", function () {\r",
-											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-											"});\r",
-											"\r",
-											"pm.test(\"Success message is correct\", function () {\r",
-											"    pm.expect(jsonData.message).to.eql(\"Service Added successfully\");\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"    pm.expect(jsonData.error).to.eql(\"Sponsor not found\");\r",
 											"});\r",
 											""
 										],
@@ -12894,7 +12891,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"type\":\"\",\n    \"name\":\"\",\n    \"sponsor_uuid\":\"\",\n    \"plan_code\":\"\",\n    \"price\":\"\"\n}",
+									"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cry\",\n    \"sponsor_uuid\":\"\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
 									"options": {
 										"raw": {
 											"language": "json"
