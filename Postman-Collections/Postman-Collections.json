@@ -437,7 +437,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- AccessDenied",
+									"name": "Register(staff) - Unauthorized user access",
 									"event": [
 										{
 											"listen": "test",
@@ -455,9 +455,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"User information is included\", function () {\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
-													"    pm.expect(jsonData.user.role).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user.email).to.eql(\"morgan+1@assurdly.com\");\r",
 													"    pm.expect(jsonData.user.iat).to.be.a(\"number\");\r",
 													"    pm.expect(jsonData.user.exp).to.be.a(\"number\");\r",
 													"});\r",
@@ -503,7 +501,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- RoleRequired",
+									"name": "Register(staff) - Role Required",
 									"event": [
 										{
 											"listen": "test",
@@ -548,7 +546,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)-PasswordRequired",
+									"name": "Register(staff) - Password Required",
 									"event": [
 										{
 											"listen": "test",
