@@ -8275,7 +8275,7 @@
 											"script": {
 												"id": "4e5b9882-24f2-4022-a4f6-9ce7f4f061ae",
 												"exec": [
-													"// This is supposed to give an error of 404 "
+													"// This is supposed to give an error of 404, test script would be written once fixed."
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -8498,9 +8498,12 @@
 													"    pm.expect(pm.response.code).to.eql(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exist\"); //This would fail because exist was returned as exists, this was reported.\r",
 													"});\r",
 													""
 												],
@@ -8724,10 +8727,14 @@
 													"    pm.expect(pm.response.code).to.eql(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exists\");\r",
 													"});\r",
+													"\r",
+													"pm.test(\"Error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan does not exist\");\r",
+													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
