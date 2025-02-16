@@ -1,0 +1,5 @@
+{   
+    "name":"withdrawal Square user-centric brand capability",
+    "office_uuid":"vglk5m"
+}
+
