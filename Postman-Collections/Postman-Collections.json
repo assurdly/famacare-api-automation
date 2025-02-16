@@ -2323,7 +2323,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Roles-SuperAdmin-InvalidToken",
+									"name": "Get Roles - Super Admin - Invalid Token",
 									"event": [
 										{
 											"listen": "test",
@@ -2365,7 +2365,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Roles-SuperAdmin-NoToken",
+									"name": "Get Roles - Super Admin - No Token",
 									"event": [
 										{
 											"listen": "test",
@@ -2378,7 +2378,7 @@
 													"    pm.response.to.have.status(401);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"pm.test(\"Authorization error message is returned\", () => {\r",
 													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
 													"});\r",
 													""
@@ -2393,6 +2393,9 @@
 										"disableBodyPruning": true
 									},
 									"request": {
+										"auth": {
+											"type": "noauth"
+										},
 										"method": "GET",
 										"header": [
 											{
@@ -2410,10 +2413,10 @@
 							"id": "05ffcfab-c58d-424a-a68d-b35c987206ec"
 						},
 						{
-							"name": "Role-DEL",
+							"name": "Role - Delete",
 							"item": [
 								{
-									"name": "Delete Role by id",
+									"name": "Delete Role by ID - invalid ID",
 									"id": "11c647c9-ba28-4d8e-a767-a15919c0b449",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -2421,7 +2424,7 @@
 									"request": {
 										"method": "DELETE",
 										"header": [],
-										"url": "http://localhost:5000/api/role/6734007c0a3af88d9db52525"
+										"url": "{{host}}api/role/6734007c0a3af88d9db52525"
 									},
 									"response": []
 								}
@@ -5212,11 +5215,11 @@
 													"pm.test(\"Vital signs have expected values\", function () {\r",
 													"    var appointment = jsonData.appointments[0];\r",
 													"\r",
-													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.not.be.null;\r",
-													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.not.be.null;\r",
-													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\");\r",
-													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.not.be.null;\r",
-													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
 													"});\r",
 													""
 												],
@@ -5414,13 +5417,13 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Vital signs have expected numeric values\", function () {\r",
-													"    var appointment = jsonData.appointment;\r",
+													"    var appointment = jsonData.appointments[0];\r",
 													"\r",
-													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.be.above(0);\r",
-													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.be.above(0);\r",
-													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.be.above(0);\r",
-													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.be.above(0);\r",
-													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.not.be.null.and.to.be.above(0);\r",
 													"});\r",
 													""
 												],
