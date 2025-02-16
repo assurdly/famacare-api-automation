@@ -798,7 +798,7 @@
 							"id": "9fe526f8-a1b0-449a-984b-6ee23ed80f8e"
 						},
 						{
-							"name": "Authentication - Login (staff)",
+							"name": "Authentication - Login (staff) - Admin",
 							"item": [
 								{
 									"name": "Login(staff) - Admin login successful",
