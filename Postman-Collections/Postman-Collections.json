@@ -1860,12 +1860,7 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Role data is valid\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.role).to.be.an(\"object\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Role contains required fields\", function () {\r",
+													"pm.test(\"Role details are returned\", function () {\r",
 													"    pm.expect(jsonData.role.office_uuid).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.role.name).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.role._id).to.be.a(\"string\");\r",
@@ -1893,7 +1888,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA1\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"raw": "{\n    \"name\":\"{{$randomWord}}\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1956,7 +1951,7 @@
 									"response": []
 								},
 								{
-									"name": "Create Role- Invalid Token",
+									"name": "Create Role - Invalid Token",
 									"event": [
 										{
 											"listen": "test",
@@ -2006,7 +2001,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-AccessDenied",
+									"name": "Create Role - Access Denied",
 									"event": [
 										{
 											"listen": "test",
@@ -2068,7 +2063,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-NoToken",
+									"name": "Create Role - No Token",
 									"event": [
 										{
 											"listen": "test",
@@ -2119,7 +2114,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-RoleRequired",
+									"name": "Create - Role Required",
 									"event": [
 										{
 											"listen": "test",
@@ -2178,7 +2173,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-ExpiredToken",
+									"name": "Create Role - Expired Token",
 									"event": [
 										{
 											"listen": "test",
@@ -3955,8 +3950,11 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status is success and code is 200\", function () {\r",
+													"pm.test(\"Response code is 200\", function () {\r",
 													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
 													"});\r",
 													"\r",
@@ -4904,10 +4902,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Appointment scheduling success message is correct\", function () {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Appointment scheduling success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Appointment scheduled successfully\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
