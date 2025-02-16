@@ -801,7 +801,7 @@
 							"name": "Authentication - Login (staff)",
 							"item": [
 								{
-									"name": "Login(staff)- Admin",
+									"name": "Login(staff) - Admin",
 									"event": [
 										{
 											"listen": "test",
@@ -810,13 +810,12 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Status is success and response code is 200\", function () {\r",
+													"pm.test(\"Status code is 200 with a success object\", function () {\r",
 													"    pm.response.to.have.status(200);\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"User details and token exist\", function () {\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
 													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
 													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
@@ -849,7 +848,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Admin- InvalidEmail",
+									"name": "Login(staff) - Admin- Invalid Email",
 									"event": [
 										{
 											"listen": "test",
@@ -858,12 +857,12 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
+													"pm.test(\"Response code is 400 with failure object\", function () {\r",
 													"    pm.response.to.have.status(400);\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Failure message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
 													""
@@ -894,7 +893,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Admin- InvalidPassword",
+									"name": "Login(staff) - Admin - Invalid Password",
 									"event": [
 										{
 											"listen": "test",
