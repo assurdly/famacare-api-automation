@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Configuration International","branch":null,"isActive":true,"_id":"67b25b4fd04b44397a3d36a8","createdAt":"2025-02-16T21:40:31.986Z","__v":0}}

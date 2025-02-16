@@ -1,0 +1,1 @@
+{"status":"success","role":{"office_uuid":"vglk5m","name":"turquoise","_id":"67b25b51d04b44397a3d36b0","createdAt":"2025-02-16T21:40:33.366Z","__v":0}}
