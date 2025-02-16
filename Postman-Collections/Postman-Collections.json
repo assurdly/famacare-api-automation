@@ -1099,7 +1099,7 @@
 									"response": []
 								},
 								{
-									"name": "Forgot Password - Invalid Email",
+									"name": "Forgot Password - Empty Email Field",
 									"event": [
 										{
 											"listen": "test",
@@ -9260,7 +9260,7 @@
 							"name": "Authentication-ForgotPassword",
 							"item": [
 								{
-									"name": "Forgot",
+									"name": "Forgot- Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -9281,6 +9281,7 @@
 													"pm.test(\"Successful reset message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -9298,6 +9299,50 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/forgot"
+									},
+									"response": []
+								},
+								{
+									"name": "Forgot Password - Empty Email Field",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1bc760f9-2837-4e8b-b6ff-efb9cdadd00b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required email error message is returned\", function () {\r",
+													"    pm.expect(jsonData.error[1].msg).to.eql(\"Email is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "8d761897-84e9-4d3c-9c75-2714112844f0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -14710,7 +14755,7 @@
 							"name": "Authntication-Login(NonClinicalStaff)",
 							"item": [
 								{
-									"name": "Login(staff) - Receptionist",
+									"name": "Login(staff) - Receptionist -Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -15000,6 +15045,50 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"email\":\"morg+1@assurdly.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/forgot"
+									},
+									"response": []
+								},
+								{
+									"name": "Forgot Password - Empty Email Field",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1bc760f9-2837-4e8b-b6ff-efb9cdadd00b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required email error message is returned\", function () {\r",
+													"    pm.expect(jsonData.error[1].msg).to.eql(\"Email is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "c77d48a9-617b-475a-a84d-159ca7a7f72f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
