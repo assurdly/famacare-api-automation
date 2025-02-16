@@ -1,5 +1,0 @@
-{   
-    "name":"Tuna Koruna Bacon",
-    "office_uuid":"vglk5m"
-}
-
