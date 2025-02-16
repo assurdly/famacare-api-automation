@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Global niches generate","branch":null,"isActive":true,"_id":"67b254f2d04b44397a3d2ba5","createdAt":"2025-02-16T21:13:22.502Z","__v":0}}
