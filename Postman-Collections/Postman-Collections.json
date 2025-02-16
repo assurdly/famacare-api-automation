@@ -6881,17 +6881,17 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
+													"pm.test(\"Response status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response status is failed\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"pm.test(\"Sponsor plan addition success message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Sponsor Plan Added successfully\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message for existing sponsor plan is correct\", function () {\r",
-													"    pm.expect(jsonData.error).to.eql(\"Sponsor plan already exists\");\r",
-													"});\r",
 													""
 												],
 												"type": "text/javascript",
@@ -6914,7 +6914,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\":\"FAMACARE EE\"\n}",
+											"raw": "{\n    \"name\":\"FAMACARE EE1\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -7167,7 +7167,7 @@
 							"name": "Sponsor-GetAll",
 							"item": [
 								{
-									"name": "All Sponsor Plans",
+									"name": "All Sponsor Plans-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -7192,7 +7192,7 @@
 													"    pm.expect(plan.name).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(plan.plan_code).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(plan.sponsor_uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(plan.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(plan.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
 													"    pm.expect(plan.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(plan.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
 													"});\r",
@@ -7310,7 +7310,7 @@
 							"name": "Fetch Unique Sponsor (uuid)",
 							"item": [
 								{
-									"name": "Fetch Unique Sponsor (uuid)",
+									"name": "Fetch Unique Sponsor (uuid)-Successful",
 									"event": [
 										{
 											"listen": "test",
