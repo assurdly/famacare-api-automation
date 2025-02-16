@@ -1087,7 +1087,7 @@
 							"name": "Authentication - Verify Token",
 							"item": [
 								{
-									"name": "Verify Token",
+									"name": "Verify Token - successful",
 									"event": [
 										{
 											"listen": "test",
@@ -1102,7 +1102,6 @@
 													"\r",
 													"pm.test(\"Token validation is successful\", function () {\r",
 													"    pm.expect(jsonData.valid).to.be.true;\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
 													"    pm.expect(jsonData.user.email).to.be.a(\"string\").and.to.include(\"@\");\r",
 													"    pm.expect(jsonData.user.iat).to.be.a(\"number\").and.to.be.below(jsonData.user.exp);\r",
 													"});\r",
@@ -1122,7 +1121,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n}",
+											"raw": "{\n    \"token\":\"{{doctor_token}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1185,7 +1184,7 @@
 							"name": "Authentication - Reset Password",
 							"item": [
 								{
-									"name": "Reset Password",
+									"name": "Reset Password - successful",
 									"event": [
 										{
 											"listen": "test",
