@@ -1,0 +1,11 @@
+//This enpoint has a bug, check bug sheet 
+
+var jsonData = pm.response.json();
+
+pm.test("Response status code is 400", function () {
+    pm.response.to.have.status(400);
+});
+
+pm.test("A message about the required role is returned", function () {
+    pm.expect(jsonData.message).to.eql("User role is required");
+});
