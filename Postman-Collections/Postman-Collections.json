@@ -1379,6 +1379,56 @@
 							"name": "Departments - Create Department",
 							"item": [
 								{
+									"name": "Login(staff) - Receptionist",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bb90aa48-33a0-4bba-a49d-3cf8680bbe55",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status is success and response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User details and token exist\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
+													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
+													"});\r",
+													"\r",
+													"pm.environment.set(\"receptionist_access_token\", jsonData.token)\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "80f5581a-bb9b-46e9-b6ca-986ccaed8b3f",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"judith.michael@famacare.com\",\n    \"password\":\"BOBson246**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
 									"name": "Create Department - successful",
 									"event": [
 										{
