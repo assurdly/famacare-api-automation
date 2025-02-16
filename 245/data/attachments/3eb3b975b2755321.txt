@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Islands compressing","branch":null,"isActive":true,"_id":"67b2559ad04b44397a3d2cea","createdAt":"2025-02-16T21:16:10.786Z","__v":0}}

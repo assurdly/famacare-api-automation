@@ -1,5 +1,0 @@
-{   
-    "name":"Awesome experiences Wooden circuit",
-    "office_uuid":"vglk5m"
-}
-
