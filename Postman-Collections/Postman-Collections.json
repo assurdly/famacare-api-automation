@@ -17975,7 +17975,7 @@
 									"name": "Appointment-Get",
 									"item": [
 										{
-											"name": "Get Appointments-Receptionist",
+											"name": "Get Appointments-Receptionist-Successful",
 											"event": [
 												{
 													"listen": "test",
@@ -18179,7 +18179,7 @@
 									"name": "Appointment-GetUnique",
 									"item": [
 										{
-											"name": "Get Unique Appointment-Receptionist",
+											"name": "Get Unique Appointment-Receptionist-Successful",
 											"event": [
 												{
 													"listen": "test",
@@ -18320,22 +18320,21 @@
 													"script": {
 														"id": "3a7fef80-7a56-4598-ae04-16686d6825c1",
 														"exec": [
-															"// var jsonData = pm.response.json();\r",
+															"var jsonData = pm.response.json();\r",
 															"\r",
-															"// pm.test(\"Response status code is 404\", function () {\r",
-															"//     pm.response.to.have.status(404);\r",
-															"// });\r",
+															"pm.test(\"Response status code is 404\", function () {\r",
+															"    pm.response.to.have.status(404);\r",
+															"});\r",
 															"\r",
-															"// pm.test(\"Appointment not found message is correct\", function () {\r",
-															"//     pm.expect(jsonData).to.have.property(\"message\", \"Appointment not found\");\r",
-															"// });\r",
+															"pm.test(\"Appointment not found message is correct\", function () {\r",
+															"    pm.expect(jsonData).to.have.property(\"message\", \"Appointment not found\");\r",
+															"});\r",
 															"\r",
-															"// pm.test(\"Status is failed\", function () {\r",
-															"//     pm.expect(jsonData).to.have.property(\"status\", \"failed\");\r",
-															"// });\r",
+															"pm.test(\"Status is failed\", function () {\r",
+															"    pm.expect(jsonData).to.have.property(\"status\", \"failed\");\r",
+															"});\r",
 															"\r",
-															"\r",
-															"//The script is valid however this is commented out because the implementation for not found is 400 instead of 404"
+															""
 														],
 														"type": "text/javascript",
 														"packages": {}
@@ -18425,7 +18424,7 @@
 									"name": "Appointment-Patient upi",
 									"item": [
 										{
-											"name": "Unique Patient Appointment (patient upi)-Receptionist",
+											"name": "Unique Patient Appointment (patient upi)-Receptionist-Successful",
 											"event": [
 												{
 													"listen": "test",
@@ -18716,7 +18715,7 @@
 					"name": "Diagnosis-FetchAll",
 					"item": [
 						{
-							"name": "fetch-all",
+							"name": "fetch-all-Successful",
 							"event": [
 								{
 									"listen": "test",
