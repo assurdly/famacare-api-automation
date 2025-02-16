@@ -2430,7 +2430,7 @@
 									"response": []
 								},
 								{
-									"name": "Delete Role by ID - invalid ID Copy",
+									"name": "Delete Role by ID - successful",
 									"id": "313ee6ee-8b92-4491-8c9e-6c29f3ddb1e0",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -2438,7 +2438,7 @@
 									"request": {
 										"method": "DELETE",
 										"header": [],
-										"url": "{{host}}api/role/6734007c0a3af88d9db52525"
+										"url": "{{host}}api/role/{{role_id}}"
 									},
 									"response": []
 								}
