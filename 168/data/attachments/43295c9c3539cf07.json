@@ -1,0 +1,10 @@
+{
+    "Authorization": "Bearer yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imh1bXBoZXJ5LmFueWFud3VAZmFtYWNhcmUuY29tIiwicm9sZSI6IkRvY3RvciIsImlhdCI6MTczOTQwMzE1OSwiZXhwIjoxNzM5NDMxOTU5fQ.0UbNgI-HOaUWKAmNC26C_3ESiTztF6sVQjObDSfH9M0",
+    "User-Agent": "PostmanRuntime/7.39.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "4c3ad7e8-93be-4106-a050-2d3a4be30443",
+    "Host": "nelloehrback.onrender.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive"
+}
