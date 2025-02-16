@@ -2544,6 +2544,28 @@
 								},
 								{
 									"name": "Delete Role by ID - successful",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bf132d16-5be1-4a2b-8548-fb7dd08f5d17",
+												"exec": [
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Response status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Role is deleted successfully\", function () {",
+													"    pm.expect(jsonData.role.message).is.eql(\"Role deleted successfully\");",
+													"});",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
 									"id": "313ee6ee-8b92-4491-8c9e-6c29f3ddb1e0",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
@@ -15719,7 +15741,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toludtst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toludatst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
 											"options": {
 												"raw": {
 													"language": "json"
