@@ -6188,7 +6188,7 @@
 											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
+											"pm.test(\"Error meesage is correct\", function () {\r",
 											"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 											"});\r",
 											""
@@ -6355,7 +6355,7 @@
 							"name": "FetchSponsor",
 							"item": [
 								{
-									"name": "Fetch Sponsors",
+									"name": "Fetch Sponsors-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -6540,7 +6540,7 @@
 							"name": "Update-Unique-sponsor",
 							"item": [
 								{
-									"name": "Update unique sponsor",
+									"name": "Update unique sponsor-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -6662,10 +6662,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Success message is correct\", function () {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Sponsor update success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Sponsor Updated successfully\");\r",
 													"});\r",
+													"\r",
 													"\r",
 													"\r",
 													"//Only admin is supposed to update sponsor. Bug"
