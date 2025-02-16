@@ -15495,7 +15495,7 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Token validation failed\", function () {\r",
+													"pm.test(\"Token validation error is returned\", function () {\r",
 													"    pm.expect(jsonData.valid).to.be.false;\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
 													"});\r",
