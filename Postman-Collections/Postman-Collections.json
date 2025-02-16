@@ -589,7 +589,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Error message about the required password is returned\", function () {\r",
-													"    pm.expect(jsonData.error[0].msg).to.eql(\"Password is required\");\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"password is required\");\r",
 													"});\r",
 													""
 												],
@@ -9188,7 +9188,7 @@
 							"name": "Authntication-Login(ClinicalStaff)",
 							"item": [
 								{
-									"name": "Login(staff) - Doctor",
+									"name": "Login(staff) - Doctor-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -17629,7 +17629,7 @@
 							"name": "Role-GetRoles",
 							"item": [
 								{
-									"name": "Get Roles-Receptionist",
+									"name": "Get Roles-Receptionist-Successful",
 									"event": [
 										{
 											"listen": "test",
