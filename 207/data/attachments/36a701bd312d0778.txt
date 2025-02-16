@@ -1,4 +1,0 @@
-{
-    "name":"exploit",
-    "office_uuid":"vglk5m"
-}
