@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Chicken Strategist system","branch":null,"isActive":true,"_id":"67b2586fd04b44397a3d3243","createdAt":"2025-02-16T21:28:15.071Z","__v":0}}

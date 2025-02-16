@@ -1,0 +1,13 @@
+{
+    "Authorization": "Bearer {{receptionist _token}}",
+    "Email": "user_swv9fh@example.com",
+    "Content-Type": "application/json",
+    "User-Agent": "PostmanRuntime/7.39.1",
+    "Accept": "*/*",
+    "Cache-Control": "no-cache",
+    "Postman-Token": "73e08eaa-f37b-4108-bec3-996ae7b42a51",
+    "Host": "testback.famacare.com",
+    "Accept-Encoding": "gzip, deflate, br",
+    "Connection": "keep-alive",
+    "Content-Length": "729"
+}
