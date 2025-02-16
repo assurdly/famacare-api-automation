@@ -993,7 +993,7 @@
 									"response": []
 								},
 								{
-									"name": "Forgot- InvalidEmail",
+									"name": "Forgot Password - Invalid Email",
 									"event": [
 										{
 											"listen": "test",
@@ -1037,7 +1037,7 @@
 									"response": []
 								},
 								{
-									"name": "Forgot- InvalidEmail Copy",
+									"name": "Forgot Password - Invalid Email",
 									"event": [
 										{
 											"listen": "test",
@@ -1069,7 +1069,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"morg+1@assurdly.com\"\n}",
+											"raw": "{\n    \"email\":\"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
