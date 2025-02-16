@@ -102,7 +102,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff) - Clinical",
+									"name": "Register(staff) - Successful Clinical registration",
 									"event": [
 										{
 											"listen": "test",
@@ -117,6 +117,10 @@
 													"\r",
 													"pm.test(\"Response body contains success status and message\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Successful user registration message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
 													"});\r",
 													""
@@ -157,7 +161,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff) - Clinical - EmailExists",
+									"name": "Register(staff) - Clinical - Email Exists",
 									"event": [
 										{
 											"listen": "test",
@@ -174,7 +178,7 @@
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
+													"pm.test(\"Error message about a duplicate email is returned\", function () {\r",
 													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"User with email already exists\");\r",
 													"});\r",
 													""
@@ -215,7 +219,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff) - NonClinical",
+									"name": "Register(staff) - Successful Non-Clinical registration",
 									"event": [
 										{
 											"listen": "test",
