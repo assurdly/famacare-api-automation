@@ -3052,7 +3052,7 @@
 							"name": "Users(Patient) - ALL",
 							"item": [
 								{
-									"name": "Get All Patient- SuperAdmin",
+									"name": "Get All Patient- SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -3191,7 +3191,7 @@
 							"name": "Users(Patient)-Unique(upi)",
 							"item": [
 								{
-									"name": "Get Unique Patient(upi)-SuperAdmin",
+									"name": "Get Unique Patient(upi)-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -3377,7 +3377,7 @@
 							"name": "Users(PatientSearch)",
 							"item": [
 								{
-									"name": "Search Patient by lastname-SuperAdmin",
+									"name": "Search Patient by lastname-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -3583,7 +3583,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by upi-SuperAdmin",
+									"name": "Search Patient by upi-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -3725,7 +3725,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by uuid-SuperAdmin",
+									"name": "Search Patient by uuid-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
