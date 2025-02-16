@@ -24,7 +24,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-           newman run Postman-Collections/Postman-Collections.json -e Nello-EHR-Variables.postman_environment --reporters cli,allure
+           newman run Postman-Collections/Postman-Collections.json -e Nello-EHR-Variables.postman_environment.json --reporters cli,allure
            echo "Postman tests run."
       - name: Get Allure history
         uses: actions/checkout@v2
@@ -87,7 +87,7 @@ jobs:
           echo "Summary Path: $summary_path"
           if [[ -e "$summary_path" ]]; then
             cat "$summary_path"  # Print content before
-            sudo sed -i 's/Allure Report/Herconomy-savr - API Quality Readiness/' "$summary_path"
+            sudo sed -i 's/Allure Report/Famacare-EHR - API Quality Readiness/' "$summary_path"
             cat "$summary_path"  # Print content after
           else
             echo "Error: summary.json not found in the latest folder."
@@ -121,7 +121,7 @@ jobs:
       #     SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
       #     SLACK_CHANNEL: 'C070KUKPDLZ'
       #     SLACK_MESSAGE: |
-      #       *Herconomy-savr - API Quality Readiness*
+      #       *Famacare-EHR - API Quality Readiness*
       #       *Contributors - Abisola Oyedotun, Morgan Zee*
       #       Status: ${{ job.status }}
       #       Passing Tests: ${{ steps.parse_json.outputs.passing_percentage }}%
