@@ -1,0 +1,5 @@
+{   
+    "name":"Morocco turn-key",
+    "office_uuid":"vglk5m"
+}
+
