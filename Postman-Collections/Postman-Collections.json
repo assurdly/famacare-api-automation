@@ -115,9 +115,8 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response body contains success status and message\", function () {\r",
+													"pm.test(\"Response body contains success object\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Successful user registration message is returned\", function () {\r",
@@ -149,7 +148,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //compulsory for only clinical staff (i.e Doctor, Nurse, etc), else optional\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"{{$randomEmail}}\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //compulsory for only clinical staff (i.e Doctor, Nurse, etc), else optional\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -232,8 +231,11 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response body contains success status and message\", function () {\r",
+													"pm.test(\"Response body contains success object\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Successful user registration message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
 													"});\r",
 													""
@@ -262,7 +264,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires Super Admin token Authentication\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
+											"raw": "{\n    // requires Super Admin token Authentication\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"{{$randomEmail}}\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -400,7 +402,7 @@
 													"    pm.response.to.have.status(401);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Token expiration message is correct\", function () {\r",
+													"pm.test(\"Token expiration message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Token has expired\");\r",
 													"});\r",
 													""
@@ -454,7 +456,7 @@
 													"    pm.response.to.have.status(403);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Access denied message is correct\", function () {\r",
+													"pm.test(\"Access denied message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Access denied: Admins only\");\r",
 													"});\r",
 													"\r",
