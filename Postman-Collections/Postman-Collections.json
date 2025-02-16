@@ -801,7 +801,7 @@
 							"name": "Authentication - Login (staff)",
 							"item": [
 								{
-									"name": "Login(staff) - Admin",
+									"name": "Login(staff) - Admin login successful",
 									"event": [
 										{
 											"listen": "test",
@@ -904,10 +904,10 @@
 													"\r",
 													"pm.test(\"Response code is 400\", function () {\r",
 													"    pm.response.to.have.status(400);\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Failure message is correct\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"pm.test(\"Invalid credentials message is returned\", function () {\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
 													""
@@ -944,7 +944,7 @@
 							"name": "Authentication-ForgotPassword",
 							"item": [
 								{
-									"name": "Forgot",
+									"name": "Forgot Password - successful",
 									"event": [
 										{
 											"listen": "test",
@@ -957,10 +957,13 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Password reset email sent successfully\", function () {\r",
+													"pm.test(\"Success object is present\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Successful reset message is returned\", function () {\r",
+													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"});\r",
 													""
 												],
@@ -1003,7 +1006,7 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Correct error message is returned\", function () {\r",
+													"pm.test(\"Incorrect email error message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Email not registered\");\r",
 													"});\r",
 													""
@@ -1014,6 +1017,50 @@
 										}
 									],
 									"id": "d26dfe18-6062-4617-8f2e-f67bd76a1af2",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morg+1@assurdly.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/forgot"
+									},
+									"response": []
+								},
+								{
+									"name": "Forgot- InvalidEmail Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "1bc760f9-2837-4e8b-b6ff-efb9cdadd00b",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Incorrect email error message is returned\", function () {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Email not registered\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ad84f14f-b43e-47ad-a807-5feb606f38d2",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
