@@ -1232,7 +1232,7 @@
 									"response": []
 								},
 								{
-									"name": "Reset Password-InvalidToken",
+									"name": "Reset Password - Invalid Token",
 									"event": [
 										{
 											"listen": "test",
@@ -1277,7 +1277,7 @@
 									"response": []
 								},
 								{
-									"name": "Reset Password-InvalidEmail",
+									"name": "Reset Password - Invalid Email",
 									"event": [
 										{
 											"listen": "test",
@@ -1292,7 +1292,7 @@
 													"\r",
 													"pm.test(\"User registration error message is correct\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"user with email not registered\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"User with email is not registered\");\r",
 													"});\r",
 													""
 												],
@@ -1311,6 +1311,51 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password - Missing token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User registration error message is correct\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"User with email is not registered\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "d30ad6ff-d6e1-45bf-bf17-048aebb35e7e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
