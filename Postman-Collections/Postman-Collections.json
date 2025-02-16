@@ -2681,11 +2681,16 @@
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token}}",
 												"type": "text"
+											},
+											{
+												"key": "Emails",
+												"value": "{{randomEmail}}",
+												"type": "text"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"toluteestEt@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Asknello\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"{{randomEmail}}\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Asknello\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -9853,7 +9858,7 @@
 							"name": "Users(Patient)-Register",
 							"item": [
 								{
-									"name": "Register Patient-Doctor-Self",
+									"name": "Register Patient-Doctor-Self-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -9888,6 +9893,11 @@
 												"key": "Authorization",
 												"value": "Bearer {{doctor_token}}",
 												"type": "text"
+											},
+											{
+												"key": "Email",
+												"value": "{{randomEmail}}",
+												"type": "text"
 											}
 										],
 										"body": {
@@ -9904,7 +9914,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-Doctor-Sponsor",
+									"name": "Register Patient-Doctor-Sponsor-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -10239,7 +10249,34 @@
 									"response": []
 								}
 							],
-							"id": "498f0116-8a54-4661-93b8-e3276349e210"
+							"id": "498f0116-8a54-4661-93b8-e3276349e210",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "869ad3ba-55b3-470c-a47a-2c7d297fa3e2",
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											"var randomString = Math.random().toString(36).substring(7); \r",
+											"var email = `user_${randomString}@example.com`;\r",
+											"\r",
+											"pm.environment.set(\"randomEmail\", email);"
+										]
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "fd06c282-8691-4491-b149-9f27ae7e93f7",
+										"type": "text/javascript",
+										"packages": {},
+										"exec": [
+											""
+										]
+									}
+								}
+							]
 						},
 						{
 							"name": "Users(Patient) - ALL",
