@@ -1,5 +1,0 @@
-{   
-    "name":"1080p Philippine",
-    "office_uuid":"vglk5m"
-}
-
