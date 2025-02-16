@@ -178,7 +178,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Error message about a duplicate email is returned\", function () {\r",
-													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"User with email already exists\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"User with email already exists\");\r",
 													"});\r",
 													""
 												],
@@ -276,7 +276,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff) - NonClinical - EmailExists",
+									"name": "Register(staff) - NonClinical - Email Exists",
 									"event": [
 										{
 											"listen": "test",
@@ -289,11 +289,11 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response indicates failure\", function () {\r",
+													"pm.test(\"Response object is returned failure\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
+													"pm.test(\"Error message about the existing email is returned\", function () {\r",
 													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"user with email already exists\");\r",
 													"});\r",
 													""
@@ -581,9 +581,12 @@
 													"    pm.expect(jsonData.error).to.be.an(\"array\").that.is.not.empty;\r",
 													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
 													"    pm.expect(jsonData.error[0].value).to.eql(\"\");\r",
-													"    pm.expect(jsonData.error[0].msg).to.eql(\"password is required\");\r",
 													"    pm.expect(jsonData.error[0].path).to.eql(\"password\");\r",
 													"    pm.expect(jsonData.error[0].location).to.eql(\"body\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message about the required password is returned\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Password is required\");\r",
 													"});\r",
 													""
 												],
@@ -612,61 +615,6 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan8@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"\",\n    \"password\":\"\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/register"
-									},
-									"response": []
-								},
-								{
-									"name": "Register(staff) - UserExist",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response body contains failure status and error message\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"user with email already exists\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "06c13766-68cf-43d7-a709-0141c6fbebac",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": {}
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Bunmi\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Super Admin\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
