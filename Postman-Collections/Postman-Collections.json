@@ -14660,10 +14660,14 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Failure message is correct\", function () {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -14705,10 +14709,14 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Failure message is correct\", function () {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -14725,7 +14733,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"chukemeka@famacare.com\",\n    \"password\":\"Facare123**\"\n}",
+											"raw": "{\n    \"email\":\"chukemeka@famacare.com\",\n    \"password\":\"Facare1hghg23**\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
