@@ -2625,11 +2625,16 @@
 												"key": "Authorization",
 												"value": "Bearer {{super_admin_token}}",
 												"type": "text"
+											},
+											{
+												"key": "Email",
+												"value": "{{randomEmail}}",
+												"type": "text"
 											}
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"tolutst@gmail.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
+											"raw": "{\n    //requires authentication \n\n    \"title\":\"Mr\",\n    \"firstname\":\"Mat\",\n    \"lastname\":\"Lawal\",\n    \"email\":\"{{randomEmail}}\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"gender\":\"Male\",\n    \"dob\":\"2024-11-07\",\n    \"marital_status\":\"Single\",\n    \"middlename\":\"Tobi\",\n    \"address\":\"Ojodu Berger Avenue\",\n    \"city\":\"Ikeja GRA\",\n    \"state\":\"Lagos\",\n    \"religion\":\"Christianity\",\n    \"occupation\":\"Software Engineer\",\n    \"blood_group\":\"A+\",\n    \"genotype\":\"AA\",\n    \"next_of_kin\":\"Bisi Lawal\",\n    \"next_of_kin_relationship\":\"Sibling\",\n    \"next_of_kin_phone\":\"07066237379\",\n    \"next_of_kin_address\":\"same as mine\",\n\n    \"sponsor\":\"Self Sponsor\", //See Sponsor -> fetch sponsors\n    \"sponsor_plan\":\"FAMACARE PRICELIST\" //FIXED\n}",
 											"options": {
 												"raw": {
 													"language": "json"
