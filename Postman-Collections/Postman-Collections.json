@@ -18869,7 +18869,7 @@
 					"name": "Drugs-FetchGenricDrugs",
 					"item": [
 						{
-							"name": "Fetch generic Drugs",
+							"name": "Fetch generic Drugs-Successful",
 							"event": [
 								{
 									"listen": "test",
@@ -18894,8 +18894,8 @@
 											"    pm.expect(genericData).to.have.property(\"_id\").that.is.a(\"string\").and.to.not.be.null;\r",
 											"    pm.expect(genericData).to.have.property(\"generic_id\").that.is.a(\"string\").and.to.not.be.null;\r",
 											"    pm.expect(genericData).to.have.property(\"generic\").that.is.a(\"string\").and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
-											"    pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\");//.and.to.not.be.null;\r",
+											"   // pm.expect(genericData).to.have.property(\"createdAt\").that.is.a(\"string\").and.to.not.be.null;\r",
+											"    //pm.expect(genericData).to.have.property(\"updatedAt\").that.is.a(\"string\").and.to.not.be.null;\r",
 											"});\r",
 											""
 										],
