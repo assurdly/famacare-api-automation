@@ -1,5 +1,0 @@
-{   
-    "name":"superstructure Kansas",
-    "office_uuid":"vglk5m"
-}
-
