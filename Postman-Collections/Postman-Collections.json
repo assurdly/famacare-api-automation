@@ -12,7 +12,7 @@
 					"name": "Authentication",
 					"item": [
 						{
-							"name": "Authentication-Register(staff)",
+							"name": "Authentication - Register (staff)",
 							"item": [
 								{
 									"name": "Login(staff) - Authentication",
@@ -626,7 +626,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- InvalidToken",
+									"name": "Register(staff) - Invalid Token",
 									"event": [
 										{
 											"listen": "test",
@@ -639,7 +639,7 @@
 													"    pm.response.to.have.status(401);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response body contains error message\", function () {\r",
+													"pm.test(\"Invalid token error message is returned\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Token is not valid\");\r",
 													"});\r",
 													""
@@ -680,7 +680,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- NoToken",
+									"name": "Register(staff) - No Token",
 									"event": [
 										{
 											"listen": "test",
@@ -693,7 +693,7 @@
 													"    pm.response.to.have.status(401);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Authorization error message is correct\", () => {\r",
+													"pm.test(\"Authorization error message is returned\", () => {\r",
 													"    pm.expect(jsonData.message).to.eql(\"No token, authorization denied\");\r",
 													"});\r",
 													""
@@ -747,13 +747,16 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Response body contains failure status and error details\", function () {\r",
+													"pm.test(\"Response body contains failure error details\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
 													"    pm.expect(jsonData.error[0].value).to.eql(\"\");\r",
-													"    pm.expect(jsonData.error[0].msg).to.eql(\"Fee must be a number\");\r",
 													"    pm.expect(jsonData.error[0].path).to.eql(\"fee\");\r",
 													"    pm.expect(jsonData.error[0].location).to.eql(\"body\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message about the required fee is returned\", () => {\r",
+													"    pm.expect(jsonData.message).to.eql(\"Fee must be a number\");\r",
 													"});"
 												],
 												"type": "text/javascript",
@@ -795,7 +798,7 @@
 							"id": "9fe526f8-a1b0-449a-984b-6ee23ed80f8e"
 						},
 						{
-							"name": "Authentication-Login(staff)",
+							"name": "Authentication - Login (staff)",
 							"item": [
 								{
 									"name": "Login(staff)- Admin",
