@@ -1,4 +1,0 @@
-{
-    "name":"Handmade",
-    "office_uuid":"vglk5m"
-}

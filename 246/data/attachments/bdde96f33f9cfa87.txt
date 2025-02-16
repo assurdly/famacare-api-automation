@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"capacity Savings Sausages visualize partnerships","branch":null,"isActive":true,"_id":"67b25655d04b44397a3d2e34","createdAt":"2025-02-16T21:19:17.171Z","__v":0}}
