@@ -4602,7 +4602,7 @@
 							"name": "Users(Staff)-NoneClinical",
 							"item": [
 								{
-									"name": "Non Clinical Staff",
+									"name": "Non Clinical Staff-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -4791,7 +4791,7 @@
 							"name": "Users(Staff)-Unique-uuid",
 							"item": [
 								{
-									"name": "Get Unique by uuid",
+									"name": "Get Unique by uuid-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -5100,7 +5100,7 @@
 							"name": "Appointment-Schedule",
 							"item": [
 								{
-									"name": "Schedule-SuperAdmin",
+									"name": "Schedule-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -5380,7 +5380,7 @@
 							"name": "Appointment-Get",
 							"item": [
 								{
-									"name": "Get Appointments-SuperAdmin",
+									"name": "Get Appointments-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
