@@ -9273,10 +9273,13 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Password reset email sent successfully\", function () {\r",
+													"pm.test(\"Success object is present\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Successful reset message is returned\", function () {\r",
+													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"});\r",
 													""
 												],
@@ -14914,7 +14917,7 @@
 							"name": "Authentication-ForgotPassword",
 							"item": [
 								{
-									"name": "Forgot",
+									"name": "Forgot - Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -14927,11 +14930,15 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Password reset email sent successfully\", function () {\r",
+													"pm.test(\"Success object is present\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
 													"    pm.expect(jsonData.resetToken).to.be.a(\"string\");\r",
 													"});\r",
+													"\r",
+													"pm.test(\"Successful reset message is returned\", function () {\r",
+													"    pm.expect(jsonData.message).to.include(\"Password reset email sent\");\r",
+													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
