@@ -9640,7 +9640,7 @@
 													"    pm.expect(jsonData.valid).to.be.false;\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Token validation error message is correct\", function () {\r",
+													"pm.test(\"Token validation error is returned\", function () {\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
 													"});\r",
 													""
