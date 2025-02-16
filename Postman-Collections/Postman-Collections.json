@@ -2646,7 +2646,7 @@
 									"response": []
 								},
 								{
-									"name": "Register Patient-SuperAdmin-Sponsor",
+									"name": "Register Patient-SuperAdmin-Sponsor-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -2659,10 +2659,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration was successful\", () => {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -15845,10 +15849,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration was successful\", () => {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
