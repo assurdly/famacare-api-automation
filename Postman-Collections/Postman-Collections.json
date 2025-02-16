@@ -1844,10 +1844,10 @@
 					"name": "Roles",
 					"item": [
 						{
-							"name": "Role-Create",
+							"name": "Role - Create",
 							"item": [
 								{
-									"name": "Create",
+									"name": "Create Role - successful",
 									"event": [
 										{
 											"listen": "test",
@@ -1905,7 +1905,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-RoleExist",
+									"name": "Create Role - Role Exists",
 									"event": [
 										{
 											"listen": "test",
@@ -1956,7 +1956,7 @@
 									"response": []
 								},
 								{
-									"name": "Create-InvalidToken",
+									"name": "Create Role- Invalid Token",
 									"event": [
 										{
 											"listen": "test",
