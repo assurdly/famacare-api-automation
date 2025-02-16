@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Shoes SQL indigo","branch":null,"isActive":true,"_id":"67b259dbd04b44397a3d33bc","createdAt":"2025-02-16T21:34:19.919Z","__v":0}}
