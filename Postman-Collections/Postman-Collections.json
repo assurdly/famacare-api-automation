@@ -14647,7 +14647,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff) - Receptionist Copy",
+									"name": "Login(staff) - Receptionist- InvalidEmail",
 									"event": [
 										{
 											"listen": "test",
@@ -14695,7 +14695,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Receptionist- InvalidEmail",
+									"name": "Login(staff)- Receptionist-NotFound",
 									"event": [
 										{
 											"listen": "test",
