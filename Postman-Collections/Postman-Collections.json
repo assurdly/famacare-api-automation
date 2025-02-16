@@ -53,6 +53,54 @@
 									"response": []
 								},
 								{
+									"name": "Login(staff) - Doctor",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bb90aa48-33a0-4bba-a49d-3cf8680bbe55",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Status is success and response code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"User details and token exist\", function () {\r",
+													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
+													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
+													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
+													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "3119846c-9450-4740-93bc-9ed69e07fcd9",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"morgan+1@assurdly.com\",\n    \"password\":\"Password123!\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
 									"name": "Register(staff) - Clinical",
 									"event": [
 										{
@@ -108,7 +156,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical-EmailExists",
+									"name": "Register(staff) - Clinical - EmailExists",
 									"event": [
 										{
 											"listen": "test",
@@ -166,7 +214,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- NonClinical",
+									"name": "Register(staff) - NonClinical",
 									"event": [
 										{
 											"listen": "test",
@@ -221,7 +269,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- NonClinica-EmailExists",
+									"name": "Register(staff) - NonClinical - EmailExists",
 									"event": [
 										{
 											"listen": "test",
@@ -279,7 +327,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical - aosRequired",
+									"name": "Register(staff) - Clinical - Empty AOS",
 									"event": [
 										{
 											"listen": "test",
@@ -334,7 +382,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical-ExpiredToken",
+									"name": "Register(staff) - Clinical - Expired Token",
 									"event": [
 										{
 											"listen": "test",
