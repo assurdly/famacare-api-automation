@@ -1195,6 +1195,57 @@
 									"response": []
 								},
 								{
+									"name": "Verify Token- Missing Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains an error array\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error path is token\", function () {\r",
+													"    pm.expect(jsonData.error[0].path).to.eql(\"token\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message should specify that token is required\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Token is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "41399726-e539-4c03-9318-18190c0e22ac",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								},
+								{
 									"name": "Verify Token - Invalid Token",
 									"event": [
 										{
@@ -1406,6 +1457,51 @@
 										}
 									],
 									"id": "d30ad6ff-d6e1-45bf-bf17-048aebb35e7e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password - Missing Token Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required token error message is returned\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f406a3da-bb5a-4ca3-ad18-77e1bbe27587",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -9451,6 +9547,57 @@
 									"response": []
 								},
 								{
+									"name": "Verify Token- EmptyToken",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "2495a63e-4958-43c9-82d0-7a1b5f337ac4",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains an error array\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error path is token\", function () {\r",
+													"    pm.expect(jsonData.error[0].path).to.eql(\"token\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message should specify that token is required\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Token is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "980f7fce-697b-4689-82ba-d5845b9cc169",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"token\":\"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/verifytoken"
+									},
+									"response": []
+								},
+								{
 									"name": "Verify Token-InvalidToken",
 									"event": [
 										{
@@ -15153,7 +15300,7 @@
 									"response": []
 								},
 								{
-									"name": "Verify Token- EmtyToken",
+									"name": "Verify Token- EmptyToken",
 									"event": [
 										{
 											"listen": "test",
@@ -15379,6 +15526,51 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n  \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
+									"name": "Reset Password - Missing Token",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required token error message is returned\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f79d53f4-6e3a-418a-b39b-f525e27a41c1",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
