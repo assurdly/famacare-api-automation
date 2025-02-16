@@ -1,5 +1,0 @@
-{   
-    "name":"Metical flexibility Clothing",
-    "office_uuid":"vglk5m"
-}
-
