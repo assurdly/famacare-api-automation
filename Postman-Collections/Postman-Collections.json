@@ -1379,7 +1379,7 @@
 							"name": "Departments - Create Department",
 							"item": [
 								{
-									"name": "CreateDept",
+									"name": "Create Department - successful",
 									"event": [
 										{
 											"listen": "test",
@@ -1392,7 +1392,7 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Department data is valid\", function () {\r",
+													"pm.test(\"Department data is returned\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
 													"    pm.expect(jsonData.department).to.be.an(\"object\");\r",
 													"    pm.expect(jsonData.department.name).to.be.a(\"string\").and.to.not.be.empty;\r",
@@ -1421,7 +1421,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \n    \"name\":\"Mod Development\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
+											"raw": "{   \n    \"name\":\"{{$randomWords}}\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}\n\n//Authoriziation : Super Admin token",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1433,7 +1433,7 @@
 									"response": []
 								},
 								{
-									"name": "CreateDept-ExpiredToken",
+									"name": "Create Department - Expired Token",
 									"event": [
 										{
 											"listen": "test",
@@ -1595,7 +1595,7 @@
 									"response": []
 								},
 								{
-									"name": "CreateDept-DeptExist",
+									"name": "Create Department -Department Already Exists",
 									"event": [
 										{
 											"listen": "test",
@@ -1608,7 +1608,7 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Department creation failure message is correct\", function () {\r",
+													"pm.test(\"Department creation failure message is returned\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.include(\"Department with such name exists\");\r",
 													"});\r",
