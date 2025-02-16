@@ -1,4 +1,0 @@
-{
-    "name":"NBA2",
-    "office_uuid":"vglk5m"
-}

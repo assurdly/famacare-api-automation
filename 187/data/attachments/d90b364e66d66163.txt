@@ -1,5 +1,0 @@
-{   
-    "name":"Frozen auxiliary groupware",
-    "office_uuid":"vglk5m"
-}
-
