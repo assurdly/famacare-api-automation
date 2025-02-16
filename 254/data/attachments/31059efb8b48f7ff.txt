@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"overriding Wisconsin Rubber model firewall","branch":null,"isActive":true,"_id":"67b26d16d04b44397a3d39b6","createdAt":"2025-02-16T22:56:22.098Z","__v":0}}
