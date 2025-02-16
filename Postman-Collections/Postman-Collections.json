@@ -17079,7 +17079,7 @@
 							"name": "Users(Patient)-Update(upi)",
 							"item": [
 								{
-									"name": "Update Patient (upi)-Update",
+									"name": "Update Patient (upi)-Update-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -17440,7 +17440,7 @@
 					"name": "Role-GetRoles",
 					"item": [
 						{
-							"name": "Get Roles-Receptionist",
+							"name": "Get Roles-Receptionist-Successful",
 							"event": [
 								{
 									"listen": "test",
@@ -17695,7 +17695,7 @@
 									"name": "Appointment-Schedule",
 									"item": [
 										{
-											"name": "Schedule-Receptionist",
+											"name": "Schedule-Receptionist-Successful",
 											"event": [
 												{
 													"listen": "test",
@@ -17708,10 +17708,14 @@
 															"    pm.response.to.have.status(200);\r",
 															"});\r",
 															"\r",
-															"pm.test(\"Appointment scheduling success message is correct\", function () {\r",
+															"pm.test(\"Response status is success\", function () {\r",
 															"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+															"});\r",
+															"\r",
+															"pm.test(\"Appointment scheduling success message is correct\", function () {\r",
 															"    pm.expect(jsonData.message).to.eql(\"Appointment scheduled successfully\");\r",
 															"});\r",
+															"\r",
 															""
 														],
 														"type": "text/javascript",
