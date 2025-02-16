@@ -1,1 +1,0 @@
-//Doctor is not allowed to book appointment but can, bug raised.

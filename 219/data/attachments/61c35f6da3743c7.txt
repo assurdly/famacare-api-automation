@@ -1,1 +1,0 @@
-// This is supposed to give an error of 404, reported as bug
