@@ -851,7 +851,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Receptionist-NotFound",
+									"name": "Login(staff)- Receptionist-Not Found",
 									"event": [
 										{
 											"listen": "test",
@@ -860,8 +860,8 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
+													"pm.test(\"Response code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response status is failed\", function () {\r",
@@ -872,7 +872,7 @@
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
 													"\r",
-													""
+													"//This would fail because the code did not cater for user not found, bug raised."
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -909,15 +909,25 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response code is 400 with failure object\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Failure message is correct\", function () {\r",
-													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
 													"});\r",
-													""
+													"\r",
+													"pm.test(\"Response contains an error array\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error path is email\", function () {\r",
+													"    pm.expect(jsonData.error[0].path).to.eql(\"email\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message specifies invalid email format\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"must be a valid email\");\r",
+													"});"
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -933,7 +943,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"chukemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"raw": "{\n    \"email\":\"chukemekafamcom\",\n    \"password\":\"Famacare123**\"\n}\n\n\n",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -14725,55 +14735,6 @@
 										}
 									],
 									"id": "8a4255ab-87c3-469b-ae89-990bd37f69ca",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"chukddddddemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/login"
-									},
-									"response": []
-								},
-								{
-									"name": "Login(staff)- Receptionist-NotFound Copy 2",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "708fc950-4649-4b87-989a-12362f2bde94",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response status is failed\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Failure message is correct\", function () {\r",
-													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
-													"});\r",
-													"\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "03329be8-5bf1-40ac-8b6c-a921ae4a062c",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
