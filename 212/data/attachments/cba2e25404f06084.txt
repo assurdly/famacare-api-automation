@@ -1,5 +1,0 @@
-{   
-    "name":"wireless quantifying",
-    "office_uuid":"vglk5m"
-}
-
