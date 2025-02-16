@@ -15,6 +15,44 @@
 							"name": "Authentication-Register(staff)",
 							"item": [
 								{
+									"name": "Login(staff)- Authentication",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.environment.set(\"super_admin_token\", jsonData.token)\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "6e46b73c-2fcf-4012-b4ab-6b4775866d8b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukemeka@famacare.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
 									"name": "Register(staff)- Clinical",
 									"event": [
 										{
