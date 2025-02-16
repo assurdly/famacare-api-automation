@@ -68,7 +68,7 @@
 													"\r",
 													"pm.test(\"Response body contains success status and message\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
 													"});\r",
 													""
 												],
@@ -96,7 +96,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //compulsory for only clinical staff (i.e Doctor, Nurse, etc), else optional\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -126,7 +126,7 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Error message is correct\", function () {\r",
-													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"user with email already exists\");\r",
+													"    pm.expect(jsonData.error).to.be.a(\"string\").and.to.eql(\"User with email already exists\");\r",
 													"});\r",
 													""
 												],
@@ -181,7 +181,7 @@
 													"\r",
 													"pm.test(\"Response body contains success status and message\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"    pm.expect(jsonData.message).to.eql(\"user created successfully\");\r",
+													"    pm.expect(jsonData.message).to.eql(\"User created successfully\");\r",
 													"});\r",
 													""
 												],
@@ -209,7 +209,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
+											"raw": "{\n    // requires Super Admin token Authentication\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgan6@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
