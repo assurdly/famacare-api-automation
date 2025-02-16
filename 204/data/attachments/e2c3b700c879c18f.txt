@@ -1,4 +1,0 @@
-{
-    "name":"copying",
-    "office_uuid":"vglk5m"
-}
