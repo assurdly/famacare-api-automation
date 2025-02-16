@@ -1447,7 +1447,7 @@
 													"\r",
 													"pm.test(\"Required token error message is returned\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Token is required\");\r",
 													"});\r",
 													""
 												],
@@ -1457,51 +1457,6 @@
 										}
 									],
 									"id": "d30ad6ff-d6e1-45bf-bf17-048aebb35e7e",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/reset-password"
-									},
-									"response": []
-								},
-								{
-									"name": "Reset Password - Missing Token Copy",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Required token error message is returned\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "f406a3da-bb5a-4ca3-ad18-77e1bbe27587",
 									"protocolProfileBehavior": {
 										"disableBodyPruning": true
 									},
@@ -9739,6 +9694,51 @@
 									"response": []
 								},
 								{
+									"name": "Reset Password - Missing Token Copy",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "24d3bcc4-e571-4349-820f-a0d02a739fba",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Required token error message is returned\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Token is required\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "f406a3da-bb5a-4ca3-ad18-77e1bbe27587",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"mor+1@assurdly.com\",\n    \"password\":\"Password123!\",\n    \"token\":\"\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/reset-password"
+									},
+									"response": []
+								},
+								{
 									"name": "Reset Password-InvalidEmail",
 									"event": [
 										{
@@ -15552,7 +15552,7 @@
 													"\r",
 													"pm.test(\"Required token error message is returned\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"Token is required\");\r",
 													"});\r",
 													""
 												],
