@@ -851,6 +851,55 @@
 									"response": []
 								},
 								{
+									"name": "Login(staff)- Receptionist-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "693e5983-7a8e-4be8-830b-23df48f55857",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukddddddemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
 									"name": "Login(staff) - Admin- Invalid Email",
 									"event": [
 										{
@@ -14647,54 +14696,6 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff) - Receptionist- InvalidEmail",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "bb90aa48-33a0-4bba-a49d-3cf8680bbe55",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Status is success and response code is 200\", function () {\r",
-													"    pm.response.to.have.status(200);\r",
-													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"User details and token exist\", function () {\r",
-													"    pm.expect(jsonData.user).to.be.an(\"object\");\r",
-													"    pm.expect(jsonData.token).to.be.a(\"string\").and.to.have.length.above(10);\r",
-													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
-													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "b2465802-c6b4-4409-aa51-44c29cb72b0e",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "POST",
-										"header": [],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    \"email\":\"judith.michaelfamacarecom\",\n    \"password\":\"BOBson246**\"\n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/login"
-									},
-									"response": []
-								},
-								{
 									"name": "Login(staff)- Receptionist-NotFound",
 									"event": [
 										{
@@ -14733,6 +14734,110 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    \"email\":\"chukddddddemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Login(staff)- Receptionist-NotFound Copy 2",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"});\r",
+													"\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "03329be8-5bf1-40ac-8b6c-a921ae4a062c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukddddddemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
+									"name": "Login(staff) - Receptionist- InvalidEmail",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "bb90aa48-33a0-4bba-a49d-3cf8680bbe55",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response contains an error array\", function () {\r",
+													"    pm.expect(jsonData.error).to.be.an(\"array\").and.to.have.length.above(0);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error path is email\", function () {\r",
+													"    pm.expect(jsonData.error[0].path).to.eql(\"email\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message specifies invalid email format\", function () {\r",
+													"    pm.expect(jsonData.error[0].msg).to.eql(\"must be a valid email\");\r",
+													"});"
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "b2465802-c6b4-4409-aa51-44c29cb72b0e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"judith.michaelfamacarecom\",\n    \"password\":\"BOBson246**\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
