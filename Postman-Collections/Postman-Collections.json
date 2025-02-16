@@ -3863,7 +3863,7 @@
 							"name": "Users(Patient)-Update(upi)",
 							"item": [
 								{
-									"name": "Update Patient (upi)-Update",
+									"name": "Update Patient (upi)-Update-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -4152,7 +4152,7 @@
 							"name": "Users(staff)-Password",
 							"item": [
 								{
-									"name": "Change Password",
+									"name": "Change Password-Successful",
 									"event": [
 										{
 											"listen": "test",
