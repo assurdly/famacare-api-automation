@@ -1322,7 +1322,7 @@
 									"response": []
 								},
 								{
-									"name": "Reset Password - Missing token",
+									"name": "Reset Password - Missing Token",
 									"event": [
 										{
 											"listen": "test",
@@ -1335,9 +1335,9 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"User registration error message is correct\", function () {\r",
+													"pm.test(\"Required token error message is returned\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"User with email is not registered\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Token is required\");\r",
 													"});\r",
 													""
 												],
