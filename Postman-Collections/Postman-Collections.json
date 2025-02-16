@@ -2114,7 +2114,7 @@
 									"response": []
 								},
 								{
-									"name": "Create - Role Required",
+									"name": "Create Role - Name Required",
 									"event": [
 										{
 											"listen": "test",
@@ -2133,7 +2133,6 @@
 													"});\r",
 													"\r",
 													"pm.test(\"Error details are correct\", function () {\r",
-													"    pm.expect(jsonData.error[0]).to.be.an(\"object\");\r",
 													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
 													"    pm.expect(jsonData.error[0].path).to.eql(\"name\");\r",
 													"    pm.expect(jsonData.error[0].location).to.eql(\"body\");\r",
@@ -2161,7 +2160,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"name\":\"NBA2\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
+											"raw": "{\n    \"name\":\"\",\n    \"office_uuid\":\"{{office_uuid}}\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -2226,10 +2225,10 @@
 							"id": "f8d7aa40-41c7-400a-abca-3741c1311d7a"
 						},
 						{
-							"name": "Role-GetRoles",
+							"name": "Role - Get Roles",
 							"item": [
 								{
-									"name": "Get Roles-SuperAdmin",
+									"name": "Get Roles - Super Admin",
 									"event": [
 										{
 											"listen": "test",
@@ -2279,7 +2278,7 @@
 									"response": []
 								},
 								{
-									"name": "Get Roles-SuperAdmin-NotFound",
+									"name": "Get Roles - Super Admin - Not Found",
 									"event": [
 										{
 											"listen": "test",
@@ -2288,7 +2287,7 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response status code is correct\", function () {\r",
+													"pm.test(\"Status code is 404\", function () {\r",
 													"    pm.response.to.have.status(404); \r",
 													"});\r",
 													"\r",
@@ -2319,7 +2318,7 @@
 												"type": "text"
 											}
 										],
-										"url": "{{host}}api/role/{{office_"
+										"url": "{{host}}api/role/{{office_invalid}}"
 									},
 									"response": []
 								},
@@ -5213,11 +5212,11 @@
 													"pm.test(\"Vital signs have expected values\", function () {\r",
 													"    var appointment = jsonData.appointments[0];\r",
 													"\r",
-													"    pm.expect(appointment.vital_height).to.be.a(\"number\");\r",
-													"    pm.expect(appointment.vital_weight).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_height).to.be.a(\"number\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.vital_weight).to.be.a(\"number\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.vital_blood_pressure).to.be.a(\"number\");\r",
-													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\");\r",
-													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\");\r",
+													"    pm.expect(appointment.vital_temperature).to.be.a(\"number\").and.to.not.be.null;\r",
+													"    pm.expect(appointment.vital_pulserate).to.be.a(\"number\").and.to.not.be.null;\r",
 													"});\r",
 													""
 												],
