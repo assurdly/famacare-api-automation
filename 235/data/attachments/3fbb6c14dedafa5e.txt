@@ -1,0 +1,4 @@
+{
+    "name":"Chair",
+    "office_uuid":"vglk5m"
+}
