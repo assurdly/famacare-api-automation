@@ -1,5 +1,0 @@
-{   
-    "name":"Realigned online",
-    "office_uuid":"vglk5m"
-}
-
