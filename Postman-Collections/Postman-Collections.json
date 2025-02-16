@@ -20008,23 +20008,7 @@
 												}
 											}
 										},
-										"url": {
-											"raw": "{{host}}api/service/addservice?Authorization=Bearer {{receptionist _token}}",
-											"host": [
-												"{{host}}api"
-											],
-											"path": [
-												"service",
-												"addservice"
-											],
-											"query": [
-												{
-													"key": "Authorization",
-													"value": "Bearer {{receptionist _token}}",
-													"type": "text"
-												}
-											]
-										}
+										"url": "{{host}}api/service/addservice"
 									},
 									"response": []
 								},
@@ -20195,7 +20179,7 @@
 							"name": "fetch all services",
 							"item": [
 								{
-									"name": "fetch all services",
+									"name": "fetch all services-Successful",
 									"event": [
 										{
 											"listen": "test",
