@@ -2027,10 +2027,14 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Error message is correct\", function () {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Role already exists error message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.eql(\"Role already exists\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -2342,7 +2346,7 @@
 							"name": "Role - Get Roles",
 							"item": [
 								{
-									"name": "Get Roles - Super Admin",
+									"name": "Get Roles - Super Admin-Successful",
 									"event": [
 										{
 											"listen": "test",
