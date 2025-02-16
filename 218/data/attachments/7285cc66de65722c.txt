@@ -1,5 +1,0 @@
-{   
-    "name":"Sausages index transparent connecting Metal",
-    "office_uuid":"vglk5m"
-}
-

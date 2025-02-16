@@ -1,1 +1,0 @@
-// This is supposed to give an error of 404, test script would be written once fixed.
