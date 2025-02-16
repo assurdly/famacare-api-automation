@@ -9115,6 +9115,55 @@
 									"response": []
 								},
 								{
+									"name": "Login(staff)- Receptionist-NotFound",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "708fc950-4649-4b87-989a-12362f2bde94",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is failed\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Failure message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
+													"});\r",
+													"\r",
+													"//This would fail because the code did not cater for user not found, bug raised."
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "ac152e84-3094-43fc-9a61-b3345ca43117",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\":\"chukddddddemeka@fam.com\",\n    \"password\":\"Famacare123**\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/login"
+									},
+									"response": []
+								},
+								{
 									"name": "Login(staff)- Doctor- InvalidEmail",
 									"event": [
 										{
@@ -14715,8 +14764,8 @@
 												"exec": [
 													"var jsonData = pm.response.json();\r",
 													"\r",
-													"pm.test(\"Response code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
+													"pm.test(\"Response code is 404\", function () {\r",
+													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
 													"pm.test(\"Response status is failed\", function () {\r",
@@ -14727,7 +14776,7 @@
 													"    pm.expect(jsonData.error).to.eql(\"Invalid email or password\");\r",
 													"});\r",
 													"\r",
-													""
+													"//This would fail because the code did not cater for user not found, bug raised."
 												],
 												"type": "text/javascript",
 												"packages": {}
