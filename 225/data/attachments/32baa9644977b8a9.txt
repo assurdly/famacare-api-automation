@@ -1,5 +1,0 @@
-{   
-    "name":"Investor (Slovak Configurable technologies",
-    "office_uuid":"vglk5m"
-}
-

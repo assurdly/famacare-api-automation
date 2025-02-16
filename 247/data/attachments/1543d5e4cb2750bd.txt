@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"program Internal","branch":null,"isActive":true,"_id":"67b2570bd04b44397a3d2f88","createdAt":"2025-02-16T21:22:19.945Z","__v":0}}
