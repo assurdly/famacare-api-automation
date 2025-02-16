@@ -15141,7 +15141,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vcmdhbisxQGFzc3VyZGx5LmNvbSIsImlhdCI6MTczOTM5ODY3MiwiZXhwIjoxNzM5NDAyMjcyfQ.KJRwnZpofKKcNCx6B-s1nDRPp7VMYLC37kZfRMqCtkw\"\n}",
+											"raw": "{\n    \"token\":\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Imp1ZGl0aC5taWNoYWVsQGZhbWFjYXJlLmNvbSIsInJvbGUiOiJSZWNlcHRpb25pc3QiLCJpYXQiOjE3Mzk3MzQxMjksImV4cCI6MTczOTc2MjkyOX0.7PMnXnWV8vxMa_fHYlIcF8vUBqF5EI8cHhA7SeSYdG4\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
