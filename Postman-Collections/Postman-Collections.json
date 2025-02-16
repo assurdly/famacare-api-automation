@@ -851,7 +851,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Receptionist-Not Found",
+									"name": "Login(staff)- Admin-Not Found",
 									"event": [
 										{
 											"listen": "test",
@@ -9262,7 +9262,7 @@
 									"response": []
 								},
 								{
-									"name": "Login(staff)- Receptionist-NotFound",
+									"name": "Login(staff)- Doctor-NotFound",
 									"event": [
 										{
 											"listen": "test",
