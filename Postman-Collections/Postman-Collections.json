@@ -73,7 +73,8 @@
 													"    pm.expect(jsonData.user._id).to.be.a(\"string\");\r",
 													"    pm.expect(jsonData.user.isActive).to.be.true;\r",
 													"});\r",
-													""
+													"\r",
+													"pm.environment.set(\"doctor_token\", jsonData.token)"
 												],
 												"type": "text/javascript",
 												"packages": {}
