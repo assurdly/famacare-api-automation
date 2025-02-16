@@ -2603,10 +2603,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration was successful\", () => {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -9875,10 +9879,14 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration was successful\", () => {\r",
+													"pm.test(\"Response status is success\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration success message is correct\", function () {\r",
 													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -9925,7 +9933,21 @@
 											"script": {
 												"id": "3069ea2a-fedc-486d-aef4-763d75226501",
 												"exec": [
-													"//user can create patient without a sponsor"
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response code is 200\", () => {\r",
+													"    pm.response.to.have.status(200);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response status is success\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration success message is correct\", function () {\r",
+													"    pm.expect(jsonData.message).to.include(\"patient registered successfully\");\r",
+													"});\r",
+													"\r",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
@@ -10027,8 +10049,11 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration failure message is correct\", () => {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration failure message is correct\", function () {\r",
 													"    pm.expect(jsonData.error).to.include(\"patient with email already exists\");\r",
 													"});\r",
 													""
@@ -15974,10 +15999,14 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Patient registration failure message is correct\", () => {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Patient registration failure message is correct\", function () {\r",
 													"    pm.expect(jsonData.error).to.include(\"patient with email already exists\");\r",
 													"});\r",
+													"\r",
 													""
 												],
 												"type": "text/javascript",
@@ -16095,7 +16124,8 @@
 											{
 												"key": "Authorization",
 												"value": "",
-												"type": "text"
+												"type": "text",
+												"disabled": true
 											}
 										],
 										"body": {
