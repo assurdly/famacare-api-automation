@@ -160,64 +160,6 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff) - Clinical - Email Exists",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
-												"exec": [
-													"var jsonData = pm.response.json();\r",
-													"\r",
-													"pm.test(\"Response status code is 400\", function () {\r",
-													"    pm.response.to.have.status(400);\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Response indicates failure\", function () {\r",
-													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"});\r",
-													"\r",
-													"pm.test(\"Error message about a duplicate email is returned\", function () {\r",
-													"    pm.expect(jsonData.error).to.eql(\"User with email already exists\");\r",
-													"});\r",
-													""
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "0a0c5721-c173-4374-a5c1-704b825a2d48",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"auth": {
-											"type": "bearer",
-											"bearer": {}
-										},
-										"method": "POST",
-										"header": [
-											{
-												"key": "Authorization",
-												"value": "Bearer {{super_admin_token}}",
-												"type": "text"
-											}
-										],
-										"body": {
-											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
-											"options": {
-												"raw": {
-													"language": "json"
-												}
-											}
-										},
-										"url": "{{host}}api/auth/register"
-									},
-									"response": []
-								},
-								{
 									"name": "Register(staff) - Successful Non-Clinical registration",
 									"event": [
 										{
@@ -265,6 +207,64 @@
 										"body": {
 											"mode": "raw",
 											"raw": "{\n    // requires Super Admin token Authentication\n    \"firstname\":\"Timo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"{{$randomEmail}}\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Receptionist\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\"\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    //\"fee\":\"8000\",\n    //\"aos\":\"Dentist\"\n\n    \n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{host}}api/auth/register"
+									},
+									"response": []
+								},
+								{
+									"name": "Register(staff) - Clinical - Email Exists",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
+												"exec": [
+													"var jsonData = pm.response.json();\r",
+													"\r",
+													"pm.test(\"Response status code is 400\", function () {\r",
+													"    pm.response.to.have.status(400);\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Response indicates failure\", function () {\r",
+													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Error message about a duplicate email is returned\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"User with email already exists\");\r",
+													"});\r",
+													""
+												],
+												"type": "text/javascript",
+												"packages": {}
+											}
+										}
+									],
+									"id": "0a0c5721-c173-4374-a5c1-704b825a2d48",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": {}
+										},
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer {{super_admin_token}}",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morga@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"Dentist\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -941,7 +941,7 @@
 							"id": "b2cc8341-2024-4204-9b7f-a32c1606449e"
 						},
 						{
-							"name": "Authentication-ForgotPassword",
+							"name": "Authentication - Forgot Password",
 							"item": [
 								{
 									"name": "Forgot Password - successful",
@@ -1050,8 +1050,8 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Incorrect email error message is returned\", function () {\r",
-													"    pm.expect(jsonData.message).to.eql(\"Email not registered\");\r",
+													"pm.test(\"Required email error message is returned\", function () {\r",
+													"    pm.expect(jsonData.error[1].msg).to.eql(\"Email is required\");\r",
 													"});\r",
 													""
 												],
@@ -1084,7 +1084,7 @@
 							"id": "2c3c5f49-d984-45c8-ad1a-d99e45bf4274"
 						},
 						{
-							"name": "Authentication-VerifyToken",
+							"name": "Authentication - Verify Token",
 							"item": [
 								{
 									"name": "Verify Token",
@@ -1134,7 +1134,7 @@
 									"response": []
 								},
 								{
-									"name": "Verify Token-InvalidToken",
+									"name": "Verify Token - Invalid Token",
 									"event": [
 										{
 											"listen": "test",
@@ -1147,7 +1147,7 @@
 													"    pm.response.to.have.status(400);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Token validation failed\", function () {\r",
+													"pm.test(\"Token validation error is returned\", function () {\r",
 													"    pm.expect(jsonData.valid).to.be.false;\r",
 													"    pm.expect(jsonData.error).to.eql(\"Invalid or expired token\");\r",
 													"});\r",
@@ -1182,7 +1182,7 @@
 							"id": "1c830035-28f2-464f-a25a-3fcca9632297"
 						},
 						{
-							"name": "Authentication-ResetPassword",
+							"name": "Authentication - Reset Password",
 							"item": [
 								{
 									"name": "Reset Password",
@@ -8942,7 +8942,7 @@
 					"name": "Authentication",
 					"item": [
 						{
-							"name": "Authntication-Login(staff)",
+							"name": "Authntication-Login(ClinicalStaff)",
 							"item": [
 								{
 									"name": "Login(staff) - Doctor",
@@ -14509,7 +14509,7 @@
 					"name": "Authentication",
 					"item": [
 						{
-							"name": "Authntication-Login(staff)",
+							"name": "Authntication-Login(NonClinicalStaff)",
 							"item": [
 								{
 									"name": "Login(staff) - Receptionist",
