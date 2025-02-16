@@ -12278,10 +12278,14 @@
 											"    pm.expect(jsonData).to.have.property(\"message\").that.is.a(\"string\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
+											"pm.test(\"Response status is success\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"success\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Success message is correct\", function () {\r",
 											"    pm.expect(jsonData.message).to.eql(\"Drug Generic Name Added successfully\");\r",
 											"});\r",
+											"\r",
 											""
 										],
 										"type": "text/javascript",
@@ -12304,7 +12308,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"generic_id\" : \"MG - 1003\",\n    \"generic\" : \"Test\"\n\n}",
+									"raw": "{\n    \"generic_id\" : \"MbG - 1003\",\n    \"generic\" : \"Test\"\n\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12334,9 +12338,12 @@
 											"    pm.expect(jsonData).to.have.property(\"error\").that.is.a(\"string\");\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Response content is correct\", function () {\r",
+											"pm.test(\"Response status is failed\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-											"    pm.expect(jsonData.error).to.eql(\"Generic name already exists\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Error message is correct\", function () {\r",
+											"    pm.expect(jsonData.error).to.eql(\"Generic name already exist\");\r",
 											"});\r",
 											""
 										],
