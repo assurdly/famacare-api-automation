@@ -19059,7 +19059,7 @@
 							"name": "FetchSponsor",
 							"item": [
 								{
-									"name": "Fetch Sponsors",
+									"name": "Fetch Sponsors-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -19084,7 +19084,7 @@
 													"    pm.expect(sponsor.name).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(sponsor.type).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(sponsor.uuid).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(sponsor.is_Active).to.be.a(\"boolean\");\r",
+													"    pm.expect(sponsor.is_Active).to.be.a(\"boolean\").and.to.not.be.null;\r",
 													"    pm.expect(sponsor.createdAt).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(sponsor.updatedAt).to.be.a(\"string\").and.to.not.be.null;\r",
 													"\r",
@@ -19808,7 +19808,7 @@
 							"name": "Service-Create",
 							"item": [
 								{
-									"name": "Create-Service",
+									"name": "Create-Service-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -19850,7 +19850,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cr3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
+											"raw": "{\n    \"type\":\"Kanu Investigations\",\n    \"name\":\"Cer3\",\n    \"sponsor_uuid\":\"D773AAFB\",\n    \"plan_code\":\"3A9A51C7\",\n    \"price\":2000\n}",
 											"options": {
 												"raw": {
 													"language": "json"
