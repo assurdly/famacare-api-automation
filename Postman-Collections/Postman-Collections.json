@@ -1861,7 +1861,7 @@
 							"name": "Departments - Fetch Departments",
 							"item": [
 								{
-									"name": "Fetch Departments -",
+									"name": "Fetch Departments - Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -1912,9 +1912,12 @@
 													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Office not found error message is returned\", () => {\r",
+													"pm.test(\"Response status is failed\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"Office not found\");\r",
+													"});\r",
+													"\r",
+													"pm.test(\"Office not found error message is correct\", function () {\r",
+													"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
 													"});\r",
 													""
 												],
@@ -15642,8 +15645,11 @@
 											"    pm.response.to.have.status(404);\r",
 											"});\r",
 											"\r",
-											"pm.test(\"Office not found error message is correct\", () => {\r",
+											"pm.test(\"Response status is failed\", function () {\r",
 											"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Office not found error message is correct\", function () {\r",
 											"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
 											"});\r",
 											""
