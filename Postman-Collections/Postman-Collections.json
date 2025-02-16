@@ -1376,7 +1376,7 @@
 					"name": "Departments",
 					"item": [
 						{
-							"name": "Departments-CreateDept",
+							"name": "Departments - Create Department",
 							"item": [
 								{
 									"name": "CreateDept",
