@@ -15,7 +15,7 @@
 							"name": "Authentication-Register(staff)",
 							"item": [
 								{
-									"name": "Login(staff)- Authentication",
+									"name": "Login(staff) - Authentication",
 									"event": [
 										{
 											"listen": "test",
@@ -53,7 +53,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical",
+									"name": "Register(staff) - Clinical",
 									"event": [
 										{
 											"listen": "test",
@@ -279,7 +279,7 @@
 									"response": []
 								},
 								{
-									"name": "Register(staff)- Clinical -aosRequired",
+									"name": "Register(staff)- Clinical - aosRequired",
 									"event": [
 										{
 											"listen": "test",
@@ -322,7 +322,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"morgya@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //optional (clinical staff only i.e Doctor, Nurse, etc)\n    \"fee\":\"8000\",\n    \"aos\":\"\"\n\n    \n}",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"ezekiel+1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //this request should fail, right?\n    \"fee\":\"8000\",\n    \"aos\":\"\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -737,7 +737,6 @@
 													"\r",
 													"pm.test(\"Response body contains failure status and error details\", function () {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.be.an(\"array\").that.is.not.empty;\r",
 													"    pm.expect(jsonData.error[0].type).to.eql(\"field\");\r",
 													"    pm.expect(jsonData.error[0].value).to.eql(\"\");\r",
 													"    pm.expect(jsonData.error[0].msg).to.eql(\"Fee must be a number\");\r",
