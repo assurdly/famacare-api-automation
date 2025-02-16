@@ -380,7 +380,7 @@
 										],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"ezekiel+1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //this request should fail, right?\n    \"fee\":\"8000\",\n    \"aos\":\"\"\n\n    \n}",
+											"raw": "{\n    // requires  token Authorization\n    \"firstname\":\"Tayo\",\n    \"lastname\":\"Bobson\",\n    \"email\":\"ezekieel+1@assurdly.com\",\n    \"phone\":\"09023172944\",\n    \"office_uuid\":\"{{office_uuid}}\",\n    \"office\":\"{{office}}\",\n    \"role\":\"Doctor\", //refer to Roles -> Get Role\n    \"department\":\"Tech\",\n    \"password\":\"Password123!\",\n    \"gender\":\"Male\",\n\n    //this request should fail, right?\n    \"fee\":\"8000\",\n    \"aos\":\"\"\n\n    \n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -1748,10 +1748,10 @@
 							"id": "d0193f9e-144c-488a-9ce1-7c906777954f"
 						},
 						{
-							"name": "Departments-FetchDepts",
+							"name": "Departments - Fetch Departments",
 							"item": [
 								{
-									"name": "FetchDepts",
+									"name": "Fetch Departments",
 									"event": [
 										{
 											"listen": "test",
@@ -1764,7 +1764,7 @@
 													"    pm.response.to.have.status(200);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Departments data is valid\", () => {\r",
+													"pm.test(\"Departments data is returned\", () => {\r",
 													"    pm.expect(jsonData.status).to.eql(\"success\");\r",
 													"    pm.expect(jsonData.departments).to.be.an(\"array\").and.to.have.length.above(0);\r",
 													"    pm.expect(jsonData.departments[0].name).to.be.a(\"string\");\r",
