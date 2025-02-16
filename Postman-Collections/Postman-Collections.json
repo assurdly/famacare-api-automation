@@ -1789,7 +1789,7 @@
 									"response": []
 								},
 								{
-									"name": "FetchDepts- OfficeNotFound",
+									"name": "Fetch Department - Office Not Found",
 									"event": [
 										{
 											"listen": "test",
@@ -1802,9 +1802,9 @@
 													"    pm.response.to.have.status(404);\r",
 													"});\r",
 													"\r",
-													"pm.test(\"Office not found error message is correct\", () => {\r",
+													"pm.test(\"Office not found error message is returned\", () => {\r",
 													"    pm.expect(jsonData.status).to.eql(\"failed\");\r",
-													"    pm.expect(jsonData.error).to.eql(\"office not found\");\r",
+													"    pm.expect(jsonData.error).to.eql(\"Office not found\");\r",
 													"});\r",
 													""
 												],
@@ -1828,65 +1828,13 @@
 							"id": "6e5a5ec8-52cc-46e6-b1de-4fbb4d704943"
 						},
 						{
-							"name": "Departments-updateDept",
-							"item": [
-								{
-									"name": "updateDept",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "6075423d-2e39-40cf-a226-c98a9be97b35",
-												"exec": [
-													"//Instructed by the Dev not to test this no body"
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "8f4b8aa1-c2d0-42af-9837-9c0e4eff2b20",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "PUT",
-										"header": []
-									},
-									"response": []
-								}
-							],
+							"name": "Departments - Update Department (no API)",
+							"item": [],
 							"id": "dbaf1893-41c6-4d8e-bcf9-a9787fc11a07"
 						},
 						{
-							"name": "Departments-DEL",
-							"item": [
-								{
-									"name": "New Request",
-									"event": [
-										{
-											"listen": "test",
-											"script": {
-												"id": "158e6323-bbd6-42f1-ab53-85f6c32a2684",
-												"exec": [
-													"//Instructed by the Dev not to test this "
-												],
-												"type": "text/javascript",
-												"packages": {}
-											}
-										}
-									],
-									"id": "949b2378-e0eb-47be-9941-3e3b6db5feaf",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "DELETE",
-										"header": []
-									},
-									"response": []
-								}
-							],
+							"name": "Departments - Delete (no API)",
+							"item": [],
 							"id": "67427b8f-3e62-47b7-9e16-af418a54dd3f"
 						}
 					],
