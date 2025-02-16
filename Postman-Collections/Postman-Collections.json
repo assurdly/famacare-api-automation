@@ -16407,7 +16407,7 @@
 							"name": "Users(Patient)-Unique(upi)",
 							"item": [
 								{
-									"name": "Get Unique Patient(upi)-Receptionist",
+									"name": "Get Unique Patient(upi)-Receptionist-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -16593,7 +16593,7 @@
 							"name": "Users(PatientSearch)",
 							"item": [
 								{
-									"name": "Search Patient by lastname-Receptionist",
+									"name": "Search Patient by lastname-Receptionist-successful",
 									"event": [
 										{
 											"listen": "test",
@@ -16799,7 +16799,7 @@
 									"response": []
 								},
 								{
-									"name": "Search Patient by upi-Receptionist",
+									"name": "Search Patient by upi-Receptionist-Successful",
 									"event": [
 										{
 											"listen": "test",
