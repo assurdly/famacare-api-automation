@@ -514,7 +514,18 @@
 											"script": {
 												"id": "23e9cb0f-6bc3-477a-acae-3e5b72d2e603",
 												"exec": [
-													"//This enpoint has a bug, check bug sheet "
+													"//This enpoint has a bug, check bug sheet ",
+													"",
+													"var jsonData = pm.response.json();",
+													"",
+													"pm.test(\"Response status code is 400\", function () {",
+													"    pm.response.to.have.status(400);",
+													"});",
+													"",
+													"pm.test(\"A message about the required role is returned\", function () {",
+													"    pm.expect(jsonData.message).to.eql(\"User role is required\");",
+													"});",
+													""
 												],
 												"type": "text/javascript",
 												"packages": {}
