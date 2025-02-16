@@ -1,0 +1,1 @@
+{"status":"success","department":{"office_uuid":"vglk5m","name":"Squares Ball viral Rubber Auto","branch":null,"isActive":true,"_id":"67b252e4d04b44397a3d293e","createdAt":"2025-02-16T21:04:36.207Z","__v":0}}
