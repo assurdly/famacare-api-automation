@@ -5584,7 +5584,7 @@
 							"name": "Appointment-GetUnique",
 							"item": [
 								{
-									"name": "Get Unique Appointment-SuperAdmin",
+									"name": "Get Unique Appointment-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -5829,7 +5829,7 @@
 							"name": "Appointment-Patient upi",
 							"item": [
 								{
-									"name": "Unique Patient Appointment (patient upi)-SuperAdmin",
+									"name": "Unique Patient Appointment (patient upi)-SuperAdmin-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -5859,7 +5859,7 @@
 													"    pm.expect(appointment.visit_type).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.visit_date).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.scheduled_time).to.be.a(\"string\").and.to.not.be.null;\r",
-													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\");\r",
+													"    pm.expect(appointment.is_urgent).to.be.a(\"boolean\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.sponsor).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.sponsor_plan).to.be.a(\"string\").and.to.not.be.null;\r",
 													"    pm.expect(appointment.office).to.be.a(\"string\").and.to.not.be.null;\r",
@@ -6116,7 +6116,7 @@
 					"name": "Drugs-FetchGenricDrugs",
 					"item": [
 						{
-							"name": "Fetch generic Drugs",
+							"name": "Fetch generic Drugs-Successful",
 							"event": [
 								{
 									"listen": "test",
