@@ -8106,7 +8106,7 @@
 							"name": "fetch all services",
 							"item": [
 								{
-									"name": "fetch all services",
+									"name": "fetch all services-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -8293,7 +8293,7 @@
 							"name": "fetch all services by type",
 							"item": [
 								{
-									"name": "Fetch Service by type",
+									"name": "Fetch Service by type-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -8512,7 +8512,7 @@
 							"name": "Investigation by plan_code",
 							"item": [
 								{
-									"name": "Get Investigation by plan_code",
+									"name": "Get Investigation by plan_code-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -8742,7 +8742,7 @@
 							"name": "Imaging by plan_code",
 							"item": [
 								{
-									"name": "Get Imaging by plan_code",
+									"name": "Get Imaging by plan_code-Successful",
 									"event": [
 										{
 											"listen": "test",
@@ -8972,7 +8972,7 @@
 							"name": "Otherservice by plan_code",
 							"item": [
 								{
-									"name": "Get otherservice by plan_code",
+									"name": "Get otherservice by plan_code-Successful",
 									"event": [
 										{
 											"listen": "test",
