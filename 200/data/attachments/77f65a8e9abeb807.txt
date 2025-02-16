@@ -1,5 +1,0 @@
-{   
-    "name":"background Tanzania Specialist Island",
-    "office_uuid":"vglk5m"
-}
-
